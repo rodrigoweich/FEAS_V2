@@ -5,6 +5,24 @@
     border-radius: 50%;
 }
 
+.button-without-style {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0 !important;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.no-dropdown-caret::after {
+    content: none !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+}
+
 // Bootstrap
 $theme-colors: (
     "background": #F8F8F8,

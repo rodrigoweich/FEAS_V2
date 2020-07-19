@@ -25,3 +25,13 @@ Auth::routes([
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/users', 'UserController', ['except' => ['show']]);
+    Route::post('users/search', 'UserController@search')->name('users.search');
+    Route::resource('/roles', 'RoleController', ['except' => ['show']]);
+    Route::post('roles/search', 'RoleController@search')->name('roles.search');
+});
+
+Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');
+Route::put('/profile/{id}', 'UserController@updateProfile')->name('users.profile.update');
