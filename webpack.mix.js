@@ -11,5 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/app.scss', 'public/css/style.css')
+   .sass('node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss', 'public/css/fontawesome.css')
+   .scripts('node_modules/jquery/dist/jquery.js', 'public/js/jquery.js')
+   .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/js/bootstrap.js')
+   .scripts('node_modules/@fortawesome/fontawesome-free/js/all.js', 'public/js/fontawesome.js')
+   .copyDirectory('resources/img', 'public/img');
