@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('extra-header')
-<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
-<link href="{{ config('global.type_asset')('vendor/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-@endsection
-
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -15,8 +10,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow">
-                <div class="card-header">
-                    <a class="btn button-without-style btn-sm" href="{{ route('admin.app') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+
+                <div class="card-body">
+
+                    <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                     <span class="align-middle">&nbsp;&nbsp;{{ __('Roles') }}</span>
@@ -39,9 +36,8 @@
                             </div>
                         </form>
                     </span>
-                </div>
-
-                <div class="card-body">
+                    <div id="divider" class="mb-5"></div>
+                    
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover table-borderless text-center">
                             <thead>
@@ -90,8 +86,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="card-footer text-muted">
+                
+                    <div id="divider" class="mb-5"></div>
+
                     <div class="d-flex justify-content-center">
                         {{ $roles->links() }}
                         

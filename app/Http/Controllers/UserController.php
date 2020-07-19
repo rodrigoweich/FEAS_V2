@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(Gate::denies('list-user')){
+        if(Gate::denies('list-users')){
             return view('403');
         }
      
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(Gate::denies('create-user')){
+        if(Gate::denies('create-users')){
             return view('403');
         }
 
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if(Gate::denies('create-user')){
+        if(Gate::denies('create-users')){
             return view('403');
         }
 
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if(Gate::denies('update-user')){
+        if(Gate::denies('update-users')){
             return view('403');
         }
 
@@ -135,7 +135,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Gate::denies('update-user')){
+        if(Gate::denies('update-users')){
             return view('403');
         }
 
@@ -181,7 +181,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(Gate::denies('delete-user')){
+        if(Gate::denies('delete-users')){
             return view('403');
         }
 

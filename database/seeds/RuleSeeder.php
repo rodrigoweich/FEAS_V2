@@ -14,10 +14,10 @@ class RuleSeeder extends Seeder
     {
         DB::table('rules')->insert([
             // USER
-            ['police_name' => 'list-user', 'display_name' => 'List Users'],
-            ['police_name' => 'create-user', 'display_name' => 'Create Users'],
-            ['police_name' => 'update-user', 'display_name' => 'Update Users'],
-            ['police_name' => 'delete-user', 'display_name' => 'Delete Users'],
+            ['police_name' => 'list-users', 'display_name' => 'List Users'],
+            ['police_name' => 'create-users', 'display_name' => 'Create Users'],
+            ['police_name' => 'update-users', 'display_name' => 'Update Users'],
+            ['police_name' => 'delete-users', 'display_name' => 'Delete Users'],
             // ROLES
             ['police_name' => 'list-roles', 'display_name' => 'List Roles'],
             ['police_name' => 'create-roles', 'display_name' => 'Create Roles'],

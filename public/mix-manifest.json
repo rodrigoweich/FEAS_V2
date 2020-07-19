@@ -1,7 +1,9 @@
 {
     "/css/style.css": "/css/style.css",
     "/css/fontawesome.css": "/css/fontawesome.css",
+    "/css/select2.css": "/css/select2.css",
     "/js/jquery.js": "/js/jquery.js",
     "/js/bootstrap.js": "/js/bootstrap.js",
-    "/js/fontawesome.js": "/js/fontawesome.js"
+    "/js/fontawesome.js": "/js/fontawesome.js",
+    "/js/select2.js": "/js/select2.js"
 }

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('extra-header')
-<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
-<link href="{{ config('global.type_asset')('vendor/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+<script src="{{ asset('js/select2.js') }}"></script>
+<link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 @endsection
 
 @section('navbar')
@@ -15,9 +15,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow">
-                <div class="card-header">{{ __('Edit existing') }}</div>
-
                 <div class="card-body">
+
+                    {{ __('Edit existing') }}
+                    <div id="divider" class="mb-5"></div>
 
                     <form action="{{ route('admin.roles.update', $role) }}" method="post">
                         @csrf
