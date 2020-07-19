@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col text-right">
                         @can('create-users')
-                            <a class="btn btn-success btn-sm" href="{{ route('admin.users.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
+                            <a class="btn btn-detail btn-sm" href="{{ route('admin.users.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
                                 <i class="fas fa-plus"></i>
                             </a>
                         @endcan
@@ -76,7 +76,7 @@
                                         @if ($user->roles()->count() > 1)
                                             {{ __($user->roles()->get()->pluck('name')->min()) }} {{ __('and') }} {{ $user->roles()->count()-1 }} {{ __('more') }}
                                         @elseif ($user->roles()->count() < 1)
-                                            <span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> {{ __('No role') }}</span>
+                                            <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> {{ __('No role') }}</span>
                                         @else
                                             {{ __(implode(', ', $user->roles()->get()->pluck('name')->toArray())) }}
                                         @endif
@@ -116,13 +116,14 @@
         <div class="col-md-12 mt-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        {{ $users->links() }}
-                        
+                    <div class="row">
+                        <div class="col-4">
+                                {{ $users->links() }}
+                        </div>
+                        <div class="col-8 text-right align-self-center">
+                            <span class="align-middle">{{ __('Showing') }} {{ $users->count() }} {{ __('of') }} {{ $users->total() }} {{ __('results') }}</span>
+                        </div>
                     </div>
-                    <span class="d-flex justify-content-center">
-                        {{ __('Showing') }} {{ $users->count() }} {{ __('of') }} {{ $users->total() }} {{ __('results') }}
-                    </span>
                 </div>
             </div>
         </div>

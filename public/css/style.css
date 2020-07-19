@@ -29,6 +29,20 @@
   border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 
+.page-link {
+  color: #6D48E5 !important;
+}
+
+.page-item.active .page-link {
+  color: #FFFFFF !important;
+  background-color: #6D48E5 !important;
+  border-color: #6D48E5 !important;
+}
+
+.pagination {
+  margin: 0 !important;
+}
+
 .rounded-05 {
   border-radius: 0.5rem !important;
 }

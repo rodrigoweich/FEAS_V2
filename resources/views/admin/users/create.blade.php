@@ -71,8 +71,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-danger" href="{{ route('admin.users.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
+                            <a class="btn btn-detail" href="{{ route('admin.users.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">{{ __('Create') }}</button>
                         </span>
                     </form>
 
