@@ -67,7 +67,7 @@
                                         @if ($role->rules()->count() > 1)
                                             {{ __($role->rules()->get()->pluck('display_name')->min()) }} {{ __('and') }} {{ $role->rules()->count()-1 }} {{ __('more') }}
                                         @elseif ($role->rules()->count() < 1)
-                                            <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> {{ __('No rules') }}</span>
+                                            <i class="fas text-danger fa-times"></i>
                                         @else
                                             {{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}
                                         @endif

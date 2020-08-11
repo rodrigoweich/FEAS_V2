@@ -76,7 +76,7 @@
                                         @if ($user->roles()->count() > 1)
                                             {{ __($user->roles()->get()->pluck('name')->min()) }} {{ __('and') }} {{ $user->roles()->count()-1 }} {{ __('more') }}
                                         @elseif ($user->roles()->count() < 1)
-                                            <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> {{ __('No role') }}</span>
+                                            <i class="fas text-danger fa-times"></i>
                                         @else
                                             {{ __(implode(', ', $user->roles()->get()->pluck('name')->toArray())) }}
                                         @endif
