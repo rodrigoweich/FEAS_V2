@@ -48,7 +48,7 @@
                             <a class="dropdown-item" href="{{ route('admin.states.index') }}">
                                 {{ __('States') }}<span class="float-right"><i class="fas fa-flag"></i></span>
                             </a>
-                            <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
+                            <a class="dropdown-item" href="{{ route('admin.notices.index') }}">
                                 {{ __('Notices') }}<span class="float-right"><i class="fas fa-bullhorn"></i></span>
                             </a>
                             <a class="dropdown-item" href="{{ route('admin.roles.index') }}">

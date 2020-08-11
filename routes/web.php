@@ -35,6 +35,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('states/search', 'StateController@search')->name('states.search');
     Route::resource('/cities', 'CityController', ['except' => ['show']]);
     Route::post('cities/search', 'CityController@search')->name('cities.search');
+    Route::resource('/notices', 'NoticeController', ['except' => ['show']]);
+    Route::post('notices/search', 'NoticeController@search')->name('notices.search');
 });
 
 Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');

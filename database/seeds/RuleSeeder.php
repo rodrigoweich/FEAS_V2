@@ -23,16 +23,21 @@ class RuleSeeder extends Seeder
             ['police_name' => 'create-roles', 'display_name' => 'Create Roles'],
             ['police_name' => 'update-roles', 'display_name' => 'Update Roles'],
             ['police_name' => 'delete-roles', 'display_name' => 'Delete Roles'],
-            // CITIES
-            ['police_name' => 'list-cities', 'display_name' => 'List Cities'],
-            ['police_name' => 'create-cities', 'display_name' => 'Create Cities'],
-            ['police_name' => 'update-cities', 'display_name' => 'Update Cities'],
-            ['police_name' => 'delete-cities', 'display_name' => 'Delete Cities'],
             // STATES
             ['police_name' => 'list-states', 'display_name' => 'List States'],
             ['police_name' => 'create-states', 'display_name' => 'Create States'],
             ['police_name' => 'update-states', 'display_name' => 'Update States'],
             ['police_name' => 'delete-states', 'display_name' => 'Delete States'],
+            // CITIES
+            ['police_name' => 'list-cities', 'display_name' => 'List Cities'],
+            ['police_name' => 'create-cities', 'display_name' => 'Create Cities'],
+            ['police_name' => 'update-cities', 'display_name' => 'Update Cities'],
+            ['police_name' => 'delete-cities', 'display_name' => 'Delete Cities'],
+            // NOTICES
+            ['police_name' => 'list-notices', 'display_name' => 'List Notices'],
+            ['police_name' => 'create-notices', 'display_name' => 'Create Notices'],
+            ['police_name' => 'update-notices', 'display_name' => 'Update Notices'],
+            ['police_name' => 'delete-notices', 'display_name' => 'Delete Notices'],
         ]);
     }
 }
