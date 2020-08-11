@@ -13,6 +13,19 @@ return [
     |
     */
 
-    'type_asset' => 'asset'
+    'type_asset' => 'asset',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Google Maps API access key
+    |--------------------------------------------------------------------------
+    |
+    | It is necessary to inform your access key to the Google Maps API so that
+    | the gear responsible for the operation of the maps works without having
+    | problems regarding activation or development.
+    |
+    */
+
+    'google_maps_key' => env('GOOGLE_MAPS_API_KEY'),
 
 ];

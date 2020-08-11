@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('extra-header')
-<script src="{{ asset('js/select2.js') }}"></script>
-<link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+<script src="{{ config('global.type_asset')('js/select2.js') }}"></script>
+<link href="{{ config('global.type_asset')('css/select2.css') }}" rel="stylesheet">
 @endsection
 
 @section('navbar')

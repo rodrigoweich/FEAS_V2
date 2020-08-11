@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'unalterable' => 1
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste Rodrigo Gomes Weich',
                 'email' => 'teste@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0

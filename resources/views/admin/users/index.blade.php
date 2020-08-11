@@ -82,27 +82,22 @@
                                         @endif
                                     </td>
                                     <td class="align-middle">
-                                        @can('update-users')
-                                            @if(!($user->unalterable === 1))
-                                                <button type="button" class="btn button-without-style">
-                                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="d-inline">
-                                                        <i class="fas text-dark fa-edit"></i>
-                                                    </a>
-                                                </button>
-                                            @endif
-                                        @endcan
-
-                                        @can('delete-users')
-                                            @if(!($user->unalterable === 1))
-                                                <button type="button" class="btn button-without-style" onclick="event.preventDefault(); document.getElementById('form-delete-user').submit()">
-                                                    <i class="fas text-dark fa-trash"></i>
-                                                </button>
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" id="form-delete-user">
-                                                    @csrf
-                                                    {{ method_field('DELETE') }}
-                                                </form>
-                                            @endif
-                                        @endcan
+                                        <div class="d-flex align-content-center">
+                                            @can('update-users')
+                                                @if(!($user->unalterable === 1))
+                                                <a href="{{ route('admin.users.edit', $user->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                                @endif
+                                            @endcan
+                                            @can('delete-users')
+                                                @if(!($user->unalterable === 1))
+                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        {{ method_field('DELETE') }}
+                                                        <button type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                                    </form>
+                                                @endif
+                                            @endcan
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -116,13 +111,11 @@
         <div class="col-md-12 mt-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                                {{ $users->links() }}
-                        </div>
-                        <div class="col-8 text-right align-self-center">
-                            <span class="align-middle">{{ __('Showing') }} {{ $users->count() }} {{ __('of') }} {{ $users->total() }} {{ __('results') }}</span>
-                        </div>
+                    <div class="d-flex justify-content-center">
+                                {{ $users->onEachSide(1)->links() }}
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="align-middle">{{ __('Showing') }} {{ $users->count() }} {{ __('of') }} {{ $users->total() }} {{ __('results') }}</span>
                     </div>
                 </div>
             </div>
@@ -131,6 +124,3 @@
     </div>
 </div>
 @endsection
-
-
-

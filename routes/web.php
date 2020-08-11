@@ -31,6 +31,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('users/search', 'UserController@search')->name('users.search');
     Route::resource('/roles', 'RoleController', ['except' => ['show']]);
     Route::post('roles/search', 'RoleController@search')->name('roles.search');
+    Route::resource('/states', 'StateController', ['except' => ['show']]);
+    Route::post('states/search', 'StateController@search')->name('states.search');
+    Route::resource('/cities', 'CityController', ['except' => ['show']]);
+    Route::post('cities/search', 'CityController@search')->name('cities.search');
 });
 
 Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');
