@@ -39,5 +39,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('notices/search', 'NoticeController@search')->name('notices.search');
 });
 
+Route::prefix('default')->name('default.')->group(function () {
+    Route::resource('/customers', 'CustomerController', ['except' => ['show']]);
+    Route::post('customers/search', 'CustomerController@search')->name('customers.search');
+    Route::resource('/cables', 'CableController', ['except' => ['show']]);
+    Route::post('cables/search', 'CableController@search')->name('cables.search');
+});
+
 Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');
 Route::put('/profile/{id}', 'UserController@updateProfile')->name('users.profile.update');

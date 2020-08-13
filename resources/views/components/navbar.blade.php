@@ -66,7 +66,7 @@
                             <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
                                 {{ __('Process') }} - 4<span class="float-right"><i class="fas fa-microchip"></i></span>
                             </a>
-                            <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
+                            <a class="dropdown-item" href="{{ route('default.cables.index') }}">
                                 {{ __('Cables') }}<span class="float-right"><i class="fas fa-minus"></i></span>
                             </a>
                             <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
@@ -75,7 +75,7 @@
                             <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
                                 {{ __('Process List') }}<span class="float-right"><i class="fas fa-list"></i></span>
                             </a>
-                            <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
+                            <a class="dropdown-item" href="{{ route('default.customers.index') }}">
                                 {{ __('Customers') }}<span class="float-right"><i class="fas fa-user-friends"></i></span>
                             </a>
                             <div class="dropdown-divider"></div>

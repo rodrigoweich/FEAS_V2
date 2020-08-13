@@ -113,10 +113,18 @@ class NoticeController extends Controller
             return view('403');
         }
 
-        $notice = Notice::find($id);
-        return view('admin.notices.edit')->with([
-            'data' => $notice
-        ]);
+        if(isset($id)) {
+            $notice = Notice::find($id);
+            if(!$notice) {
+                return view('404');
+            } else {
+                return view('admin.notices.edit')->with([
+                    'data' => $notice
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.notices.index');
     }
 
     /**
@@ -146,21 +154,29 @@ class NoticeController extends Controller
         ];
         $request->validate($rules, $messages);
         
-        $notice = Notice::find($id);
-        $notice->title = $request->title;
-        $notice->description = $request->description;
-        if ($request->featured == "on") {
-            $notice->featured = 1;
-        } else {
-            $notice->featured = 0;
+        if(isset($id)) {
+            $notice = Notice::find($id);
+            if(!$notice) {
+                return view('404');
+            } else {
+                $notice->title = $request->title;
+                $notice->description = $request->description;
+                if ($request->featured == "on") {
+                    $notice->featured = 1;
+                } else {
+                    $notice->featured = 0;
+                }
+                if ($request->active == "on") {
+                    $notice->active = 1;
+                } else {
+                    $notice->active = 0;
+                }
+                $notice->users_id = Auth::user()->id;
+                $notice->save();
+                return redirect()->route('admin.notices.index');
+            }
         }
-        if ($request->active == "on") {
-            $notice->active = 1;
-        } else {
-            $notice->active = 0;
-        }
-        $notice->users_id = Auth::user()->id;
-        $notice->save();
+        
         return redirect()->route('admin.notices.index');
     }
 

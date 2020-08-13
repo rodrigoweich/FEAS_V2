@@ -12,7 +12,7 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Create a new') }}
+                    {{ __('Edit existing') }}
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
 
                         <span class="float-right">
                             <a class="btn btn-detail" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Create') }}</button>
+                            <button type="submit" class="btn btn-detail">{{ __('Edit') }}</button>
                         </span>
                     </form>
 

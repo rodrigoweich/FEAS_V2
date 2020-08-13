@@ -19,4 +19,5 @@ mix.sass('resources/sass/app.scss', 'public/css/style.css')
    .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/js/bootstrap.js')
    .scripts('node_modules/@fortawesome/fontawesome-free/js/all.js', 'public/js/fontawesome.js')
    .scripts('node_modules/select2/dist/js/select2.full.js', 'public/js/select2.js')
+   .copyDirectory('resources/vendor', 'public/vendor')
    .copyDirectory('resources/img', 'public/img');

@@ -38,6 +38,15 @@ class RuleSeeder extends Seeder
             ['police_name' => 'create-notices', 'display_name' => 'Create Notices'],
             ['police_name' => 'update-notices', 'display_name' => 'Update Notices'],
             ['police_name' => 'delete-notices', 'display_name' => 'Delete Notices'],
+            // NOTICES
+            ['police_name' => 'list-customers', 'display_name' => 'List Customers'],
+            ['police_name' => 'update-customers', 'display_name' => 'Update Customers'],
+            ['police_name' => 'delete-customers', 'display_name' => 'Delete Customers'],
+            // CABLES
+            ['police_name' => 'list-cables', 'display_name' => 'List Cables'],
+            ['police_name' => 'create-cables', 'display_name' => 'Create Cables'],
+            ['police_name' => 'update-cables', 'display_name' => 'Update Cables'],
+            ['police_name' => 'delete-cables', 'display_name' => 'Delete Cables'],
         ]);
     }
 }
