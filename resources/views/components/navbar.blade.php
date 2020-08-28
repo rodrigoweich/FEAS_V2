@@ -69,8 +69,11 @@
                             <a class="dropdown-item" href="{{ route('default.cables.index') }}">
                                 {{ __('Cables') }}<span class="float-right"><i class="fas fa-minus"></i></span>
                             </a>
-                            <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
+                            <a class="dropdown-item" href="{{ route('default.boxes.index') }}">
                                 {{ __('Boxes') }}<span class="float-right"><i class="fas fa-bookmark"></i></span>
+                            </a>
+                            <a class="dropdown-item" href="{{ route('default.splitters.index') }}">
+                                {{ __('Splitters') }}<span class="float-right"><i class="fas fa-code-branch"></i></span>
                             </a>
                             <a class="dropdown-item" href="{{ route('admin.roles.index') }}">
                                 {{ __('Process List') }}<span class="float-right"><i class="fas fa-list"></i></span>

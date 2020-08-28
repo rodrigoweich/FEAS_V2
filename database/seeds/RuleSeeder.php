@@ -47,6 +47,16 @@ class RuleSeeder extends Seeder
             ['police_name' => 'create-cables', 'display_name' => 'Create Cables'],
             ['police_name' => 'update-cables', 'display_name' => 'Update Cables'],
             ['police_name' => 'delete-cables', 'display_name' => 'Delete Cables'],
+            // BOXES
+            ['police_name' => 'list-service_boxes', 'display_name' => 'List Service Boxes'],
+            ['police_name' => 'create-service_boxes', 'display_name' => 'Create Service Boxes'],
+            ['police_name' => 'update-service_boxes', 'display_name' => 'Update Service Boxes'],
+            ['police_name' => 'delete-service_boxes', 'display_name' => 'Delete Service Boxes'],
+            // CABLES
+            ['police_name' => 'list-splitters', 'display_name' => 'List Splitters'],
+            ['police_name' => 'create-splitters', 'display_name' => 'Create Splitters'],
+            ['police_name' => 'update-splitters', 'display_name' => 'Update Splitters'],
+            ['police_name' => 'delete-splitters', 'display_name' => 'Delete Splitters'],
         ]);
     }
 }

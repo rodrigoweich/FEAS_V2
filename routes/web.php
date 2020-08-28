@@ -44,6 +44,10 @@ Route::prefix('default')->name('default.')->group(function () {
     Route::post('customers/search', 'CustomerController@search')->name('customers.search');
     Route::resource('/cables', 'CableController', ['except' => ['show']]);
     Route::post('cables/search', 'CableController@search')->name('cables.search');
+    Route::resource('/boxes', 'ServiceBoxController', ['except' => ['show']]);
+    Route::post('boxes/search', 'ServiceBoxController@search')->name('boxes.search');
+    Route::resource('/splitters', 'SplitterController', ['except' => ['show']]);
+    Route::post('splitters/search', 'SplitterController@search')->name('splitters.search');
 });
 
 Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');
