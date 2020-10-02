@@ -14,19 +14,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="Retornar ao app">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <span class="align-middle">&nbsp;&nbsp;{{ __('Notices') }}</span>
+                            <span class="align-middle">&nbsp;&nbsp;Notícias</span>
                         </div>
                         <div class="col-8 text-right">
                             <form action="{{ route('admin.notices.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="{{ __('Filter') }}">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Filtros">
                                     <div class="input-group-append">
-                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="{{ __('Search') }}"><i class="fas fa-search"></i></button>
-                                        <a class="btn panel-border" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Clear and return') }}"><i class="fas fa-undo-alt"></i></a>
+                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
+                                        <a class="btn panel-border" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col text-right">
                         @can('create-notices')
-                            <a class="btn btn-detail btn-sm" href="{{ route('admin.notices.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
+                            <a class="btn btn-detail btn-sm" href="{{ route('admin.notices.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar nova notícia">
                                 <i class="fas fa-plus"></i>
                             </a>
                         @endcan
@@ -109,7 +109,7 @@
                                 {{ $response->onEachSide(1)->links() }}
                     </div>
                     <div class="d-flex justify-content-center">
-                        <span class="align-middle">{{ __('Showing') }} {{ $response->count() }} {{ __('of') }} {{ $response->total() }} {{ __('results') }}</span>
+                        <span class="align-middle">Mostrando {{ $response->count() }} de {{ $response->total() }} resultados</span>
                     </div>
                 </div>
             </div>

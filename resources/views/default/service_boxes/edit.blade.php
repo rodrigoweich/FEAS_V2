@@ -76,11 +76,11 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="inputname">{{ __('Name') }}</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ $data->name }}" autofocus>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="city">{{ __('City') }}</label>
                                     <select name="city" class="form-control selectTwo" style="width: 100%">
                                         @foreach($cities as $city)
@@ -88,15 +88,31 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="lat">Latitude</label>
                                     <input type="text" class="form-control" id="lat" name="lat" value="{{ $data->m_lat }}" readonly>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="lng">Longitude</label>
                                     <input type="text" class="form-control" id="lng" name="lng" value="{{ $data->m_lng }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="description">{{ __('Description') }}</label>
+                                    <input type="text" class="form-control" id="description" name="description" value="{{ $data->description }}" autofocus>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="amount">{{ __('Amount') }}</label>
+                                    <input type="number" class="form-control" id="amount" name="amount" max="128" min="0" value="{{ $data->amount }}">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="busy">{{ __('Busy') }}</label>
+                                    <input type="number" class="form-control" id="busy" name="busy" min="0" value="{{ $data->busy }}">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="available">{{ __('Available') }}</label>
+                                    <input type="number" class="form-control" id="available" name="available" value="{{ $data->amount - $data->busy }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -205,12 +221,13 @@ function createNewBoxPoint(position) {
             position: position,
             map: gmap,
             animation: google.maps.Animation.DROP,
+            label: '{{ $data->id }}',
             icon: {
                 path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
                 fillColor: "#fff",
                 fillOpacity: 1,
                 strokeWeight: 0,
-                scale: 0.03,
+                scale: 0.06,
                 anchor: new google.maps.Point(200,510),
                 labelOrigin: new google.maps.Point(205,190)
             }
@@ -244,5 +261,11 @@ function changeMapType(target, mapType, htmlText) {
     gmap.setMapTypeId(mapType);
     $("#"+target).html(htmlText);
 };
+
+    $('#amount, #busy').change(function() {
+        var amount_value = $('#amount').val();
+        var busy_value = $('#busy').val();
+        $('#available').val(amount_value - busy_value);
+    });
 </script>
 @endsection

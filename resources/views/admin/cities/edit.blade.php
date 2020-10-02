@@ -24,26 +24,26 @@
         <div class="list-group list-group-flush">
             <div id="divider">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle list-group-item list-group-item-action bg-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <span class="float-right"><i class="fas fa-map"></i></span> <span id="mapTypesDpMenu">Default + Satellite</span> <span class="caret"></span>
+                    <span class="float-right"><i class="fas fa-map"></i></span> <span id="mapTypesDpMenu">Padrão + Satélite</span> <span class="caret"></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Default')">
-                        {{ __('Default') }}
+                        Padrão
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satellite')">
-                        {{ __('Satélite') }}
+                        Satélite
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Default + Terrain')">
-                        {{ __('Default + Terrain') }}
+                        Padrão + Terreno
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Default + Satellite')">
-                        {{ __('Default + Satellite') }}
+                        Padrão + Satélite
                     </a>
                 </div>
             </div>
-            <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">{{ __('Save modifications') }}<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
-            <a href="{{ route('admin.cities.index') }}" class="list-group-item list-group-item-action bg-light text-danger">{{ __('Cancel and return') }}<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
+            <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">Salvar modificações<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
+            <a href="{{ route('admin.cities.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -63,7 +63,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ __('City information') }}</h5>
+                <h5 class="modal-title">Informação da cidade</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,11 +77,11 @@
                         <div class="col">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputname">{{ __('Name') }}</label>
+                                    <label for="inputname">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ $city->name }}" autofocus>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="state">{{ __('State') }}</label>
+                                    <label for="state">Estado</label>
                                     <select name="state" class="form-control selectTwo" style="width: 100%">
                                         @foreach($states as $state)
                                             <option value="{{ $state->id }}" @if($city->states_id == $state->id) selected @endif>{{ __($state->name) }}</option>
@@ -106,10 +106,10 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="inputshortcut" name="inputshortcut">
-                                        <label class="custom-control-label" id="labelforshortcut" for="inputshortcut">{{ __('will this city be a shortcut?') }}</label>
+                                        <input type="checkbox" class="custom-control-input" id="inputshortcut" name="inputshortcut" @if($city->shortcut == 1) checked @endif>
+                                        <label class="custom-control-label" id="labelforshortcut" for="inputshortcut">Essa cidade será um atalho?</label>
                                     </div>
-                                    <code class="float-left">{{ __('tool to assist the commercial employees') }}</code>
+                                    <code class="float-left">Função para auxiliar os usuários do sistema.</code>
                                 </div>
                             </div>
                         </div>
@@ -126,9 +126,9 @@
                     @endif
 
                     <span class="float-right">
-                        <a class="btn btn-danger" href="{{ route('admin.cities.index') }}" role="button">{{ __('Cancel and return') }}</a>
-                        <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Close this window') }}</button>
+                        <a class="btn btn-danger" href="{{ route('admin.cities.index') }}" role="button">Cancelar e voltar</a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar essa janela</button>
+                        <button type="submit" class="btn btn-success">Aplicar mudanças</button>
                     </span>
                 </form>
             </div>

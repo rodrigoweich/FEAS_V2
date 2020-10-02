@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Auth;
+Use App\User;
+use App\City;
+use App\Customer;
+use App\Address;
+use App\Process;
+use App\Http\Requests\ProcessStageOneRequest;
+
+class ProcessStageOneController extends Controller
+{
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
+    public function index_stage_one()
+    {
+        if(Gate::denies('list-process-stage-one')){
+            return view('403');
+        }
+        
+        $users = User::all();
+        $customers = Customer::all();
+        $addresses = Address::all();
+        $cities = City::all();
+        return view('default.process_stage_one.index')->with([
+            'response' => Process::orderBy('id', 'desc')->where('stage', 0)->paginate(15),
+            'hasCities' => HasController::hasCities(),
+            'user' => $users,
+            'customer' => $customers,
+            'address' => $addresses,
+            'city' => $cities
+        ]);
+    }
+
+    public function create_stage_one()
+    {
+        if(Gate::denies('create-process-stage-one')){
+            return view('403');
+        }
+
+        $cities = City::where('shortcut', 1)->get();
+        $city = City::all();
+        $customers = Customer::all();
+        return view('default.process_stage_one.create')->with([
+            'shortcuts' => $cities,
+            "cities" => $city,
+            'customers' => $customers
+        ]);
+    }
+
+    public function store_stage_one(ProcessStageOneRequest $request)
+    {
+        if(Gate::denies('create-process-stage-one')){
+            return view('403');
+        }
+
+        $customer = new Customer;
+        $customer->contract_number = $request->contract_number;
+        $customer->name = $request->name;
+        $customer->surname = $request->surname;
+        $customer->phone = $request->phone;
+        $customer->m_lat = $request->lat;
+        $customer->m_lng = $request->lng;
+        $customer->m_zoom = $request->zoom;
+        $customer->m_icon = $request->icon;
+        $customer->service_boxes_id = null;
+        $customer->save();
+
+        $address = new Address;
+        $address->number = $request->number;
+        $address->complement = $request->complement;
+        $address->end_description = $request->end_description;
+        $address->cities_id = $request->city;
+        $address->customers_id = $request->zoom;
+        $customer->address()->save($address);
+
+        $process = new Process;
+        $process->users_id = Auth::user()->id;
+        $process->stage = 0;
+        $customer->process()->save($process);
+
+        return redirect()->route('default.process_stage_one.index');
+    }
+
+    public function edit_stage_one($id)
+    {
+        if(Gate::denies('update-process-stage-one')){
+            return view('403');
+        }
+        
+        if(isset($id)) {
+            $response = Process::find($id);
+            if(!$response) {
+                return view('404');
+            } else {
+                if($response->stage > 0) {
+                    return view('disabled');
+                } else {
+                    $city = City::all();
+
+                    return view('default.process_stage_one.edit')->with([
+                        'response' => $response,
+                        "cities" => $city
+                    ]);
+                }
+            }
+        }
+        return redirect()->route('default.process_stage_one.index');
+    }
+
+    public function update_stage_one(ProcessStageOneRequest $request, $id)
+    {
+        if(Gate::denies('update-process-stage-one')){
+            return view('403');
+        }
+
+        if(isset($id)) {
+            $process = Process::find($id);
+            if(!$process) {
+                return view('404');
+            } else {
+                if($process->stage > 0) {
+                    return view('disabled');
+                } else {
+                    $customer = Customer::find($process->customer()->get()->first()->id);
+                    $customer->contract_number = $request->contract_number;
+                    $customer->name = $request->name;
+                    $customer->surname = $request->surname;
+                    $customer->phone = $request->phone;
+                    $customer->m_lat = $request->lat;
+                    $customer->m_lng = $request->lng;
+                    $customer->m_zoom = $request->zoom;
+                    $customer->m_icon = $request->icon;
+                    $customer->service_boxes_id = $request->box;
+                    $customer->save();
+    
+                    $address = Address::find($process->address()->get()->first()->id);
+                    $address->number = $request->number;
+                    $address->complement = $request->complement;
+                    $address->end_description = $request->end_description;
+                    $address->cities_id = $request->city;
+                    $address->customers_id = $request->zoom;
+                    $customer->address()->save($address);
+    
+                    return redirect()->route('default.process_stage_one.index');
+                }
+            }
+        }
+
+        return redirect()->route('default.process_stage_one.index');
+    }
+}

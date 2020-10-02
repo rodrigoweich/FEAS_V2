@@ -146,4 +146,8 @@ $theme-colors: (
     border-radius: 0.7rem !important;
 }
 
+.alert ul {
+    margin-bottom: 0 !important;
+}
+
 @import '~bootstrap/scss/bootstrap';

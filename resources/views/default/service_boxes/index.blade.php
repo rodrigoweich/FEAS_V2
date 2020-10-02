@@ -54,8 +54,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Latitude') }}</th>
-                                    <th>{{ __('Longitude') }}</th>
+                                    <th>{{ __('Description') }}</th>
+                                    <th>{{ __('Amount') }}</th>
+                                    <th>{{ __('Busy') }}</th>
+                                    <th>{{ __('Available') }}</th>
                                     <th>{{ __('Citie') }}</th>
                                 </tr>
                             </thead>
@@ -64,8 +66,10 @@
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
                                     <td class="align-middle">{{ $data->name }}</td>
-                                    <td class="align-middle">{{ $data->m_lat }}</td>
-                                    <td class="align-middle">{{ $data->m_lng }}</td>
+                                    <td class="align-middle">{{ $data->description }}</td>
+                                    <td class="align-middle">{{ $data->amount }}</td>
+                                    <td class="align-middle">{{ $data->busy }}</td>
+                                    <td class="align-middle">@if($data->amount - $data->busy < 0)<span class="text-danger">{{ $data->amount - $data->busy }}</span>@elseif($data->amount - $data->busy > 0)<span class="text-success">{{ $data->amount - $data->busy }}</span>@else{{ $data->amount - $data->busy }}@endif</td>
                                     <td class="align-middle">{{ $data->cities()->get()->first()->name }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">

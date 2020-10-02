@@ -18,7 +18,6 @@ class CreateAddressesTable extends Migration
             $table->integer('number');
             $table->string('complement', 100);
             $table->string('end_description', 255);
-            $table->string('note', 255)->nullable(true);
             $table->foreign('cities_id')->references('id')->on('cities');
             $table->unsignedBigInteger('cities_id')->unsigned();
             $table->foreign('customers_id')->references('id')->on('customers');

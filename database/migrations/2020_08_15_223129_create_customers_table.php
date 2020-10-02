@@ -22,9 +22,9 @@ class CreateCustomersTable extends Migration
             $table->decimal('m_lat', 10, 8);
             $table->decimal('m_lng', 11, 8);
             $table->integer('m_zoom');
-            $table->integer('m_icon');
-            $table->foreign('splitters_id')->references('id')->on('splitters');
-            $table->unsignedBigInteger('splitters_id')->unsigned();
+            $table->string('m_icon');
+            $table->foreign('service_boxes_id')->references('id')->on('service_boxes')->onDelete('set null');
+            $table->unsignedBigInteger('service_boxes_id')->unsigned()->nullable(true);
             $table->timestamps();
         });
     }

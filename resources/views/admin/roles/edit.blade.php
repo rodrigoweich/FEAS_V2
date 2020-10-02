@@ -17,7 +17,7 @@
             <div class="card shadow">
                 <div class="card-body">
 
-                    {{ __('Edit existing') }}
+                    Editar função existente
                     <div id="divider" class="mb-5"></div>
 
                     <form action="{{ route('admin.roles.update', $role) }}" method="post">
@@ -25,13 +25,13 @@
                         {{ method_field('PUT') }}
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="inputname">{{ __('Name') }}</label>
+                                <label for="inputname">Nome</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $role->name }}" autofocus>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="rules[]">{{ __('Rules') }}:</label>
+                                <label for="rules[]">Autorizações:</label>
                                 <select name="rules[]" class="mselectRules form-control" multiple="true">
                                     @foreach($rules as $rule)
                                         <option value="{{ $rule->id }}" @if($role->rules->pluck('id')->contains($rule->id)) selected @endif>{{ __($rule->display_name) }}</option>
@@ -51,8 +51,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-danger" href="{{ route('admin.roles.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-primary">{{ __('Edit') }}</button>
+                            <a class="btn btn-danger" href="{{ route('admin.roles.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-primary">Aplicar mudanças</button>
                         </span>
                     </form>
 

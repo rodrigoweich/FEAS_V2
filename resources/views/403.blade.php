@@ -84,11 +84,11 @@
     <div class="form-signin" method="POST" action="{{ route('login') }}">
         <img class="img-fluid pb-3 img" src="{{ config('global.type_asset')('img/system/feas-logo.png') }}" alt="Home">
         <div class="form-note">
-            <h5>{{ __('403') }}</h5>
+            <h5>403</h5>
         </div>
-        <h1><span class="logo">{{ __('Access denied....') }}</span></h1>
-        <h5 id="message">{{ __('You don\'t have permission to access this page.') }}</h5>
-        <button class="btn btn-lg btn-block button-style" type="submit" onclick="window.history.back();">{{ __('Return') }}</button>
+        <h1><span class="logo">Acesso negado...</span></h1>
+        <h5 id="message">Você não tem permissão para acessar essa página.</h5>
+        <button class="btn btn-lg btn-block button-style" type="submit" onclick="window.history.back();">Retornar</button>
     </div>
 </body>
 </html>

@@ -26,8 +26,15 @@ class CityController extends Controller
         }
      
         $cities = City::paginate(15);
+
+        $teste = [];
+        foreach($cities as $c) {
+            $teste += array($c->id => HasController::hasProcessesLinkedToTheCity($c->id));
+        }
+
         return view('admin.cities.index')->with([
-            'response' => $cities
+            'response' => $cities,
+            'hasProcesses' => $teste
         ]);
     }
 

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Customer;
+use App\ServiceBox;
+use App\City;
+use App\Process;
+use App\ProcessPhotos;
 
 class CustomerController extends Controller
 {
@@ -25,30 +29,11 @@ class CustomerController extends Controller
         }
      
         $customers = Customer::paginate(15);
+        $sbox = ServiceBox::all();
         return view('default.customers.index')->with([
-            'response' => $customers
+            'response' => $customers,
+            'box' => $sbox
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -59,40 +44,36 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        if(Gate::denies('update-process-stage-one')){
+            return view('403');
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if(isset($id)) {
+            $response = Customer::find($id);
+            if(!$response) {
+                return view('404');
+            } else {
+                $city = City::all();
+                $process = Process::where('customers_id', $response->id)->withTrashed()->get()->first();
+                //return dd($process);
+                $photos = json_decode(ProcessPhotos::where('processes_id', $process->id)->get(), true);
+                if($photos) {
+                    $photos_name = [];
+                    foreach($photos as $a) {
+                        foreach(json_decode($a["name"], true) as $b) {
+                            array_push($photos_name, $b);
+                        }
+                    }
+                    $photos = $photos_name;
+                }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+                return view('default.customers.show')->with([
+                    'response' => $response,
+                    'cities' => $city,
+                    "photos" => $photos
+                ]);
+            }
+        }
+        return redirect()->route('default.customers.index');
     }
 }

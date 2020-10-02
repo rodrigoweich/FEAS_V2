@@ -84,11 +84,11 @@
     <div class="form-signin" method="POST" action="{{ route('login') }}">
         <img class="img-fluid pb-3 img" src="{{ config('global.type_asset')('img/system/feas-logo.png') }}" alt="Home">
         <div class="form-note">
-            <h5>{{ __('404') }}</h5>
+            <h5>404</h5>
         </div>
-        <h1><span class="logo">{{ __('Sorry...') }}</span></h1>
-        <h5 id="message">{{ __('The page you are looking for was not found.') }}</h5>
-        <button class="btn btn-lg btn-block button-style" type="submit" onclick="window.history.back();">{{ __('Return') }}</button>
+        <h1><span class="logo">Desculpe...</span></h1>
+        <h5 id="message">A página que você procura não foi encontrada.</h5>
+        <button class="btn btn-lg btn-block button-style" type="submit" onclick="window.history.back();">Retornar</button>
     </div>
 </body>
 </html>

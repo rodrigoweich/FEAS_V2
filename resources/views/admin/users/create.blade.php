@@ -17,7 +17,7 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Create a new') }}
+                    Criar um novo usuário
                 </div>
             </div>
         </div>
@@ -29,29 +29,29 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputname">{{ __('Name') }}</label>
+                                <label for="inputname">Nome</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}" autofocus>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputemail">{{ __('E-Mail') }}</label>
-                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ old('email') }}" placeholder="{{ __('Unique and cannot be changed') }}" autofocus>
+                                <label for="inputemail">E-Mail</label>
+                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ old('email') }}" placeholder="Único e não pode ser alterado." autofocus>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputpassword">{{ __('Password') }}</label>
+                                <label for="inputpassword">Senha</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="password" id="inputPasswd" autofocus>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="top" title="{{ __('Show password') }}" onclick="mostrarPassword()"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="top" title="Mostrar senha" onclick="mostrarPassword()"><i class="fas fa-eye"></i></button>
                                     </div>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="top" title="{{ __('Generate password') }}" onclick="gerarPassword()"><i class="fas fa-key"></i></button>
+                                        <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="top" title="Gerar senha randômica" onclick="gerarPassword()"><i class="fas fa-key"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="rules[]">{{ __('Roles') }}:</label>
+                                <label for="rules[]">Função:</label>
                                 <select name="rules[]" class="mselectRules form-control" multiple="true">
                                     @foreach($rules as $rule)
                                         <option value="{{ $rule->id }}">{{ __($rule->name) }}</option>
@@ -71,8 +71,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-detail" href="{{ route('admin.users.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Create') }}</button>
+                            <a class="btn btn-detail" href="{{ route('admin.users.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">Criar usuário</button>
                         </span>
                     </form>
 

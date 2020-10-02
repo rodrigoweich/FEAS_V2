@@ -18,6 +18,9 @@ class CreateServiceBoxesTable extends Migration
             $table->string('name');
             $table->decimal('m_lat', 10, 8);
             $table->decimal('m_lng', 11, 8);
+            $table->string('description', 200)->nullable(true);
+            $table->integer('amount');
+            $table->integer('busy');
             $table->foreign('cities_id')->references('id')->on('cities');
             $table->unsignedBigInteger('cities_id')->unsigned();
             $table->timestamps();

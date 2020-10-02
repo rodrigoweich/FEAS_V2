@@ -75,11 +75,11 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="inputname">{{ __('Name') }}</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}" autofocus>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="city">{{ __('City') }}</label>
                                     <select name="city" class="form-control selectTwo" style="width: 100%">
                                         @foreach($cities as $city)
@@ -87,15 +87,31 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="lat">Latitude</label>
                                     <input type="text" class="form-control" id="lat" name="lat" readonly>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="lng">Longitude</label>
                                     <input type="text" class="form-control" id="lng" name="lng" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="description">{{ __('Description') }}</label>
+                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" autofocus>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="amount">{{ __('Amount') }}</label>
+                                    <input type="number" class="form-control" id="amount" name="amount" max="128" min="0">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="busy">{{ __('Busy') }}</label>
+                                    <input type="number" class="form-control" id="busy" name="busy" min="0">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="available">{{ __('Available') }}</label>
+                                    <input type="number" class="form-control" id="available" name="available" readonly>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +128,7 @@
                     @endif
 
                     <span class="float-right">
-                        <a class="btn btn-danger" href="{{ route('admin.cities.index') }}" role="button">{{ __('Cancel and return') }}</a>
+                        <a class="btn btn-danger" href="{{ route('default.boxes.index') }}" role="button">{{ __('Cancel and return') }}</a>
                         <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Close this window') }}</button>
                     </span>
@@ -150,7 +166,7 @@
 
 @section('extra-scripts')
 @if(config('global.google_maps_key'))
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('global.google_maps_key') }}&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('global.google_maps_key') }}&callback=initMap" async defer></script>
 @endif
 
 <script type='text/javascript'>
@@ -158,86 +174,92 @@
         theme: "bootstrap4"
     });
 
-var gmap;
-var insertedBuildings = false;
-var marker;
-var infoWindowMyPos;
+    var gmap;
+    var insertedBuildings = false;
+    var marker;
+    var infoWindowMyPos;
 
-function initMap() {
-    gmap = new google.maps.Map(document.getElementById('gmap'), {
-        center: {lat: -25.721822, lng: -53.765546},
-        mapTypeId: "hybrid",
-        zoom: 15,
-        zoomControl: true,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false,
-        mapTypeControl: false,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-            mapTypeIds: [
-                'roadmap',
-                'terrain',
-                'satellite',
-                'hybrid'
-            ]
-        }
-    });
-
-    appendListenerOnMap();
-};
-
-function appendListenerOnMap() {
-    gmap.addListener('click', function(event) {
-        createNewBoxPoint(event.latLng);
-    });
-};
-
-function createNewBoxPoint(position) {
-    if (insertedBuildings == false) {
-        marker = new google.maps.Marker({
-            position: position,
-            map: gmap,
-            animation: google.maps.Animation.DROP,
-            icon: {
-                path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
-                fillColor: "#fff",
-                fillOpacity: 1,
-                strokeWeight: 0,
-                scale: 0.03,
-                anchor: new google.maps.Point(200,510),
-                labelOrigin: new google.maps.Point(205,190)
+    function initMap() {
+        gmap = new google.maps.Map(document.getElementById('gmap'), {
+            center: {lat: -25.721822, lng: -53.765546},
+            mapTypeId: "hybrid",
+            zoom: 15,
+            zoomControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false,
+            mapTypeControl: false,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                mapTypeIds: [
+                    'roadmap',
+                    'terrain',
+                    'satellite',
+                    'hybrid'
+                ]
             }
         });
-        insertedBuildings = true;
-        $('#clearMarker').removeAttr('disabled');
-        $('#saveMarker').removeAttr('disabled');
-        $('#lat').val(marker.getPosition().lat());
-        $('#lng').val(marker.getPosition().lng());
-        if (infoWindowMyPos == true) {
-            infoWindowMyPos.close(gmap);
+
+        appendListenerOnMap();
+    };
+
+    function appendListenerOnMap() {
+        gmap.addListener('click', function(event) {
+            createNewBoxPoint(event.latLng);
+        });
+    };
+
+    function createNewBoxPoint(position) {
+        if (insertedBuildings == false) {
+            marker = new google.maps.Marker({
+                position: position,
+                map: gmap,
+                animation: google.maps.Animation.DROP,
+                icon: {
+                    path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+                    fillColor: "#fff",
+                    fillOpacity: 1,
+                    strokeWeight: 0,
+                    scale: 0.06,
+                    anchor: new google.maps.Point(200,510),
+                    labelOrigin: new google.maps.Point(205,190)
+                }
+            });
+            insertedBuildings = true;
+            $('#clearMarker').removeAttr('disabled');
+            $('#saveMarker').removeAttr('disabled');
+            $('#lat').val(marker.getPosition().lat());
+            $('#lng').val(marker.getPosition().lng());
+            if (infoWindowMyPos == true) {
+                infoWindowMyPos.close(gmap);
+            }
+        } else {
+            $('#alertDeleteElement').modal('show');
         }
-    } else {
-        $('#alertDeleteElement').modal('show');
     }
-}
 
-function clearMarkers() {
-    marker.setMap(null);
-    marker = null;
-    insertedBuildings = false;
-    $('#clearMarker').attr("disabled", true);
-    $('#saveMarker').attr("disabled", true);
-};
+    function clearMarkers() {
+        marker.setMap(null);
+        marker = null;
+        insertedBuildings = false;
+        $('#clearMarker').attr("disabled", true);
+        $('#saveMarker').attr("disabled", true);
+    };
 
-function showAlertSave() {
-    $('#alertSave').modal('show')
-};
+    function showAlertSave() {
+        $('#alertSave').modal('show')
+    };
 
-function changeMapType(target, mapType, htmlText) {
-    gmap.setMapTypeId(mapType);
-    $("#"+target).html(htmlText);
-};
+    function changeMapType(target, mapType, htmlText) {
+        gmap.setMapTypeId(mapType);
+        $("#"+target).html(htmlText);
+    };
+
+    $('#amount, #busy').change(function() {
+        var amount_value = $('#amount').val();
+        var busy_value = $('#busy').val();
+        $('#available').val(amount_value - busy_value);
+    });
 </script>
 @endsection

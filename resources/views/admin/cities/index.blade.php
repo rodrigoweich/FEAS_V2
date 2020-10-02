@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('extra-header')
+<script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
+@endsection
+
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -14,19 +18,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="Retonar ao app">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <span class="align-middle">&nbsp;&nbsp;{{ __('Cities') }}</span>
+                            <span class="align-middle">&nbsp;&nbsp;Cidades</span>
                         </div>
                         <div class="col-8 text-right">
                             <form action="{{ route('admin.cities.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control" placeholder="{{ __('Filter') }}">
+                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Filtros">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="{{ __('Search') }}"><i class="fas fa-search"></i></button>
-                                        <a class="btn btn-outline-secondary" href="{{ route('admin.cities.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Clear and return') }}"><i class="fas fa-undo-alt"></i></a>
+                                        <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
+                                        <a class="btn btn-outline-secondary" href="{{ route('admin.cities.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -42,7 +46,7 @@
                     <div class="row">
                         <div class="col text-right">
                         @can('create-roles')
-                            <a class="btn btn-detail btn-sm" href="{{ route('admin.cities.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
+                            <a class="btn btn-detail btn-sm" href="{{ route('admin.cities.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar nova cidade">
                                 <i class="fas fa-plus"></i>
                             </a>
                         @endcan
@@ -53,12 +57,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('State') }}</th>
-                                    <th>{{ __('Latitude') }}</th>
-                                    <th>{{ __('Longitude') }}</th>
-                                    <th>{{ __('Zoom') }}</th>
-                                    <th>{{ __('Shortcut') }}</th>
+                                    <th>Nome</th>
+                                    <th>Estado</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Zoom</th>
+                                    <th>Atalho</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,12 +85,13 @@
                                         <div class="d-flex align-content-center">
                                         @can('update-cities')
                                             <a href="{{ route('admin.cities.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            
                                         @endcan
                                         @can('delete-cities')
-                                        <form action="{{ route('admin.cities.destroy', $data->id) }}" method="POST">
+                                        <form id="dataIds_{{ $data->id }}" action="{{ route('admin.cities.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                            <button id="del-perm" type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
                                         </form>
                                         @endcan
                                         </div>
@@ -104,10 +109,10 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
-                                {{ $response->onEachSide(1)->links() }}
+                        {{ $response->onEachSide(1)->links() }}
                     </div>
                     <div class="d-flex justify-content-center">
-                        <span class="align-middle">{{ __('Showing') }} {{ $response->count() }} {{ __('of') }} {{ $response->total() }} {{ __('results') }}</span>
+                        <span class="align-middle">Mostrando {{ $response->count() }} de {{ $response->total() }} resultados</span>
                     </div>
                 </div>
             </div>
@@ -115,4 +120,26 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra-scripts')
+<script type='text/javascript'>
+@foreach($hasProcesses as $key => $h)
+    $("#dataIds_" + {{ $key }}).click(function(e) {
+        if({{ $h }} != 0) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.notify({
+                message: "Você não pode deletar esta cidade pois existem processos vinculados a ela."
+            }, {
+                type: "danger"
+            });
+        } else {
+            if(confirm("Deseja mesmo deletar?")) {} else {
+                return false;
+            }
+        }
+    });
+@endforeach
+</script>
 @endsection

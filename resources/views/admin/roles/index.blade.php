@@ -14,19 +14,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="Retornar ao app">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <span class="align-middle">&nbsp;&nbsp;{{ __('Roles') }}</span>
+                            <span class="align-middle">&nbsp;&nbsp;Funções</span>
                         </div>
                         <div class="col-8 text-right">
                             <form action="{{ route('admin.roles.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control" placeholder="{{ __('Filter') }}">
+                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Filtros">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="{{ __('Search') }}"><i class="fas fa-search"></i></button>
-                                        <a class="btn btn-outline-secondary" href="{{ route('admin.roles.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Clear and return') }}"><i class="fas fa-undo-alt"></i></a>
+                                        <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
+                                        <a class="btn btn-outline-secondary" href="{{ route('admin.roles.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col text-right">
                         @can('create-roles')
-                            <a class="btn btn-detail btn-sm" href="{{ route('admin.roles.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
+                            <a class="btn btn-detail btn-sm" href="{{ route('admin.roles.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar uma nova função">
                                 <i class="fas fa-plus"></i>
                             </a>
                         @endcan
@@ -53,9 +53,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Rules') }}</th>
-                                    <th>{{ __('Users') }}</th>
+                                    <th>Nome</th>
+                                    <th>Autorizações</th>
+                                    <th>Usuários</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +65,7 @@
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @if ($role->rules()->count() > 1)
-                                            {{ __($role->rules()->get()->pluck('display_name')->min()) }} {{ __('and') }} {{ $role->rules()->count()-1 }} {{ __('more') }}
+                                            {{ __($role->rules()->get()->pluck('display_name')->min()) }} e {{ $role->rules()->count()-1 }} outras
                                         @elseif ($role->rules()->count() < 1)
                                             <i class="fas text-danger fa-times"></i>
                                         @else
@@ -109,7 +109,7 @@
                                 {{ $roles->onEachSide(1)->links() }}
                     </div>
                     <div class="d-flex justify-content-center">
-                        <span class="align-middle">{{ __('Showing') }} {{ $roles->count() }} {{ __('of') }} {{ $roles->total() }} {{ __('results') }}</span>
+                        <span class="align-middle">Mostrando {{ $roles->count() }} de {{ $roles->total() }} resultados</span>
                     </div>
                 </div>
             </div>

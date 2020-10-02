@@ -65,6 +65,9 @@ class ServiceBoxController extends Controller
         $service_box->cities_id = $request->city;
         $service_box->m_lat = $request->lat;
         $service_box->m_lng = $request->lng;
+        $service_box->description = $request->description;
+        $service_box->amount = $request->amount;
+        $service_box->busy = $request->busy;
         $service_box->save();
         return redirect()->route('default.boxes.index');
     }
@@ -130,6 +133,9 @@ class ServiceBoxController extends Controller
                 $service_box->cities_id = $request->city;
                 $service_box->m_lat = $request->lat;
                 $service_box->m_lng = $request->lng;
+                $service_box->description = $request->description;
+                $service_box->amount = $request->amount;
+                $service_box->busy = $request->busy;
                 $service_box->save();
                 return redirect()->route('default.boxes.index');
             }

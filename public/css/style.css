@@ -142,6 +142,10 @@
   border-radius: 0.7rem !important;
 }
 
+.alert ul {
+  margin-bottom: 0 !important;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

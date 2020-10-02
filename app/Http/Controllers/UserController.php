@@ -11,6 +11,9 @@ use App\User;
 use App\Rule;
 use App\Role;
 
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\ProfileRequest;
+
 class UserController extends Controller
 {
 
@@ -58,29 +61,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         if(Gate::denies('create-users')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:3|max:50',
-            'email' => 'required|unique:users|min:3|max:50',
-            'password' => 'required|min:8'
-        ];
-        $messages = [
-            "name.required" => "O nome do usuário não pode ficar em branco.",
-            "name.min" => "O nome deve conter ao menos :min caracteres.",
-            "name.max" => "O nome deve conter no máximo :max caracteres.",
-            "email.required" => "O email do usuário não pode ficar em branco.",
-            "email.unique" => "Este email já existe em nossa base de dados e não pode ser alterado.",
-            "email.min" => "O email deve conter ao menos :min caracteres.",
-            "email.max" => "O email deve conter no máximo :max caracteres.",
-            "password.required" => "A senha do usuário não pode ficar em branco.",
-            "password.min" => "A senha deve conter pelo menos :min caracteres."
-        ];
-        $request->validate($rules, $messages);
         
         $user = new User;
         $user->name = $request->name;
@@ -133,35 +118,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         if(Gate::denies('update-users')){
             return view('403');
         }
-
-        if(isset($request->password)) {
-            $rules = [
-                'name' => 'required|min:3|max:50',
-                'password' => 'required|min:8'
-            ];
-            $messages = [
-                "name.required" => "O nome do usuário não pode ficar em branco.",
-                "name.min" => "O nome deve conter ao menos :min caracteres.",
-                "name.max" => "O nome deve conter no máximo :max caracteres.",
-                "password.required" => "A senha do usuário não pode ficar em branco.",
-                "password.min" => "A senha deve conter pelo menos :min caracteres."
-            ];
-        } else {
-            $rules = [
-                'name' => 'required|min:3|max:50',
-            ];
-            $messages = [
-                "name.required" => "O nome do usuário não pode ficar em branco.",
-                "name.min" => "O nome deve conter ao menos :min caracteres.",
-                "name.max" => "O nome deve conter no máximo :max caracteres.",
-            ];
-        }
-        $request->validate($rules, $messages);
 
         $user = User::find($id);
         $user->roles()->sync($request->rules);
@@ -215,44 +176,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function updateProfile(Request $request, $id)
+    public function updateProfile(ProfileRequest $request, $id)
     {
-        if(isset($request->newPw)) {
-            $rules = [
-                'name' => 'required|min:3|max:50',
-                'currentPw' => 'required',
-                'newPw' => 'required|min:8',
-                'confirmNewPw' => 'required|min:8|same:newPw',
-                'avatar_image' => 'file|mimes:jpg,jpeg,png,bmp'
-            ];
-            $messages = [
-                "name.required" => "O nome do usuário está em branco.",
-                "name.min" => "O nome contém pelo menos :min caracteres.",
-                "name.max" => "O nome contém no máximo :max caracteres.",
-                "avatar_image.size" => "A imagem tem no máximo :size kbs",
-                "avatar_image.mimes" => "O formato dor arquivo é .jpg, .jpeg, .png ou .bmp",
-                "currentPw.required" => "A senha atual está em branco.",
-                "newPw.required" => "A nova senha está em branco.",
-                "newPw.min" => "A nova senha comtém pelo menos :min caracteres.",
-                "confirmNewPw.required" => "A confirmação da senha está em branco.",
-                "confirmNewPw.min" => "A confirmação da senha contém pelo menos :min caracteres.",
-                "confirmNewPw.same" => "A confirmação da senha está correta."
-            ];
-        } else {
-            $rules = [
-                'name' => 'required|min:3|max:50',
-                'avatar_image' => 'file|mimes:jpg,jpeg,png,bmp'
-            ];
-            $messages = [
-                "name.required" => "O nome do usuário está em branco.",
-                "name.min" => "O nome contém pelo menos :min caracteres.",
-                "name.max" => "O nome contém no máximo :max caracteres.",
-                "avatar_image.size" => "A imagem tem no máximo :size kbs",
-                "avatar_image.mimes" => "O formato dor arquivo é .jpg, .jpeg, .png ou .bmp"
-            ];
-        }
-        $request->validate($rules, $messages);
-
         $user = User::find($id);
         if(isset($request->avatar_image)) {
             //Storage::delete($user->avatar);

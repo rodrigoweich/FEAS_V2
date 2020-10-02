@@ -22,7 +22,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow">
-                <div class="card-header text-center">{{ $user->name }}{{ __('\'s profile') }}</div>
+                <div class="card-header text-center">Perfil de {{ $user->name }}</div>
 
                 <div class="card-body">
 
@@ -32,17 +32,17 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputname">{{ __('Name') }}</label>
+                                <label for="inputname">Nome</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $user->name }}" autofocus>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputemail">{{ __('E-Mail') }}</label>
+                                <label for="inputemail">E-Mail</label>
                                 <input type="email" class="form-control" id="inputemail" name="email" value="{{ $user->email }}" readonly>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputpassword">{{ __('Current password') }}</label>
+                                <label for="inputpassword">Senha atual</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="currentPw" id="currentPw" autofocus>
                                     <div class="input-group-append">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputpassword">{{ __('New password') }}</label>
+                                <label for="inputpassword">Nova senha</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="newPw" id="newPw" autofocus>
                                     <div class="input-group-append">
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputpassword">{{ __('Confirm new password') }}</label>
+                                <label for="inputpassword">Confirmação nova senha</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="confirmNewPw" id="confirmNewPw" autofocus>
                                     <div class="input-group-append">
@@ -76,14 +76,14 @@
                             <div class="form-group col-md-12">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imgInp" name="avatar_image" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-                                    <label class="custom-file-label" for="imgInp" id="imgLInp">{{ __('Choose profile picture') }}</label>
+                                    <label class="custom-file-label" for="imgInp" id="imgLInp">Escolher foto de perfil</label>
                                 </div>
                             </div>
                         </div>
                         @if($user->roles()->count() >= 1)
                         <div class="form-row">
                             <div class="form-group col-md-12 text-justify">
-                                <span>{{ __('Your permissions') }}:</span><br/>
+                                <span>Suas funções:</span><br/>
                                 @foreach ($user->roles()->get()->pluck('name')->toArray() as $key => $value)
                                     #{{ __($value) }}
                                 @endforeach
@@ -93,7 +93,6 @@
 
                         @if ($errors->any())
                         <div class="alert alert-danger">
-                            Ops!!! parece que algo deu errado. Por favor, verifique se:
                             <ul>
                                 @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -104,8 +103,8 @@
 
                         <span class="float-right">
                             <a class="btn btn-danger" href="{{ route('home') }}" role="button" data-toggle="tooltip"
-                            data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-primary">{{ __('Update profile') }}</button>
+                            data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-primary">Atualizar perfil</button>
                         </span>
                     </form>
 

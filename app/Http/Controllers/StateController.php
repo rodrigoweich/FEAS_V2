@@ -56,20 +56,6 @@ class StateController extends Controller
             return view('403');
         }
 
-        $rules = [
-            'name' => 'required|min:1|max:50',
-            'uf' => 'required|min:1|max:2'
-        ];
-        $messages = [
-            "name.required" => "if the name is blank.",
-            "name.min" => "if the name contains at least :min characters",
-            "name.max" => "if the name contains a maximum of :max characters",
-            "name.required" => "if the uf is blank.",
-            "name.min" => "if the uf contains at least :min characters",
-            "name.max" => "if the uf contains a maximum of :max characters",
-        ];
-        $request->validate($rules, $messages);
-
         $state = new State;
         $state->name = $request->name;
         $state->uf = $request->uf;
@@ -118,20 +104,6 @@ class StateController extends Controller
         if(Gate::denies('create-states')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:1|max:50',
-            'uf' => 'required|min:1|max:2'
-        ];
-        $messages = [
-            "name.required" => "if the name is blank.",
-            "name.min" => "if the name contains at least :min characters",
-            "name.max" => "if the name contains a maximum of :max characters",
-            "name.required" => "if the uf is blank.",
-            "name.min" => "if the uf contains at least :min characters",
-            "name.max" => "if the uf contains a maximum of :max characters",
-        ];
-        $request->validate($rules, $messages);
 
         $state = State::find($id);
         $state->name = $request->name;

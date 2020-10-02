@@ -12,7 +12,7 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Create a new') }}
+                    Criar nova notícia
                 </div>
             </div>
         </div>
@@ -24,13 +24,13 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="inputtitle">{{ __('Title') }}</label>
+                                <label for="inputtitle">Título</label>
                                 <input type="text" class="form-control" id="inputtitle" name="title" value="{{ old('title') }}" autofocus required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="textareadescription">{{ __('Description') }}</label>
+                                <label for="textareadescription">Descrição</label>
                                 <textarea class="form-control" id="textareadescription" rows="5" name="description" autofocus>{{ old('description') }}</textarea>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="form-group col-md-12">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="inputfeatured" name="featured">
-                                    <label class="custom-control-label" id="inputfeaturedlabel" for="inputfeatured">{{ __('Will this news have the featured format?') }}</label>
+                                    <label class="custom-control-label" id="inputfeaturedlabel" for="inputfeatured">Deseja tornar essa notícia importante?</label>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <div class="form-group col-md-12">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="inputstatus" name="active" checked>
-                                    <label class="custom-control-label" id="inputstatuslabel" for="inputstatus">{{ __('Is this news active?') }}</label>
+                                    <label class="custom-control-label" id="inputstatuslabel" for="inputstatus">Ela está ativa?</label>
                                 </div>
                             </div>
                         </div>
@@ -62,8 +62,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-detail" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Create') }}</button>
+                            <a class="btn btn-detail" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">Criar notícia</button>
                         </span>
                     </form>
 

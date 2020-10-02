@@ -21,14 +21,14 @@ class UserSeeder extends Seeder
                 'unalterable' => 1
             ],
             [
-                'name' => 'Teste Rodrigo Gomes Weich',
-                'email' => 'teste@feas.com',
+                'name' => 'Usuário deletado',
+                'email' => 'deleteduser@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
-                'email' => 'teste1@feas.com',
+                'name' => 'Teste Teste',
+                'email' => 'teste@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
@@ -145,7 +145,115 @@ class UserSeeder extends Seeder
                 'email' => 'teste20@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
-            ]
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste21@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste22@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste23@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste24@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste25@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste26@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste27@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste28@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste29@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste30@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste31@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste32@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste33@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste34@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste35@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste36@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste37@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Teste',
+                'email' => 'teste38@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
         ]);
     }
 }
