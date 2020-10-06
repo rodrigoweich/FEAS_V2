@@ -27,7 +27,11 @@ class ServiceBoxController extends Controller
             return view('403');
         }
         
-        $sb = ServiceBox::paginate(15);
+        $sb = DB::table('service_boxes')
+        ->leftjoin('cities', 'service_boxes.cities_id', '=', 'cities.id')
+        ->select('service_boxes.id', 'service_boxes.name as sb_name', 'service_boxes.description', 'service_boxes.amount', 'service_boxes.busy', 'service_boxes.cities_id', 'cities.name as ct_name')
+        ->orderBy('service_boxes.id', 'desc')
+        ->paginate(15);
 
         $teste = [];
         foreach($sb as $c) {
@@ -192,7 +196,8 @@ class ServiceBoxController extends Controller
             $query->where('service_boxes.name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('service_boxes.description', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('cities.name', 'like', '%'.$request->dataToSearch.'%');
-        })->select('service_boxes.id', 'service_boxes.name', 'service_boxes.description', 'service_boxes.amount', 'service_boxes.busy', 'service_boxes.cities_id', 'cities.name')
+        })->select('service_boxes.id', 'service_boxes.name as sb_name', 'service_boxes.description', 'service_boxes.amount', 'service_boxes.busy', 'service_boxes.cities_id', 'cities.name as ct_name')
+        ->orderBy('service_boxes.id', 'desc')
         ->paginate(15);
 
         $teste = [];

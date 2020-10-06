@@ -25,7 +25,7 @@ class CableController extends Controller
             return view('403');
         }
         
-        $cables = Cable::paginate(15);
+        $cables = Cable::orderBy('id', 'DESC')->paginate(15);
 
         $teste = [];
         foreach($cables as $c) {
@@ -182,7 +182,7 @@ class CableController extends Controller
             return view('403');
         }
         
-        $cables = Cable::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        $cables = Cable::where('name','like', '%'.$request->dataToSearch.'%')->orderBy('id', 'DESC')->paginate(15);
 
         $teste = [];
         foreach($cables as $c) {

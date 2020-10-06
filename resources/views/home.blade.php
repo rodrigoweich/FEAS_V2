@@ -124,10 +124,9 @@
 
 <div class="container" id="shortcut_buttons">
     <div class="row justify-content-center">
-        <div class="row row-cols-3 row-cols-md-6 col-md-12 text-center">
             <!-- USUÁRIOS -->
             @can('list-users')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('admin.users.index') }}" class="btn">
                             <div class="card-body">
@@ -143,7 +142,7 @@
             <!-- /USUÁRIOS -->
             <!-- FUNÇÕES -->
             @can('list-roles')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('admin.roles.index') }}" class="btn">
                             <div class="card-body">
@@ -159,7 +158,7 @@
             <!-- /FUNÇÕES -->
             <!-- CIDADES -->
             @can('list-cities')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('admin.cities.index') }}" class="btn">
                             <div class="card-body">
@@ -175,7 +174,7 @@
             <!-- /CIDADES -->
             <!-- ESTADOS -->
             @can('list-states')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('admin.states.index') }}" class="btn">
                             <div class="card-body">
@@ -191,7 +190,7 @@
             <!-- /ESTADOS -->
             <!-- NOTICIAS -->
             @can('list-states')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('admin.notices.index') }}" class="btn">
                             <div class="card-body">
@@ -207,7 +206,7 @@
             <!-- /NOTICIAS -->
             <!-- RELATÓRIOS -->
             @can('free-access-for-reports')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('reports.index') }}" class="btn">
                             <div class="card-body">
@@ -223,7 +222,7 @@
             <!-- /RELATÓRIOS -->
             <!-- PROCESSO ESTÁGIO 1 -->
             @can('list-process-stage-one')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_stage_one.index') }}" class="btn">
                             <div class="card-body">
@@ -239,7 +238,7 @@
             <!-- /PROCESSO ESTÁGIO 1 -->
             <!-- PROCESSO ESTÁGIO 2 -->
             @can('list-process-stage-two')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_stage_two.index') }}" class="btn">
                             <div class="card-body">
@@ -255,7 +254,7 @@
             <!-- /PROCESSO ESTÁGIO 2 -->
             <!-- PROCESSO ESTÁGIO 3 -->
             @can('list-process-stage-three')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_stage_three.index') }}" class="btn">
                             <div class="card-body">
@@ -271,7 +270,7 @@
             <!-- /PROCESSO ESTÁGIO 3 -->
             <!-- PROCESSO ESTÁGIO 4 -->
             @can('list-process-stage-four')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_stage_four.index') }}" class="btn">
                             <div class="card-body">
@@ -287,7 +286,7 @@
             <!-- /PROCESSO ESTÁGIO 4 -->
             <!-- PROCESSO ESTÁGIO 5 -->
             @can('list-process-stage-five')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_stage_five.index') }}" class="btn">
                             <div class="card-body">
@@ -303,7 +302,7 @@
             <!-- /PROCESSO ESTÁGIO 5 -->
             <!-- CABOS -->
             @can('list-cables')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.cables.index') }}" class="btn">
                             <div class="card-body">
@@ -319,7 +318,7 @@
             <!-- /CABOS -->
             <!-- CAIXAS -->
             @can('list-service_boxes')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.boxes.index') }}" class="btn">
                             <div class="card-body">
@@ -335,7 +334,7 @@
             <!-- /CAIXAS -->
             <!-- HISTÓRICO DE PROCESSOS -->
             @can('list-process-history')
-                <div class="col mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_history.index') }}" class="btn">
                             <div class="card-body">
@@ -350,8 +349,8 @@
             @endcan
             <!-- /HISTÓRICO DE PROCESSOS -->
             <!-- LISTA DE PROCESSOS -->
-            @can('list-process-history')
-                <div class="col mb-4">
+            @can('list-general-process')
+                <div class="col-sm-6 col-md-4 col-lg-2 mb-4 text-center">
                     <div class="card rounded-05 main-menu-card h-100">
                         <a href="{{ route('default.process_list.index') }}" class="btn">
                             <div class="card-body">
@@ -365,7 +364,6 @@
                 </div>
             @endcan
             <!-- /LISTA DE PROCESSOS -->
-        </div>
     </div>
 </div>
 
@@ -379,7 +377,11 @@
                         Desculpe, no momento não temos nada para exibir.
                     @else
                         @foreach($notices as $notice)
-                        <p class="text-justify"><span class="font-weight-bold">{{ $notice->title }}</span> -> {{ $notice->description }}</p>
+                            @if($notice->featured === 1)
+                            <p class="text-justify text-detail"><i class="fas text-warning fa-star" data-toggle="tooltip" data-placement="top" title="Esta notícia é importante"></i> <span class="font-weight-bold">{{ $notice->title }}</span> -> {{ $notice->description }}</p>
+                            @else
+                            <p class="text-justify"><span class="font-weight-bold">{{ $notice->title }}</span> -> {{ $notice->description }}</p>
+                            @endif
                         @endforeach
                     @endif
                 </div>

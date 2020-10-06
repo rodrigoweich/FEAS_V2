@@ -25,7 +25,7 @@ class StateController extends Controller
             return view('403');
         }
      
-        $states = State::paginate(15);
+        $states = State::orderBy('id', 'desc')->paginate(15);
      
         $teste = [];
         foreach($states as $c) {
@@ -149,7 +149,9 @@ class StateController extends Controller
         $states = State::where(function ($query) use ($request){
             $query->where('name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('uf', 'like', '%'.$request->dataToSearch.'%');
-        })->paginate(15);
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(15);
      
         $teste = [];
         foreach($states as $c) {

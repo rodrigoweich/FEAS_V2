@@ -28,7 +28,7 @@ class NoticeController extends Controller
             return view('403');
         }
      
-        $notices = Notice::paginate(15);
+        $notices = Notice::orderBy('id', 'DESC')->paginate(15);
         $users = User::all();
         return view('admin.notices.index')->with([
             'response' => $notices,
@@ -222,9 +222,11 @@ class NoticeController extends Controller
         ->where(function ($query) use ($request) {
             $query->whereDate('notices.pub_date_time', $request->dataToSearch)
             ->orWhere('notices.title', 'like', '%'.$request->dataToSearch.'%')
-            ->orWhere('notices.description', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('users.name', 'like', '%'.$request->dataToSearch.'%');
-        })->paginate(15);
+        })
+        ->select('notices.id', 'notices.title', 'notices.pub_date_time', 'notices.featured', 'notices.active', 'notices.users_id')
+        ->orderBy('notices.id', 'DESC')
+        ->paginate(15);
      
         $users = User::all();
         return view('admin.notices.index')->with([

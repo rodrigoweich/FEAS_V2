@@ -27,7 +27,7 @@ class RoleController extends Controller
             return view('403');
         }
 
-        $roles = Role::paginate(15);
+        $roles = Role::orderBy('id', 'desc')->paginate(15);
      
         $teste = [];
         foreach($roles as $c) {
@@ -162,7 +162,7 @@ class RoleController extends Controller
             return view('403');
         }
 
-        $roles = Role::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        $roles = Role::where('name','like', '%'.$request->dataToSearch.'%')->orderBy('id', 'desc')->paginate(15);
      
         $teste = [];
         foreach($roles as $c) {

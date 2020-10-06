@@ -40,6 +40,7 @@ class CustomerController extends Controller
                     'customers.contract_number as customer_contract',
                     'customers.name as customer_name',
                     'cities.name as city_name')
+        ->orderBy('customer_id', 'DESC')
         ->paginate(15);
 
         
@@ -111,6 +112,7 @@ class CustomerController extends Controller
                     'customers.contract_number as customer_contract',
                     'customers.name as customer_name',
                     'cities.name as city_name')
+        ->orderBy('customer_id', 'DESC')
         ->paginate(15);
      
         return view('default.customers.index')->with([

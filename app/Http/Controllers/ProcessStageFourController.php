@@ -194,7 +194,7 @@ class ProcessStageFourController extends Controller
             ->orWhere('cities.name', 'like', '%'.$request->dataToSearch.'%');
         })
         ->select('processes.id', 'processes.customers_id', 'processes.users_id', 'processes.created_at', 'customers.name', 'cities.name', 'users.name', 'addresses.cities_id', 'processes.responsible_id', 'processes.route')
-        ->orderBy('id', 'DESC')
+        ->orderBy('processes.id', 'DESC')
         ->paginate(15);
 
         $cities = City::all();

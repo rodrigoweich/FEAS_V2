@@ -23,7 +23,7 @@
                             <form action="{{ route('admin.notices.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por título, descrição, usuário ou data (AAAA-MM-DD)">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por título, usuário ou data (AAAA-MM-DD)">
                                     <div class="input-group-append">
                                         <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn panel-border" href="{{ route('admin.notices.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -87,7 +87,7 @@
                                             <a href="{{ route('admin.notices.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                         @endcan
                                         @can('delete-notices')
-                                        <form action="{{ route('admin.notices.destroy', $data->id) }}" method="POST">
+                                        <form id="del" action="{{ route('admin.notices.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <button type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
@@ -119,4 +119,13 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra-scripts')
+<script type="text/javascript">
+  $(document).on('click', '#del', function(){
+        if(confirm("Deseja mesmo deletar?")) { }
+        else { return false; }
+  });
+</script>
 @endsection

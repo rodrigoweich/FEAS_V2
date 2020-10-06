@@ -27,7 +27,7 @@ class CityController extends Controller
             return view('403');
         }
      
-        $cities = City::paginate(15);
+        $cities = City::orderBy('cities.id', 'DESC')->paginate(15);
 
         $teste = [];
         foreach($cities as $c) {
@@ -188,6 +188,7 @@ class CityController extends Controller
             $query->where('cities.name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('states.name', 'like', '%'.$request->dataToSearch.'%');
         })->select('cities.id', 'cities.name', 'cities.states_id', 'cities.m_lat', 'cities.m_lng', 'cities.m_zoom', 'cities.shortcut', 'states.name')
+        ->orderBy('cities.id', 'DESC')
         ->paginate(15);
 
         $teste = [];

@@ -33,7 +33,7 @@ class UserController extends Controller
             return view('403');
         }
 
-        $users = User::paginate(15);
+        $users = User::orderBy('id', 'desc')->paginate(15);
      
         $teste = [];
         foreach($users as $c) {
@@ -177,7 +177,9 @@ class UserController extends Controller
         $users = User::where(function ($query) use ($request) {
             $query->where('name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('email', 'like', '%'.$request->dataToSearch.'%');
-        })->paginate(15);
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(15);
      
         $teste = [];
         foreach($users as $c) {
