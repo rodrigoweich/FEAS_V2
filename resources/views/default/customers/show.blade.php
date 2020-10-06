@@ -5,7 +5,7 @@
 <script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
-<script type="text/javascript" src="{{ asset('js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 @endsection
 
 @section('navbar')

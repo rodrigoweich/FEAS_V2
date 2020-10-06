@@ -12,6 +12,7 @@ use App\Address;
 use App\ServiceBox;
 Use App\User;
 use App\Http\Requests\ProcessStageTwoRequest;
+use DB;
 
 class ProcessStageTwoController extends Controller
 {
@@ -103,5 +104,46 @@ class ProcessStageTwoController extends Controller
         }
 
         return redirect()->route('default.process_stage_two.index');
+    }
+
+    public function search(Request $request) {
+        if(Gate::denies('list-process-stage-two')){
+            return view('403');
+        }
+
+        $process = DB::table('processes')->where('processes.stage', '=', 1)
+        ->leftjoin('customers', 'processes.customers_id', '=', 'customers.id')
+        ->leftjoin('addresses', 'customers.id', '=', 'addresses.customers_id')
+        ->leftjoin('cities', 'addresses.cities_id', '=', 'cities.id')
+        ->leftjoin('users', 'processes.users_id', '=', 'users.id')
+        ->where(function ($query) use ($request){
+            $query->whereDate('processes.created_at', $request->dataToSearch)
+            ->orWhere('customers.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('users.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('cities.name', 'like', '%'.$request->dataToSearch.'%');
+        })
+        ->select('processes.id', 'processes.customers_id', 'processes.users_id', 'processes.created_at', 'customers.name', 'cities.name', 'users.name', 'addresses.cities_id')
+        ->orderBy('id', 'DESC')
+        ->paginate(15);
+
+        $cities = City::all();
+        $users = User::all();
+        $customers = Customer::all();
+        $addresses = Address::all();
+
+        $teste = [];
+        foreach($cities as $c) {
+            $teste += array($c->id => HasController::hasBoxesInTheCity($c->id));
+        }
+
+        return view('default.process_stage_two.index')->with([
+            'response' => $process,
+            'hasBoxes' => HasController::hasBoxes(),
+            'haveBoxesByCity' => $teste,
+            'user' => $users,
+            'customer' => $customers,
+            'address' => $addresses,
+            'city' => $cities
+        ]);
     }
 }

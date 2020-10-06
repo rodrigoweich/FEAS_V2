@@ -44,5 +44,9 @@ class RuleRoleSeeder extends Seeder
         $previous_all_rules = Rule::find([49, 50, 51, 52, 34, 36, 38, 40]);
         $previous_all_role = Role::find(8);
         $previous_all_role->rules()->attach($previous_all_rules);
+        
+        $reporter_rules = Rule::find(53);
+        $reporter_role = Role::find(9);
+        $reporter_role->rules()->attach($reporter_rules);
     }
 }

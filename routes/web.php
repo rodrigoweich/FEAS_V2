@@ -53,22 +53,27 @@ Route::prefix('default')->name('default.')->group(function () {
     Route::post('/process/stage/1', 'ProcessStageOneController@store_stage_one')->name('process_stage_one.store');
     Route::get('/process/stage/1/{process}/edit', 'ProcessStageOneController@edit_stage_one')->name('process_stage_one.edit');
     Route::put('/process/stage/1/{process}', 'ProcessStageOneController@update_stage_one')->name('process_stage_one.update');
+    Route::post('/process/stage/1/search', 'ProcessStageOneController@search')->name('process_stage_one.search');
     // PROCESS STAGE 2
     Route::get('/process/stage/2', 'ProcessStageTwoController@index_stage_two')->name('process_stage_two.index');
     Route::get('/process/stage/2/{process}/edit', 'ProcessStageTwoController@edit_stage_two')->name('process_stage_two.edit');
     Route::put('/process/stage/2/{process}', 'ProcessStageTwoController@update_stage_two')->name('process_stage_two.update');
+    Route::post('/process/stage/2/search', 'ProcessStageTwoController@search')->name('process_stage_two.search');
     // PROCESS STAGE 3
     Route::get('/process/stage/3', 'ProcessStageThreeController@index_stage_three')->name('process_stage_three.index');
     Route::get('/process/stage/3/{process}/edit', 'ProcessStageThreeController@edit_stage_three')->name('process_stage_three.edit');
     Route::put('/process/stage/3/{process}', 'ProcessStageThreeController@update_stage_three')->name('process_stage_three.update');
+    Route::post('/process/stage/3/search', 'ProcessStageThreeController@search')->name('process_stage_three.search');
     // PROCESS STAGE 4
     Route::get('/process/stage/4', 'ProcessStageFourController@index_stage_four')->name('process_stage_four.index');
     Route::get('/process/stage/4/{process}/edit', 'ProcessStageFourController@edit_stage_four')->name('process_stage_four.edit');
     Route::put('/process/stage/4/{process}', 'ProcessStageFourController@update_stage_four')->name('process_stage_four.update');
+    Route::post('/process/stage/4/search', 'ProcessStageFourController@search')->name('process_stage_four.search');
     // PROCESS STAGE 5
     Route::get('/process/stage/5', 'ProcessStageFiveController@index_stage_five')->name('process_stage_five.index');
     Route::get('/process/stage/5/{process}/edit', 'ProcessStageFiveController@edit_stage_five')->name('process_stage_five.edit');
     Route::put('/process/stage/5/{process}', 'ProcessStageFiveController@update_stage_five')->name('process_stage_five.update');
+    Route::post('/process/stage/5/search', 'ProcessStageFiveController@search')->name('process_stage_five.search');
     Route::delete('/process/finish/{process}', 'ProcessStageFiveController@destroy_process')->name('process.finish');
     // NEXT AND RETURN
     Route::get('/process/next/{process}', 'ProcessController@next_stage')->name('process.next_stage');

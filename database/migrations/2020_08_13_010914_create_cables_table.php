@@ -18,7 +18,7 @@ class CreateCablesTable extends Migration
             $table->string('name', 60);
             $table->string('color', 7);
             $table->tinyInteger('dotted')->default(0);
-            $table->integer('dotted_repeat');
+            $table->integer('dotted_repeat')->nullable(true);
             $table->integer('size');
             $table->timestamps();
         });

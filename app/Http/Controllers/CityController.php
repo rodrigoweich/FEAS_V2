@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\City;
 use App\State;
+use App\Http\Requests\CityRequest;
+use DB;
 
 class CityController extends Controller
 {
@@ -32,8 +34,10 @@ class CityController extends Controller
             $teste += array($c->id => HasController::hasProcessesLinkedToTheCity($c->id));
         }
 
+        $states = State::all();
         return view('admin.cities.index')->with([
             'response' => $cities,
+            'state' => $states,
             'hasProcesses' => $teste
         ]);
     }
@@ -61,21 +65,11 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
         if(Gate::denies('create-cities')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:2|max:75',
-        ];
-        $messages = [
-            'name.required' => "O nome da cidade não pode ficar em branco.",
-            'name.min' => "O nome deve conter ao menos :min caracteres.",
-            'name.max' => "O nome deve conter no máximo :max caracteres."
-        ];
-        $request->validate($rules, $messages);
 
         $city = new City;
         $city->name = $request->name;
@@ -135,21 +129,11 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CityRequest $request, $id)
     {
         if(Gate::denies('update-cities')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:2|max:75',
-        ];
-        $messages = [
-            'name.required' => "O nome da cidade não pode ficar em branco.",
-            'name.min' => "O nome deve conter ao menos :min caracteres.",
-            'name.max' => "O nome deve conter no máximo :max caracteres."
-        ];
-        $request->validate($rules, $messages);
 
         $city = City::find($id);
         $city->name = $request->name;
@@ -194,9 +178,28 @@ class CityController extends Controller
 
     public function search(Request $request)
     {
-        $cities = City::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-cities')){
+            return view('403');
+        }
+
+        $cities = DB::table('cities')
+        ->leftjoin('states', 'cities.states_id', '=', 'states.id')
+        ->where(function ($query) use ($request){
+            $query->where('cities.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('states.name', 'like', '%'.$request->dataToSearch.'%');
+        })->select('cities.id', 'cities.name', 'cities.states_id', 'cities.m_lat', 'cities.m_lng', 'cities.m_zoom', 'cities.shortcut', 'states.name')
+        ->paginate(15);
+
+        $teste = [];
+        foreach($cities as $c) {
+            $teste += array($c->id => HasController::hasProcessesLinkedToTheCity($c->id));
+        }
+
+        $states = State::all();
         return view('admin.cities.index')->with([
-            'response' => $cities
+            'response' => $cities,
+            'state' => $states,
+            'hasProcesses' => $teste
         ]);
     }
 }

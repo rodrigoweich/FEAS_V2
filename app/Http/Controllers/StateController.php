@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\State;
+use App\Http\Requests\ProcessStageOneRequest;
 
 class StateController extends Controller
 {
@@ -25,8 +26,15 @@ class StateController extends Controller
         }
      
         $states = State::paginate(15);
+     
+        $teste = [];
+        foreach($states as $c) {
+            $teste += array($c->id => HasController::hasCitiesLinkedToTheState($c->id));
+        }
+
         return view('admin.states.index')->with([
-            'response' => $states
+            'response' => $states,
+            'hasProcesses' => $teste
         ]);
     }
 
@@ -50,7 +58,7 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateRequest $request)
     {
         if(Gate::denies('create-states')){
             return view('403');
@@ -99,7 +107,7 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StateRequest $request, $id)
     {
         if(Gate::denies('create-states')){
             return view('403');
@@ -134,9 +142,23 @@ class StateController extends Controller
 
     public function search(Request $request)
     {
-        $states = State::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-states')){
+            return view('403');
+        }
+     
+        $states = State::where(function ($query) use ($request){
+            $query->where('name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('uf', 'like', '%'.$request->dataToSearch.'%');
+        })->paginate(15);
+     
+        $teste = [];
+        foreach($states as $c) {
+            $teste += array($c->id => HasController::hasCitiesLinkedToTheState($c->id));
+        }
+
         return view('admin.states.index')->with([
-            "response" => $states
+            'response' => $states,
+            'hasProcesses' => $teste
         ]);
     }
 }

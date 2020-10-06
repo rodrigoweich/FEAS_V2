@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('extra-header')
+<script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
+@endsection
+
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -23,7 +27,7 @@
                             <form action="{{ route('admin.states.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por nome ou UF">
                                     <div class="input-group-append">
                                         <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn panel-border" href="{{ route('admin.states.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -64,17 +68,23 @@
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
                                     <td class="align-middle">{{ $data->name }}</td>
                                     <td class="align-middle">{{ $data->uf }}</td>
-                                    <td class="align-middle">{{ $data->cities->where('states_id', $data->id)->count() }}</td>
+                                    <td class="align-middle">
+                                        @if($data->cities->where('states_id', $data->id)->count() === 0)
+                                            <i class="fas text-danger fa-times fa-lg"></i>
+                                        @else
+                                            {{ $data->cities->where('states_id', $data->id)->count() }}
+                                        @endif
+                                    </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                             @can('update-states')
-                                                <a href="{{ route('admin.states.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                                <a href="{{ route('admin.states.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             @endcan
                                             @can('delete-states')
-                                                <form action="{{ route('admin.states.destroy', $data->id) }}" method="POST">
+                                                <form id="dataIds_{{ $data->id }}" action="{{ route('admin.states.destroy', $data->id) }}" method="POST">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
-                                                    <button type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                                    <button type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                                 </form>
                                             @endcan
                                         </div>
@@ -103,4 +113,26 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra-scripts')
+<script type='text/javascript'>
+@foreach($hasProcesses as $key => $h)
+    $("#dataIds_" + {{ $key }}).click(function(e) {
+        if({{ $h }} != 0) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.notify({
+                message: "Você não pode deletar este estado pois existem cidades vinculados a ele."
+            }, {
+                type: "danger"
+            });
+        } else {
+            if(confirm("Deseja mesmo deletar?")) {} else {
+                return false;
+            }
+        }
+    });
+@endforeach
+</script>
 @endsection

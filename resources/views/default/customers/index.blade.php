@@ -23,7 +23,7 @@
                             <form action="{{ route('default.customers.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por nome, telefone, número de contrato e cidade">
                                     <div class="input-group-append">
                                         <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn panel-border" href="{{ route('default.customers.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -48,24 +48,24 @@
                                     <th>Ícone</th>
                                     <th>Telefone</th>
                                     <th>Contrato</th>
-                                    <th>Caixa vinculada</th>
+                                    <th>Cidade</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($response as $data)
                                 <tr>
-                                    <td scope="row" class="align-middle">{{ $data->id }}</td>
-                                    <td class="align-middle">{{ $data->name }} {{ $data->surname }}</td>
+                                    <td scope="row" class="align-middle">{{ $data->customer_id }}</td>
+                                    <td class="align-middle">{{ $data->customer_name }} {{ $data->customer_surname }}</td>
                                     <td class="align-middle">
-                                        <i class="{{ $data->m_icon }}"></i>
+                                        <i class="{{ $data->customer_icon }} fa-lg"></i>
                                     </td>
-                                    <td class="align-middle">{{ $data->phone }}</td>
-                                    <td class="align-middle">{{ $data->contract_number }}</td>
-                                    <td class="align-middle">@if($data->service_boxes_id === null) Não vinculado @else {{ $box->find($data->service_boxes_id)->name }} @endif</td>
+                                    <td class="align-middle">{{ $data->customer_phone }}</td>
+                                    <td class="align-middle">{{ $data->customer_contract }}</td>
+                                    <td class="align-middle">{{ $data->city_name }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                             @can('show-customers')
-                                                <a href="{{ route('default.customers.show', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-eye"></i></button></a>
+                                                <a href="{{ route('default.customers.show', $data->customer_id) }}" data-toggle="tooltip" data-placement="top" title="Visualizar"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
                                             @endcan
                                         </div>
                                     </td>

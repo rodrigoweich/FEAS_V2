@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Customer;
 use App\ServiceBox;
-use App\City;
 use App\Process;
 use App\ProcessPhotos;
+use App\Http\Requests\CityRequest;
+use DB;
+use App\City;
 
 class CustomerController extends Controller
 {
@@ -28,11 +30,21 @@ class CustomerController extends Controller
             return view('403');
         }
      
-        $customers = Customer::paginate(15);
-        $sbox = ServiceBox::all();
+        $customers = DB::table('customers')
+        ->leftjoin('addresses', 'customers.id', '=', 'addresses.customers_id')
+        ->leftjoin('cities', 'addresses.cities_id', '=', 'cities.id')
+        ->select('customers.id as customer_id',
+                    'customers.surname as customer_surname',
+                    'customers.phone as customer_phone',
+                    'customers.m_icon as customer_icon',
+                    'customers.contract_number as customer_contract',
+                    'customers.name as customer_name',
+                    'cities.name as city_name')
+        ->paginate(15);
+
+        
         return view('default.customers.index')->with([
-            'response' => $customers,
-            'box' => $sbox
+            'response' => $customers
         ]);
     }
 
@@ -75,5 +87,34 @@ class CustomerController extends Controller
             }
         }
         return redirect()->route('default.customers.index');
+    }
+
+    public function search(Request $request)
+    {
+        if(Gate::denies('list-customers')){
+            return view('403');
+        }
+
+        $customers = DB::table('customers')
+        ->leftjoin('addresses', 'customers.id', '=', 'addresses.customers_id')
+        ->leftjoin('cities', 'addresses.cities_id', '=', 'cities.id')
+        ->where(function ($query) use ($request){
+            $query->where('cities.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('customers.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('customers.surname', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('customers.phone', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('customers.contract_number', '=', $request->dataToSearch);
+        })->select('customers.id as customer_id',
+                    'customers.surname as customer_surname',
+                    'customers.phone as customer_phone',
+                    'customers.m_icon as customer_icon',
+                    'customers.contract_number as customer_contract',
+                    'customers.name as customer_name',
+                    'cities.name as city_name')
+        ->paginate(15);
+     
+        return view('default.customers.index')->with([
+            'response' => $customers
+        ]);
     }
 }

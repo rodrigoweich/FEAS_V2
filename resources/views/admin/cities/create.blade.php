@@ -91,15 +91,15 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" readonly>
+                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" readonly>
+                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" readonly>
+                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -247,5 +247,8 @@ function clearMarkers() {
     insertedBuildings = false;
 };
 
+@if($errors->any())
+showAlertSave();
+@endif
 </script>
 @endsection

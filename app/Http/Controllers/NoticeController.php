@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Auth;
+use App\Http\Requests\NoticeRequest;
 use App\Notice;
+use DB;
+use App\User;
 
 class NoticeController extends Controller
 {
@@ -26,8 +29,10 @@ class NoticeController extends Controller
         }
      
         $notices = Notice::paginate(15);
+        $users = User::all();
         return view('admin.notices.index')->with([
-            'response' => $notices
+            'response' => $notices,
+            'user' => $users
         ]);
     }
 
@@ -52,7 +57,7 @@ class NoticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NoticeRequest $request)
     {
         if(Gate::denies('create-notices')){
             return view('403');
@@ -134,7 +139,7 @@ class NoticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NoticeRequest $request, $id)
     {
         if(Gate::denies('create-notices')){
             return view('403');
@@ -208,9 +213,23 @@ class NoticeController extends Controller
 
     public function search(Request $request)
     {
-        $data = Notice::where('title','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-notices')){
+            return view('403');
+        }
+
+        $notices = DB::table('notices')
+        ->leftjoin('users', 'notices.users_id', '=', 'users.id')
+        ->where(function ($query) use ($request) {
+            $query->whereDate('notices.pub_date_time', $request->dataToSearch)
+            ->orWhere('notices.title', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('notices.description', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('users.name', 'like', '%'.$request->dataToSearch.'%');
+        })->paginate(15);
+     
+        $users = User::all();
         return view('admin.notices.index')->with([
-            'response' => $data
+            'response' => $notices,
+            'user' => $users
         ]);
     }
 }

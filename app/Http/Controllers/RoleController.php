@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 use App\Role;
 use App\Rule;
+use App\Http\Requests\RoleRequest;
 
 class RoleController extends Controller
 {
@@ -25,10 +26,17 @@ class RoleController extends Controller
         if(Gate::denies('list-roles')){
             return view('403');
         }
-     
+
         $roles = Role::paginate(15);
+     
+        $teste = [];
+        foreach($roles as $c) {
+            $teste += array($c->id => HasController::hasUsersLinkedToTheRole($c->id));
+        }
+     
         return view('admin.roles.index')->with([
-            'roles' => $roles
+            'roles' => $roles,
+            'hasProcesses' => $teste
         ]);
     }
 
@@ -55,21 +63,11 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         if(Gate::denies('create-roles')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:3|max:50'
-        ];
-        $messages = [
-            "name.required" => "O nome da função não pode ficar em branco.",
-            "name.min" => "O nome deve conter ao menos :min caracteres.",
-            "name.max" => "O nome deve conter no máximo :max caracteres."
-        ];
-        $request->validate($rules, $messages);
 
         $role = new Role();
         $role->name = $request->name;
@@ -120,21 +118,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         if(Gate::denies('update-roles')){
             return view('403');
         }
-
-        $rules = [
-            'name' => 'required|min:3|max:50'
-        ];
-        $messages = [
-            "name.required" => "O nome da função não pode ficar em branco.",
-            "name.min" => "O nome deve conter ao menos :min caracteres.",
-            "name.max" => "O nome deve conter no máximo :max caracteres."
-        ];
-        $request->validate($rules, $messages);
 
         $role = Role::find($id);
         $role->name = $request->name;
@@ -170,9 +158,20 @@ class RoleController extends Controller
 
     public function search(Request $request)
     {
+        if(Gate::denies('list-roles')){
+            return view('403');
+        }
+
         $roles = Role::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+     
+        $teste = [];
+        foreach($roles as $c) {
+            $teste += array($c->id => HasController::hasUsersLinkedToTheRole($c->id));
+        }
+     
         return view('admin.roles.index')->with([
-            "roles" => $roles,
+            'roles' => $roles,
+            'hasProcesses' => $teste
         ]);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('extra-header')
-<link href="{{ config('global.type_asset')('css/teste3.css') }}" rel="stylesheet">
+<link href="{{ config('global.type_asset')('vendor/css/home-timeline.css') }}" rel="stylesheet">
 @endsection
 
 @section('navbar')
@@ -12,7 +12,7 @@
 @section('content')
 @can('home-timeline')
 <div class="container" id="procces_timeline">
-    <h1>Timeline de processos</h1>
+    <h1>Linha do tempo de processos</h1>
     <div class="flex-parent">
         <div class="input-flex-container">
             <input type="radio" name="timeline-dot" data-description="1" checked>
@@ -57,58 +57,62 @@
                     @endif
                 </p>
                 <p data-description="2">
-                    <span class="row d-flex justify-content-center mb-2" style="font-size: 16px !important">
+                    <span class="row d-flex justify-content-center mb-2 text-center" style="font-size: 16px !important">
                         @if($processes_stage_two === 0)
                             Desculpe, este estágio não contém nenhum processo. =/
                         @else
-                            Processos em estágio 2: {{ $processes_stage_two }}
+                            O segundo estágio contém {{ $processes_stage_two }} @if($processes_stage_two === 1) processo @else processos @endif em andamento<br>
+                            Último processo nesse estágio está em nome de {{ $customer->find($process->where('stage', 1)->get()->last()->customers_id)->name }} {{ $customer->find($process->where('stage', 1)->get()->last()->customers_id)->surname }}
                         @endif
                     </span>
                     @if($processes_stage_two !== 0)
                     <span class="row d-flex justify-content-center mt-2">
-                        <a href="{{ route('default.process_stage_two.index') }}"><button class="btn btn-primary">Visualizar processos</button></a>
+                        <a href="{{ route('default.process_stage_two.index') }}"><button class="btn btn-detail">Visualizar processos</button></a>
                     </span>
                     @endif
                 </p>
                 <p data-description="3">
-                    <span class="row d-flex justify-content-center mb-2" style="font-size: 16px !important">
+                    <span class="row d-flex justify-content-center mb-2 text-center" style="font-size: 16px !important">
                         @if($processes_stage_three === 0)
                             Desculpe, este estágio não contém nenhum processo. =/
                         @else
-                            Processos em estágio 3: {{ $processes_stage_three }}
+                            O terceiro estágio contém {{ $processes_stage_three }} @if($processes_stage_three === 1) processo @else processos @endif em andamento<br>
+                            Último processo nesse estágio está em nome de {{ $customer->find($process->where('stage', 2)->get()->last()->customers_id)->name }} {{ $customer->find($process->where('stage', 2)->get()->last()->customers_id)->surname }}
                         @endif
                     </span>
                     @if($processes_stage_three !== 0)
                     <span class="row d-flex justify-content-center mt-2">
-                        <a href="{{ route('default.process_stage_three.index') }}"><button class="btn btn-primary">Visualizar processos</button></a>
+                        <a href="{{ route('default.process_stage_three.index') }}"><button class="btn btn-detail">Visualizar processos</button></a>
                     </span>
                     @endif
                 </p>
                 <p data-description="4">
-                    <span class="row d-flex justify-content-center mb-2" style="font-size: 16px !important">
+                    <span class="row d-flex justify-content-center mb-2 text-center" style="font-size: 16px !important">
                         @if($processes_stage_four === 0)
                             Desculpe, este estágio não contém nenhum processo. =/
                         @else
-                            Processos em estágio 4: {{ $processes_stage_four }}
+                            O quarto estágio contém {{ $processes_stage_four }} @if($processes_stage_four === 1) processo @else processos @endif em andamento<br>
+                            Último processo nesse estágio está em nome de {{ $customer->find($process->where('stage', 3)->get()->last()->customers_id)->name }} {{ $customer->find($process->where('stage', 3)->get()->last()->customers_id)->surname }}
                         @endif
                     </span>
                     @if($processes_stage_four !== 0)
                     <span class="row d-flex justify-content-center mt-2">
-                        <a href="{{ route('default.process_stage_four.index') }}"><button class="btn btn-primary">Visualizar processos</button></a>
+                        <a href="{{ route('default.process_stage_four.index') }}"><button class="btn btn-detail">Visualizar processos</button></a>
                     </span>
                     @endif
                 </p>
                 <p data-description="5">
-                    <span class="row d-flex justify-content-center mb-2" style="font-size: 16px !important">
+                    <span class="row d-flex justify-content-center mb-2 text-center" style="font-size: 16px !important">
                         @if($processes_stage_five === 0)
                             Desculpe, este estágio não contém nenhum processo. =/
                         @else
-                            Processos em estágio 5: {{ $processes_stage_five }}
+                            O quarto estágio contém {{ $processes_stage_five }} @if($processes_stage_five === 1) processo @else processos @endif em andamento<br>
+                            Último processo nesse estágio está em nome de {{ $customer->find($process->where('stage', 4)->get()->last()->customers_id)->name }} {{ $customer->find($process->where('stage', 4)->get()->last()->customers_id)->surname }}
                         @endif
                     </span>
                     @if($processes_stage_five !== 0)
                     <span class="row d-flex justify-content-center mt-2">
-                        <a href="{{ route('default.process_stage_five.index') }}"><button class="btn btn-primary">Visualizar processos</button></a>
+                        <a href="{{ route('default.process_stage_five.index') }}"><button class="btn btn-detail">Visualizar processos</button></a>
                     </span>
                     @endif
                 </p>

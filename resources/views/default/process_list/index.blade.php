@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('extra-header')
-<link href="{{ asset('css/teste.css') }}" rel="stylesheet">
+<link href="{{ asset('vendor/css/process-timeline.css') }}" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
 <style>
 </style>
@@ -54,7 +54,6 @@
                                     <th>Estágio do processo</th>
                                     <th>Cliente</th>
                                     <th>Iniciado por</th>
-                                    <th>Iniciado em</th>
                                     <th>Finalizado por</th>
                                 </tr>
                             </thead>
@@ -81,7 +80,6 @@
                                     </td>
                                     <td class="align-middle">{{ $data->customer()->get()->first()->name }} {{ Str::limit($data->customer()->get()->first()->surname, 15) }}</td>
                                     <td class="align-middle">{{ Str::limit($user->find($data->users_id)->name, 30) }}</td>
-                                    <td class="align-middle">{{ $data->created_at }}</td>
                                     <td class="align-middle">
                                         @if($data->users_id_finished === null)
                                             Em andamento
@@ -89,6 +87,13 @@
                                             {{ Str::limit($user->find($data->users_id_finished)->name, 30) }}
                                         @endif
                                     </td>
+                                    @can('show-customers')
+                                    <td class="align-middle">
+                                        <div class="d-flex align-content-center">
+                                                <a href="{{ route('default.customers.show', $data->customers_id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
+                                        </div>
+                                    </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>

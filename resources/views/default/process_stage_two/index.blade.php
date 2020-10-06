@@ -18,19 +18,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="Retornar ao app">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <span class="align-middle">&nbsp;&nbsp;{{ __('Process Stage Two') }}</span>
+                            <span class="align-middle">&nbsp;&nbsp;Processo estágio - 2</span>
                         </div>
                         <div class="col-8 text-right">
-                            <form action="{{ route('default.boxes.search') }}" method="post">
+                            <form action="{{ route('default.process_stage_two.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="{{ __('Filter') }}">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por cliente, usuário, cidade ou data (AAAA-MM-DD)">
                                     <div class="input-group-append">
-                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="{{ __('Search') }}"><i class="fas fa-search"></i></button>
-                                        <a class="btn panel-border" href="{{ route('default.process_stage_two.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Clear and return') }}"><i class="fas fa-undo-alt"></i></a>
+                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
+                                        <a class="btn panel-border" href="{{ route('default.process_stage_two.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -48,33 +48,33 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('Customer') }}</th>
-                                    <th>{{ __('Icon ref.') }}</th>
-                                    <th>{{ __('City') }}</th>
-                                    <th>{{ __('Started by') }}</th>
-                                    <th>{{ __('Started at') }}</th>
+                                    <th>Cliente</th>
+                                    <th>Icone</th>
+                                    <th>Cidade</th>
+                                    <th>Iniciado por</th>
+                                    <th>Iniciado em</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($response as $data)
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
-                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
-                                    <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }}"></i></td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ $customer->find($data->customers_id)->surname }}</td>
+                                    <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
                                     <td class="align-middle">{{ $city->find($address->find($data->customers_id)->cities_id)->name }}</td>
                                     <td class="align-middle">{{ $user->find($data->users_id)->name }}</td>
                                     <td class="align-middle">{{ $data->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                             @can('update-process-stage-two')
-                                            <a id="dataIds_{{ $data->id }}" teste="{{ $data->cities_id }}" href="{{ route('default.process_stage_two.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            <a id="dataIds_{{ $data->id }}" teste="{{ $data->cities_id }}" href="{{ route('default.process_stage_two.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             @endcan
                                             @can('previous-process-stage-two')
-                                            <a href="{{ route('default.process.previous_stage', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-danger fa-arrow-left"></i></button></a>
+                                            <a href="{{ route('default.process.previous_stage', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Voltar"><i class="fas text-danger fa-arrow-left fa-lg"></i></button></a>
                                             @endcan
                                             @can('next-process-stage-two')
                                                 @if($customer->find($data->customers_id)->service_boxes_id !== null)
-                                                <a href="{{ route('default.process.next_stage', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-success fa-arrow-right"></i></button></a>
+                                                <a href="{{ route('default.process.next_stage', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Avançar"><i class="fas text-success fa-arrow-right fa-lg"></i></button></a>
                                                 @endif
                                             @endcan
                                         </div>

@@ -5,7 +5,8 @@
 <script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
-<script type="text/javascript" src="{{ asset('js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -73,7 +74,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('default.process_stage_four.update', $response) }}" method="post" enctype="multipart/form-data">
+                <form id="thisForm" action="{{ route('default.process_stage_four.update', $response) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
                     <input type="hidden" id="route" name="route">
@@ -82,37 +83,37 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputname">Nome</label>
-                                    <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }}">
+                                    <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }}" readonly>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="surname">Sobrenome</label>
-                                    <input type="text" class="form-control" id="surname" name="surname" value="{{ $response->customer()->get()->first()->surname }}">
+                                    <input type="text" class="form-control" id="surname" name="surname" value="{{ $response->customer()->get()->first()->surname }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="phone">Telefone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $response->customer()->get()->first()->phone }}">
+                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $response->customer()->get()->first()->phone }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="contract_number">Número de contrato</label>
-                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ $response->customer()->get()->first()->contract_number }}">
+                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ $response->customer()->get()->first()->contract_number }}" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="number">Número de endereço</label>
-                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0">
+                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0" readonly>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_description">Descrição de endereço</label>
-                                    <input type="text" class="form-control" id="end_description" name="end_description" value="{{ $response->address()->get()->first()->end_description }}">
+                                    <input type="text" class="form-control" id="end_description" name="end_description" value="{{ $response->address()->get()->first()->end_description }}" readonly>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="complement">Complemento de endereço</label>
-                                    <input type="text" class="form-control" id="complement" name="complement" value="{{ $response->address()->get()->first()->complement }}">
+                                    <input type="text" class="form-control" id="complement" name="complement" value="{{ $response->address()->get()->first()->complement }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="city">Cidade</label>
-                                    <select name="city" id="city" class="form-control selectTwo" style="width: 100%">
+                                    <select name="city" id="city" class="form-control selectTwo" style="width: 100%" disabled>
                                         @foreach($cities as $city)
                                             <option value="{{ $city->id }}" @if($response->address()->get()->first()->cities_id == $city->id) selected @endif>{{ __($city->name) }}</option>
                                         @endforeach
@@ -184,7 +185,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="custom-file">
                                         <label for="photos">Foi encontrado um total de {{ count($photos) }} fotos para esse processo.</label>
-                                        <a onclick="$('#showPhotos').modal('show');" class="text-primary">Clique aqui para visualizar.</a>
+                                        <a onclick="$('#alertSave').modal('hide'); $('#showPhotos').modal('show');" class="text-primary">Clique aqui para visualizar.</a>
                                     </div>
                                 </div>
                             </div>
@@ -331,5 +332,14 @@ function initMap() {
 @if($errors->any())
 showAlertSave();
 @endif
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
+});
 </script>
 @endsection

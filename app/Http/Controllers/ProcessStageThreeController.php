@@ -10,6 +10,7 @@ use App\City;
 use App\Customer;
 use App\Address;
 Use App\User;
+use DB;
 use App\Http\Requests\ProcessStageThreeRequest;
 
 class ProcessStageThreeController extends Controller
@@ -45,7 +46,17 @@ class ProcessStageThreeController extends Controller
         }
 
         $response = Process::find($id);
-        $users = User::all();
+        /*
+        $users = DB::table('users')
+        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
+        ->select('users.name')->groupBy('name')
+        ->orderBy('role_user.role_id', 'asc')->get();*/
+        $users = DB::table('users')
+        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
+        ->select('users.name', 'users.id')
+        ->groupBy('users.name', 'users.id')
+        ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
+        ->get();
         $city = City::all();
 
         return view('default.process_stage_three.edit')->with([
@@ -75,5 +86,46 @@ class ProcessStageThreeController extends Controller
         }
 
         return redirect()->route('default.process_stage_three.index');
+    }
+
+    public function search(Request $request) {
+        if(Gate::denies('list-process-stage-three')){
+            return view('403');
+        }
+
+        $process = DB::table('processes')->where('processes.stage', '=', 2)
+        ->leftjoin('customers', 'processes.customers_id', '=', 'customers.id')
+        ->leftjoin('addresses', 'customers.id', '=', 'addresses.customers_id')
+        ->leftjoin('cities', 'addresses.cities_id', '=', 'cities.id')
+        ->leftjoin('users', 'processes.users_id', '=', 'users.id')
+        ->where(function ($query) use ($request){
+            $query->whereDate('processes.created_at', $request->dataToSearch)
+            ->orWhere('customers.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('users.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('cities.name', 'like', '%'.$request->dataToSearch.'%');
+        })
+        ->select('processes.id', 'processes.customers_id', 'processes.users_id', 'processes.created_at', 'customers.name', 'cities.name', 'users.name', 'addresses.cities_id', 'processes.responsible_id')
+        ->orderBy('id', 'DESC')
+        ->paginate(15);
+
+        $cities = City::all();
+        $users = User::all();
+        $customers = Customer::all();
+        $addresses = Address::all();
+
+        $teste = [];
+        foreach($cities as $c) {
+            $teste += array($c->id => HasController::hasBoxesInTheCity($c->id));
+        }
+
+        return view('default.process_stage_three.index')->with([
+            'response' => $process,
+            'hasBoxes' => HasController::hasBoxes(),
+            'haveBoxesByCity' => $teste,
+            'user' => $users,
+            'customer' => $customers,
+            'address' => $addresses,
+            'city' => $cities
+        ]);
     }
 }

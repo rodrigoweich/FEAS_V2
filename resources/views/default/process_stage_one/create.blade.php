@@ -4,6 +4,7 @@
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -119,7 +120,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('default.process_stage_one.store') }}" method="post">
+                <form id="thisForm" action="{{ route('default.process_stage_one.store') }}" method="post">
                     @csrf
                     <div class="row mb-3">
                         <div class="col">
@@ -134,7 +135,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="phone">Telefone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="(00) 00000-0000" value="{{ old('phone') }}">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="contract_number">Número de contrato</label>
@@ -456,5 +457,14 @@ function changeMapType(target, mapType, htmlText) {
 @if($errors->any())
 showAlertSave();
 @endif
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
+});
 </script>
 @endsection

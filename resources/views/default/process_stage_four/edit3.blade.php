@@ -5,8 +5,9 @@
 <script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
-<script type="text/javascript" src="{{ asset('js/gmaps.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/html2canvas.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/html2canvas.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -97,7 +98,7 @@
             <a onclick="createListenerToTheServiceBox(boxesMarkers, boxesIds)" class="list-group-item list-group-item-action bg-light">Alterar caixa<span class="float-right"><i class="far fa-edit"></i></span></a>
             <a onclick="downloadMap()" class="list-group-item list-group-item-action bg-light">Salvar mapa offline<span class="float-right"><i class="fas fa-download"></i></span></a>
             <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">Salvar informações<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
-            <a href="{{ route('default.process_stage_one.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
+            <a href="{{ route('default.process_stage_four.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -124,7 +125,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('default.process_stage_four.update', $response) }}" method="post" enctype="multipart/form-data">
+                <form id="thisForm" action="{{ route('default.process_stage_four.update', $response) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
                     <input type="hidden" id="route" name="route">
@@ -255,7 +256,7 @@
                     @endif
 
                     <span class="float-right">
-                        <a class="btn btn-danger" href="{{ route('default.process_stage_one.index') }}" role="button">Cancelar e voltar</a>
+                        <a class="btn btn-danger" href="{{ route('default.process_stage_four.index') }}" role="button">Cancelar e voltar</a>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar essa janela</button>
                         <button type="submit" class="btn btn-success">Salvar informações</button>
                     </span>
@@ -359,6 +360,15 @@ function downloadMap() {
 $("body").on("change", function() {
     var numFiles = $("#photos", this)[0].files.length;
     $('#count_photos').text("Número de fotos selecionadas para esse processo: " + numFiles);
+});
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
 });
 </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('extra-header')
-<link href="{{ asset('css/teste.css') }}" rel="stylesheet">
+<link href="{{ asset('vendor/css/process-timeline.css') }}" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
 <style>
 </style>
@@ -87,6 +87,13 @@
                                             {{ Str::limit($user->find($data->users_id_finished)->name, 30) }}
                                         @endif
                                     </td>
+                                    @can('show-customers')
+                                    <td class="align-middle">
+                                        <div class="d-flex align-content-center">
+                                                <a href="{{ route('default.customers.show', $data->customers_id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
+                                        </div>
+                                    </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -3,6 +3,7 @@
 @section('extra-header')
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -17,7 +18,14 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Edit existing') }}
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn button-without-style btn-sm" href="{{ route('default.process_stage_three.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Voltar a página de processos">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <span class="align-middle">&nbsp;&nbsp;Editar processo existente</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,20 +34,20 @@
             <div class="card shadow-sm">
 
                 <div class="card-body">
-                    <form action="{{ route('default.process_stage_three.update', $response) }}" method="post">
+                    <form id="thisForm" action="{{ route('default.process_stage_three.update', $response) }}" method="post">
                         @csrf
                         {{ method_field('PUT') }}
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputname">{{ __('Process client') }}</label>
+                                <label for="inputname">Cliente</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }} {{ $response->customer()->get()->first()->surname }}" readonly>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputname">{{ __('Address number') }}</label>
+                                <label for="inputname">Número do endereço</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->number }}" readonly>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="city">{{ __('Address city') }}</label>
+                                <label for="city">Cidade</label>
                                 <select name="city" id="city" class="form-control selectTwo" style="width: 100%" disabled>
                                     @foreach($cities as $city)
                                         <option value="{{ $city->id }}" @if($response->address()->get()->first()->cities_id == $city->id) selected @endif>{{ __($city->name) }}</option>
@@ -49,20 +57,20 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputname">{{ __('Address description') }}</label>
+                                <label for="inputname">Descrição do endereço</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->end_description }}" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputname">{{ __('Address complement') }}</label>
+                                <label for="inputname">Complemento do endereço</label>
                                 <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->complement }}" readonly>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="responsible_id">{{ __('Send process to user') }}:</label>
+                                <label for="responsible_id">Enviar o processo para o usuário:</label>
                                 <select name="responsible_id" class="mselectRules form-control">
                                     @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ __($user->name) }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -79,8 +87,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-detail" href="{{ route('default.process_stage_three.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Send') }}</button>
+                            <a class="btn btn-detail" href="{{ route('default.process_stage_three.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">Enviar processo</button>
                         </span>
                     </form>
 
@@ -94,5 +102,14 @@
 @section('extra-scripts')
 <script type='text/javascript'>
     $(".mselectRules").select2();
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
+});
 </script>
 @endsection

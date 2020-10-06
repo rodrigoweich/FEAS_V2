@@ -12,7 +12,14 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    Editar estado existente
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn button-without-style btn-sm" href="{{ route('admin.states.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Voltar a página de estados">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <span class="align-middle">&nbsp;&nbsp;Editar estado existente</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\ServiceBox;
 use App\City;
+use DB;
+use App\Http\Requests\ServiceBoxRequest;
 
 class ServiceBoxController extends Controller
 {
@@ -24,10 +26,19 @@ class ServiceBoxController extends Controller
         if(Gate::denies('list-service_boxes')){
             return view('403');
         }
-     
+        
         $sb = ServiceBox::paginate(15);
+
+        $teste = [];
+        foreach($sb as $c) {
+            $teste += array($c->id => HasController::hasCustomersLinkedToBox($c->id));
+        }
+     
+        $cities = City::all();
         return view('default.service_boxes.index')->with([
-            'response' => $sb
+            'response' => $sb,
+            'city' => $cities,
+            'hasProcesses' => $teste
         ]);
     }
 
@@ -54,7 +65,7 @@ class ServiceBoxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceBoxRequest $request)
     {
         if(Gate::denies('create-service_boxes')){
             return view('403');
@@ -118,7 +129,7 @@ class ServiceBoxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceBoxRequest $request, $id)
     {
         if(Gate::denies('update-service_boxes')){
             return view('403');
@@ -171,9 +182,29 @@ class ServiceBoxController extends Controller
 
     public function search(Request $request)
     {
-        $data = ServiceBox::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-service_boxes')){
+            return view('403');
+        }
+
+        $sb = DB::table('service_boxes')
+        ->leftjoin('cities', 'service_boxes.cities_id', '=', 'cities.id')
+        ->where(function ($query) use ($request) {
+            $query->where('service_boxes.name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('service_boxes.description', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('cities.name', 'like', '%'.$request->dataToSearch.'%');
+        })->select('service_boxes.id', 'service_boxes.name', 'service_boxes.description', 'service_boxes.amount', 'service_boxes.busy', 'service_boxes.cities_id', 'cities.name')
+        ->paginate(15);
+
+        $teste = [];
+        foreach($sb as $c) {
+            $teste += array($c->id => HasController::hasCustomersLinkedToBox($c->id));
+        }
+     
+        $cities = City::all();
         return view('default.service_boxes.index')->with([
-            'response' => $data
+            'response' => $sb,
+            'city' => $cities,
+            'hasProcesses' => $teste
         ]);
     }
 }

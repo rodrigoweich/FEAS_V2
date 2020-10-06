@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('extra-header')
+<script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
+@endsection
+
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -14,19 +18,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                            <a class="btn button-without-style btn-sm" href="{{ route('home') }}" role="button" data-toggle="tooltip" data-placement="top" title="Retornar ao app">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
-                            <span class="align-middle">&nbsp;&nbsp;{{ __('Cables') }}</span>
+                            <span class="align-middle">&nbsp;&nbsp;Cabos</span>
                         </div>
                         <div class="col-8 text-right">
                             <form action="{{ route('default.cables.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="{{ __('Filter') }}">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por nome">
                                     <div class="input-group-append">
-                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="{{ __('Search') }}"><i class="fas fa-search"></i></button>
-                                        <a class="btn panel-border" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Clear and return') }}"><i class="fas fa-undo-alt"></i></a>
+                                        <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
+                                        <a class="btn panel-border" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -42,7 +46,7 @@
                     <div class="row">
                         <div class="col text-right">
                         @can('create-cables')
-                            <a class="btn btn-detail btn-sm" href="{{ route('default.cables.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Create a new') }}">
+                            <a class="btn btn-detail btn-sm" href="{{ route('default.cables.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar um novo">
                                 <i class="fas fa-plus"></i>
                             </a>
                         @endcan
@@ -53,11 +57,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Color') }}</th>
-                                    <th>{{ __('Dotted') }}</th>
-                                    <th>{{ __('Dotted Repeat') }}</th>
-                                    <th>{{ __('Size') }}</th>
+                                    <th>Nome</th>
+                                    <th>Cor</th>
+                                    <th>Pontilhado</th>
+                                    <th>Repetição</th>
+                                    <th>Tamanho</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,23 +72,29 @@
                                     <td class="align-middle"><span style="color: {{ $data->color }};"><i class="fas fa-square fa-lg"></i></span> <span class="text-uppercase"></span></td>
                                     <td class="align-middle">
                                         @if($data->dotted === 1)
-                                        <i class="fas text-success fa-check"></i>
+                                        <i class="fas text-success fa-check fa-lg"></i>
                                         @else
-                                        <i class="fas text-danger fa-times"></i>
+                                        <i class="fas text-danger fa-times fa-lg"></i>
                                         @endif
                                     </td>
-                                    <td class="align-middle">{{ $data->dotted_repeat }}</td>
+                                    <td class="align-middle">
+                                        @if($data->dotted_repeat === null)
+                                        <i class="fas text-danger fa-times fa-lg"></i>
+                                        @else
+                                        {{ $data->dotted_repeat }}
+                                        @endif
+                                    </td>
                                     <td class="align-middle">{{ $data->size }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                         @can('update-cables')
-                                            <a href="{{ route('default.cables.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            <a href="{{ route('default.cables.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                         @endcan
                                         @can('delete-cables')
-                                        <form action="{{ route('default.cables.destroy', $data->id) }}" method="POST">
+                                        <form id="dataIds_{{ $data->id }}" action="{{ route('default.cables.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                            <button type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                         </form>
                                         @endcan
                                         </div>
@@ -105,7 +115,7 @@
                                 {{ $response->onEachSide(1)->links() }}
                     </div>
                     <div class="d-flex justify-content-center">
-                        <span class="align-middle">{{ __('Showing') }} {{ $response->count() }} {{ __('of') }} {{ $response->total() }} {{ __('results') }}</span>
+                        <span class="align-middle">Mostrando {{ $response->count() }} de {{ $response->total() }} resultados</span>
                     </div>
                 </div>
             </div>
@@ -113,4 +123,26 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra-scripts')
+<script type='text/javascript'>
+@foreach($hasProcesses as $key => $h)
+    $("#dataIds_" + {{ $key }}).click(function(e) {
+        if({{ $h }} != 0) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.notify({
+                message: "Você não pode deletar este cabo pois existem processos vinculados a ele.\nExperimente utilizar a opção de editar para realizar modificações."
+            }, {
+                type: "danger"
+            });
+        } else {
+            if(confirm("Deseja mesmo deletar?")) {} else {
+                return false;
+            }
+        }
+    });
+@endforeach
+</script>
 @endsection

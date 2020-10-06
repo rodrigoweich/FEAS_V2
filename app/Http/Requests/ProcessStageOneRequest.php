@@ -24,14 +24,14 @@ class ProcessStageOneRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:1|max:20", //
-            "surname" => "required|min:1|max:30", //
-            "phone" => "required|numeric|min:0", //
-            "contract_number" => "required|numeric|min:0", //
-            "number" => "required|numeric|min:0", //
-            "end_description" => "required|min:0", //
-            "complement" => "required|min:0|max:185", //
-            "city" => "required|numeric", //
+            "name" => "required|min:1|max:20",
+            "surname" => "required|min:1|max:30",
+            "phone" => "required|numeric|min:0",
+            "contract_number" => "required|numeric|min:0",
+            "number" => "required|numeric|min:0",
+            "end_description" => "required|min:0",
+            "complement" => "required|min:0|max:185",
+            "city" => "required|numeric",
             "lat" => "required|numeric",
             "lng" => "required|numeric",
             "zoom" => "required|numeric",

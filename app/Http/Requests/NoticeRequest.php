@@ -13,7 +13,7 @@ class NoticeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class NoticeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:1|max:150',
+            'description' => 'required|min:1|max:500'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "title.required" => "O título da notícia não pode ficar em branco.",
+            "title.min" => "O título deve conter ao menos :min caracteres.",
+            "title.max" => "O título deve conter no máximo :max caracteres.",
+            "description.required" => "A descrição da notícia não pode ficar em branco.",
+            "description.min" => "O descrição deve conter ao menos :min caracteres.",
+            "description.max" => "O descrição deve conter no máximo :max caracteres.",
         ];
     }
 }

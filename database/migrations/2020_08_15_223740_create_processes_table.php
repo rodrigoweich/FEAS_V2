@@ -19,7 +19,7 @@ class CreateProcessesTable extends Migration
             $table->unsignedBigInteger('customers_id')->unsigned();
             $table->foreign('users_id')->references('id')->on('users');
             $table->unsignedBigInteger('users_id')->unsigned();
-            $table->foreign('responsible_id')->references('id')->on('users');
+            $table->foreign('responsible_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('responsible_id')->unsigned()->nullable(true);
             $table->tinyInteger('stage')->default(0);
             $table->integer('meters')->nullable(true);
@@ -29,7 +29,7 @@ class CreateProcessesTable extends Migration
             $table->unsignedBigInteger('cables_id')->unsigned()->nullable(true);
             $table->integer('difficulty')->nullable(true);
             $table->text('comments')->nullable(true);
-            $table->foreign('users_id_finished')->references('id')->on('users');
+            $table->foreign('users_id_finished')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('users_id_finished')->unsigned()->nullable(true);
             $table->tinyInteger('notified')->nullable(true);
             $table->softDeletes('deleted_at', 0);

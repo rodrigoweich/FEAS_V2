@@ -16,7 +16,14 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Create a new') }}
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn button-without-style btn-sm" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <span class="align-middle">&nbsp;&nbsp;Criar um novo cabo</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,8 +96,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-detail" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Create') }}</button>
+                            <a class="btn btn-detail" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">Criar cabo</button>
                         </span>
                     </form>
 

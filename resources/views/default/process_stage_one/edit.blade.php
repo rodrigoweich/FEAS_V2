@@ -5,7 +5,8 @@
 <script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
-<script type="text/javascript" src="{{ asset('js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -108,7 +109,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('default.process_stage_one.update', $response) }}" method="post">
+                <form id="thisForm" action="{{ route('default.process_stage_one.update', $response) }}" method="post">
                     @csrf
                     {{ method_field('PUT') }}
                     <input type="hidden" id="route" name="route">
@@ -246,5 +247,14 @@ function initMap() {
 @if($errors->any())
 showAlertSave();
 @endif
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
+});
 </script>
 @endsection

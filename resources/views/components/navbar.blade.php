@@ -116,7 +116,7 @@
                                 Clientes<span class="float-right"><i class="fas fa-user-friends"></i></span>
                             </a>
                             @endcan
-                            <a class="dropdown-item" href="#" onclick="$('#alertDeleteElement').modal('show');">
+                            <a class="dropdown-item" href="#" onclick="$('#alertAbout').modal('show');">
                                 Sobre<span class="float-right"><i class="fas fa-th-large"></i></span>
                             </a>
                             <div class="dropdown-divider"></div>
@@ -139,39 +139,3 @@
         </div>
     </div>
 </nav>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="alertDeleteElement">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-th-large"></i> Sobre o FEAS</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <img class="img-fluid pb-3 img" src="{{ config('global.type_asset')('img/system/feas-logo.png') }}" alt="Home" style="width: 150px;">
-                <div class="form-note">
-                    <p style="font-size: 16px; font-weight: 500; color: #97a6b5;">O seu sistema de viabilidades</p>
-                </div>
-                <h3 style="font-family: 'Montserrat'; font-size: 25px; font-weight: 600; color: #6d48e5; letter-spacing: 0; display: block; margin-bottom: 15px; text-decoration: none;">
-                    FEAS
-                </h3>
-                <br>
-                <p style="font-size: 16px; font-weight: 500;">
-                    O sistema FEAS é um sistema criado com objetivo de ampliar os resultados e diminuir o
-                    tempo de execução de um processo de viabilidade de instalações de internet via fibra óptica.<br/><br/>
-                    Desenolvido por Rodrigo Gomes Weich<br/>Contato: (46) 9 9931-6956
-                </p>
-                <div class="row form-bottom text-center">
-                    <div class="col">
-                        <p class="mt-3 mb-3">v1.0 stable</p>
-                    </div>
-                    <div class="col">
-                        <p class="mt-3 mb-3">&copy; 2020</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

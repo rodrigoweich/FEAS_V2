@@ -16,7 +16,7 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{ __('Edit existing') }}
+                    Editar cabo existente
                 </div>
             </div>
         </div>
@@ -90,8 +90,8 @@
                         @endif
 
                         <span class="float-right">
-                            <a class="btn btn-detail" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Cancel and return') }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                            <button type="submit" class="btn btn-detail">{{ __('Edit') }}</button>
+                            <a class="btn btn-detail" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <button type="submit" class="btn btn-detail">Salvar alterações</button>
                         </span>
                     </form>
 

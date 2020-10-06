@@ -252,5 +252,8 @@ function clearMarkers() {
     insertedBuildings = false;
 };
 
+@if($errors->any())
+showAlertSave();
+@endif
 </script>
 @endsection

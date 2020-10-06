@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('extra-header')
+<script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
+@endsection
+
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -23,7 +27,7 @@
                             <form action="{{ route('admin.roles.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Pesquise por nome">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn btn-outline-secondary" href="{{ route('admin.roles.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -55,7 +59,7 @@
                                     <th>#</th>
                                     <th>Nome</th>
                                     <th>Autorizações</th>
-                                    <th>Usuários</th>
+                                    <th>Vínculos</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,30 +69,34 @@
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @if ($role->rules()->count() > 1)
-                                            {{ __($role->rules()->get()->pluck('display_name')->min()) }} e {{ $role->rules()->count()-1 }} outras
+                                            <span data-toggle="tooltip" data-placement="top" title="{{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}">{{ __($role->rules()->get()->pluck('display_name')->min()) }} e {{ $role->rules()->count()-1 }} outras</span>
                                         @elseif ($role->rules()->count() < 1)
-                                            <i class="fas text-danger fa-times"></i>
+                                            <i class="fas text-danger fa-times fa-lg"></i>
                                         @else
-                                            {{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}
+                                            <span data-toggle="tooltip" data-placement="top" title="{{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}">{{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}</span>
                                         @endif
                                     </td>
-                                    <td>{{ $role->users()->where('role_id', $role->id)->count() }}</td>
+                                    <td>
+                                        @if($role->users()->where('role_id', $role->id)->count() === 0)
+                                            <i class="fas text-danger fa-times fa-lg"></i>
+                                        @else
+                                            {{ $role->users()->where('role_id', $role->id)->count() }}
+                                        @endif
+                                    </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                         @can('update-roles')
                                             @if(!($role->unalterable === 1))
-                                            <a href="{{ route('admin.roles.edit', $role->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            <a href="{{ route('admin.roles.edit', $role->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             @endif
                                         @endcan
                                         @can('delete-roles')
                                             @if(!($role->unalterable === 1))
-                                                @if($role->users()->where('role_id', $role->id)->count() === 0)
-                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
+                                                <form id="dataIds_{{ $role->id }}" action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
-                                                    <button type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                                    <button type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                                 </form>
-                                                @endif
                                             @endif
                                         @endcan
                                         </div>
@@ -117,4 +125,26 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra-scripts')
+<script type='text/javascript'>
+@foreach($hasProcesses as $key => $h)
+    $("#dataIds_" + {{ $key }}).click(function(e) {
+        if({{ $h }} != 0) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.notify({
+                message: "Você não pode deletar esta função pois existem usuários vinculados a ela."
+            }, {
+                type: "danger"
+            });
+        } else {
+            if(confirm("Deseja mesmo deletar?")) {} else {
+                return false;
+            }
+        }
+    });
+@endforeach
+</script>
 @endsection

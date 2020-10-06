@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Cable;
+use App\Http\Requests\CableRequest;
 
 class CableController extends Controller
 {
@@ -23,10 +24,17 @@ class CableController extends Controller
         if(Gate::denies('list-cables')){
             return view('403');
         }
-     
+        
         $cables = Cable::paginate(15);
+
+        $teste = [];
+        foreach($cables as $c) {
+            $teste += array($c->id => HasController::hasProcessesWithThisCable($c->id));
+        }
+     
         return view('default.cables.index')->with([
-            'response' => $cables
+            'response' => $cables,
+            'hasProcesses' => $teste
         ]);
     }
 
@@ -51,7 +59,7 @@ class CableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CableRequest $request)
     {
         if(Gate::denies('create-cables')){
             return view('403');
@@ -62,10 +70,10 @@ class CableController extends Controller
         $cable->color = $request->color;
         if($request->inputshortcut == "on") {
             $cable->dotted = 1;
+            $cable->dotted_repeat = $request->repeat;
         } else {
             $cable->dotted = 0;
         }
-        $cable->dotted_repeat = $request->repeat;
         $cable->size = $request->size;
         $cable->save();
         return redirect()->route('default.cables.index');
@@ -115,7 +123,7 @@ class CableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CableRequest $request, $id)
     {
         if(Gate::denies('update-cables')){
             return view('403');
@@ -130,10 +138,10 @@ class CableController extends Controller
                 $cable->color = $request->color;
                 if($request->inputshortcut == "on") {
                     $cable->dotted = 1;
+                    $cable->dotted_repeat = $request->repeat;
                 } else {
                     $cable->dotted = 0;
                 }
-                $cable->dotted_repeat = $request->repeat;
                 $cable->size = $request->size;
                 $cable->save();
                 return redirect()->route('default.cables.index');
@@ -170,9 +178,20 @@ class CableController extends Controller
 
     public function search(Request $request)
     {
-        $data = Cable::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-cables')){
+            return view('403');
+        }
+        
+        $cables = Cable::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+
+        $teste = [];
+        foreach($cables as $c) {
+            $teste += array($c->id => HasController::hasProcessesWithThisCable($c->id));
+        }
+     
         return view('default.cables.index')->with([
-            'response' => $data
+            'response' => $cables,
+            'hasProcesses' => $teste
         ]);
     }
 }

@@ -24,10 +24,10 @@
                             <span class="align-middle">&nbsp;&nbsp;Processo estágio - 1</span>
                         </div>
                         <div class="col-8 text-right">
-                            <form action="{{ route('default.boxes.search') }}" method="post">
+                            <form action="{{ route('default.process_stage_one.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por cliente, usuário, cidade ou data (AAAA-MM-DD)">
                                     <div class="input-group-append">
                                         <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn panel-border" href="{{ route('default.process_stage_one.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -68,18 +68,18 @@
                                 @foreach ($response as $data)
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
-                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
-                                    <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }}"></i></td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ $customer->find($data->customers_id)->surname }}</td>
+                                    <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
                                     <td class="align-middle">{{ $city->find($address->find($data->customers_id)->cities_id)->name }}</td>
                                     <td class="align-middle">{{ $user->find($data->users_id)->name }}</td>
                                     <td class="align-middle">{{ $data->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                             @can('update-process-stage-one')
-                                            <a id="edit-button" href="{{ route('default.process_stage_one.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            <a id="edit-button" href="{{ route('default.process_stage_one.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             @endcan
                                             @can('next-process-stage-one')
-                                            <a href="{{ route('default.process.next_stage', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-success fa-arrow-right"></i></button></a>
+                                            <a href="{{ route('default.process.next_stage', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Avançar"><i class="fas text-success fa-arrow-right fa-lg"></i></button></a>
                                             @endcan
                                         </div>
                                     </td>

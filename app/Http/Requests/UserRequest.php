@@ -38,15 +38,11 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            "name.required" => "The name field cannot be empty.",
-            "name.min" => "The name field cannot contain less than :min characters.",
-            "name.max" => "The name field cannot contain more than :max characters.",
-            "email.required" => "The e-mail field cannot be empty.",
-            "email.unique" => "This e-mail already exists in the database and cannot be repeated.",
-            "email.min" => "The e-mail field cannot contain less than :min characters.",
-            "email.max" => "The e-mail field cannot contain more than :min characters.",
-            "password.required" => "The password field cannot be empty.",
-            "password.min" => "The password field cannot contain less than :min characters."
+            "name.required" => "O campo do nome não pode estar vazio.",
+            "name.min" => "O campo do nome não pode conter menos de :min caracteres.",
+            "name.max" => "O campo do nome não pode conter mais do que :max caracteres.",
+            "password.required" => "O campo da senha não pode estar vazio.",
+            "password.min" => "O campo da senha não pode conter menos de :min caracteres."
         ];
     }
 }

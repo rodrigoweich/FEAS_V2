@@ -20,7 +20,8 @@ class RoleSeeder extends Seeder
             ['name' => 'Mapper', 'unalterable' => 0],
             ['name' => 'Comercial', 'unalterable' => 0],
             ['name' => 'Avançar todos', 'unalterable' => 0],
-            ['name' => 'Retornar todos', 'unalterable' => 0]
+            ['name' => 'Retornar todos', 'unalterable' => 0],
+            ['name' => 'Reporter', 'unalterable' => 0]
         ]);
     }
 }

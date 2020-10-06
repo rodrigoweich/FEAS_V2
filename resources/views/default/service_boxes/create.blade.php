@@ -24,26 +24,26 @@
         <div class="list-group list-group-flush">
             <div id="divider">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle list-group-item list-group-item-action bg-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <span class="float-right"><i class="fas fa-map"></i></span> <span id="mapTypesDpMenu">Default + Satellite</span> <span class="caret"></span>
+                    <span class="float-right"><i class="fas fa-map"></i></span> <span id="mapTypesDpMenu">Padrão + Satélite</span> <span class="caret"></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Default')">
-                        {{ __('Default') }}
+                        Padrão
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satellite')">
-                        {{ __('Satélite') }}
+                        Satélite
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Default + Terrain')">
-                        {{ __('Default + Terrain') }}
+                        Padrão + Terreno
                     </a>
                     <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Default + Satellite')">
-                        {{ __('Default + Satellite') }}
+                        Padrão + Satélite
                     </a>
                 </div>
             </div>
-            <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">{{ __('Save new service box') }}<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
-            <a href="{{ route('default.boxes.index') }}" class="list-group-item list-group-item-action bg-light text-danger">{{ __('Cancel and return') }}<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
+            <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">Salvar nova caixa<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
+            <a href="{{ route('default.boxes.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -63,7 +63,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ __('Service box information') }}</h5>
+                <h5 class="modal-title">Informações da caixa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -76,11 +76,11 @@
                         <div class="col">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="inputname">{{ __('Name') }}</label>
+                                    <label for="inputname">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}" autofocus>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="city">{{ __('City') }}</label>
+                                    <label for="city">Cidade</label>
                                     <select name="city" class="form-control selectTwo" style="width: 100%">
                                         @foreach($cities as $city)
                                             <option value="{{ $city->id }}">{{ __($city->name) }}</option>
@@ -98,19 +98,19 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="description">{{ __('Description') }}</label>
+                                    <label for="description">Descrição</label>
                                     <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" autofocus>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="amount">{{ __('Amount') }}</label>
+                                    <label for="amount">Quantidade</label>
                                     <input type="number" class="form-control" id="amount" name="amount" max="128" min="0">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="busy">{{ __('Busy') }}</label>
+                                    <label for="busy">Ocupadas</label>
                                     <input type="number" class="form-control" id="busy" name="busy" min="0">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="available">{{ __('Available') }}</label>
+                                    <label for="available">Disponíveis</label>
                                     <input type="number" class="form-control" id="available" name="available" readonly>
                                 </div>
                             </div>
@@ -128,9 +128,9 @@
                     @endif
 
                     <span class="float-right">
-                        <a class="btn btn-danger" href="{{ route('default.boxes.index') }}" role="button">{{ __('Cancel and return') }}</a>
-                        <button type="submit" class="btn btn-success">{{ __('Save') }}</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Close this window') }}</button>
+                        <a class="btn btn-danger" href="{{ route('default.boxes.index') }}" role="button">Cancelar e voltar</a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar essa janela</button>
+                        <button type="submit" class="btn btn-success">Salvar caixa</button>
                     </span>
                 </form>
             </div>
@@ -139,23 +139,19 @@
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="alertDeleteElement">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ __('Service box information') }}</h5>
+                <h5 class="modal-title">Informações da caixa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-justify">
-                Você só pode inserir uma posição/construção por viabilidade!
-                Para alterar a posição/construção você precisa deletar a posição/construção inserida anteriormente.
-                Você realmente deseja prosseguir?
-                </p>
+                <p class="text-justify">Você só pode definir um local por vez, para alterar, o ponto indicado terá de ser removido. Deseja remover mesmo assim?</p>
                 <span class="float-right">
-                    <button class="btn btn-danger" onclick="clearMarkers();" data-dismiss="modal">{{ __('Yes, delete') }}</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Cancel and close this window') }}</button>
+                    <button class="btn btn-danger" onclick="clearMarkers();" data-dismiss="modal">Sim, remover</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar e fechar essa janela</button>
                 </span>
             </div>
         </div>
@@ -261,5 +257,9 @@
         var busy_value = $('#busy').val();
         $('#available').val(amount_value - busy_value);
     });
+
+@if($errors->any())
+showAlertSave();
+@endif
 </script>
 @endsection

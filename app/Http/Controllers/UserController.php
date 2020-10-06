@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Rule;
 use App\Role;
+use DB;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ProfileRequest;
@@ -31,10 +32,17 @@ class UserController extends Controller
         if(Gate::denies('list-users')){
             return view('403');
         }
-     
+
         $users = User::paginate(15);
+     
+        $teste = [];
+        foreach($users as $c) {
+            $teste += array($c->id => HasController::hasProcessesLinkedToTheUser($c->id));
+        }
+
         return view('admin.users.index')->with([
-            'users' => $users
+            'users' => $users,
+            'hasProcesses' => $teste
         ]);
     }
 
@@ -162,9 +170,23 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $users = User::where('name','like', '%'.$request->dataToSearch.'%')->paginate(15);
+        if(Gate::denies('list-users')){
+            return view('403');
+        }
+
+        $users = User::where(function ($query) use ($request) {
+            $query->where('name', 'like', '%'.$request->dataToSearch.'%')
+            ->orWhere('email', 'like', '%'.$request->dataToSearch.'%');
+        })->paginate(15);
+     
+        $teste = [];
+        foreach($users as $c) {
+            $teste += array($c->id => HasController::hasProcessesLinkedToTheUser($c->id));
+        }
+
         return view('admin.users.index')->with([
-            "users" => $users,
+            'users' => $users,
+            'hasProcesses' => $teste
         ]);
     }
 

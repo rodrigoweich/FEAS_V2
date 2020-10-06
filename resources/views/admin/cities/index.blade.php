@@ -27,7 +27,7 @@
                             <form action="{{ route('admin.cities.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control" placeholder="Pesquise por nome ou estado">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
                                         <a class="btn btn-outline-secondary" href="{{ route('admin.cities.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
@@ -70,28 +70,28 @@
                                 <tr>
                                     <td scope="row">{{ $data->id }}</td>
                                     <td>{{ $data->name }}</td>
-                                    <td>{{ $data->states()->get()->first()->name }}</td>
+                                    <td>{{ $state->find($data->states_id)->name }}</td>
                                     <td>{{ $data->m_lat }}</td>
                                     <td>{{ $data->m_lng }}</td>
                                     <td>{{ $data->m_zoom }}</td>
                                     <td>
                                         @if($data->shortcut === 1)
-                                        <i class="fas text-success fa-check"></i>
+                                        <i class="fas text-success fa-check fa-lg"></i>
                                         @else
-                                        <i class="fas text-danger fa-times"></i>
+                                        <i class="fas text-danger fa-times fa-lg"></i>
                                         @endif
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                         @can('update-cities')
-                                            <a href="{{ route('admin.cities.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-dark fa-edit"></i></button></a>
+                                            <a href="{{ route('admin.cities.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             
                                         @endcan
                                         @can('delete-cities')
                                         <form id="dataIds_{{ $data->id }}" action="{{ route('admin.cities.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <button id="del-perm" type="submit" class="button-without-style ml-1"><i class="fas text-dark fa-trash"></i></button>
+                                            <button id="del-perm" type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                         </form>
                                         @endcan
                                         </div>

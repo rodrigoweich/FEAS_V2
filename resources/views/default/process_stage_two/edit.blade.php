@@ -5,6 +5,7 @@
 <script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -44,7 +45,7 @@
                 </div>
             </div>
             <a onclick="showAlertSave()" class="list-group-item list-group-item-action bg-light">Salvar informações<span class="float-right"><i class="fas fa-map-marked"></i></span></a>
-            <a href="{{ route('default.process_stage_one.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
+            <a href="{{ route('default.process_stage_two.index') }}" class="list-group-item list-group-item-action bg-light text-danger">Cancelar e voltar<span class="float-right"><i class="far fa-hand-point-left"></i></span></a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -71,7 +72,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('default.process_stage_two.update', $response) }}" method="post">
+                <form id="thisForm" action="{{ route('default.process_stage_two.update', $response) }}" method="post">
                     @csrf
                     {{ method_field('PUT') }}
                     <div class="row mb-3">
@@ -152,7 +153,7 @@
                     @endif
 
                     <span class="float-right">
-                        <a class="btn btn-danger" href="{{ route('default.process_stage_one.index') }}" role="button">Cancelar e voltar</a>
+                        <a class="btn btn-danger" href="{{ route('default.process_stage_two.index') }}" role="button">Cancelar e voltar</a>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar essa janela</button>
                         <button type="submit" class="btn btn-success">Salvar informações</button>
                     </span>
@@ -445,5 +446,14 @@ function changeMapType(target, mapType, htmlText) {
 @if($errors->any())
 showAlertSave();
 @endif
+</script>
+
+<script type="text/javascript">
+// VALIDAÇÕES E MÁSCARAS
+$("#phone").mask('(00) 00000-0000');
+
+$("#thisForm").submit(function() {
+  $("#phone").unmask();
+});
 </script>
 @endsection
