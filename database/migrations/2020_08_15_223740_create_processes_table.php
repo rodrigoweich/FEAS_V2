@@ -24,7 +24,7 @@ class CreateProcessesTable extends Migration
             $table->tinyInteger('stage')->default(0);
             $table->integer('meters')->nullable(true);
             $table->integer('real_meters')->nullable(true);
-            $table->json('route')->nullable(true);
+            $table->text('route')->nullable(true);
             $table->foreign('cables_id')->references('id')->on('cables');
             $table->unsignedBigInteger('cables_id')->unsigned()->nullable(true);
             $table->integer('difficulty')->nullable(true);

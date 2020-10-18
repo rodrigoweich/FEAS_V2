@@ -271,7 +271,7 @@ function createMenuDelRouteOnMap(div, map) {
     text.style.lineHeight = "38px";
     text.style.paddingLeft = "5px";
     text.style.paddingRight = "5px";
-    text.innerHTML = "Delete Last Item Route";
+    text.innerHTML = "Deletar último ponto";
     ui.appendChild(text);
     
     ui.addEventListener("click", () => {

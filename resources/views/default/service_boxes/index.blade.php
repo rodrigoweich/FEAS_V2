@@ -73,6 +73,7 @@
                                     <td class="align-middle">{{ $data->ct_name }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
+                                            <button type="button" class="button-without-style mr-1 get-customers-data" this-box-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Ver clientes vinculados a essa caixa"><i class="fas text-dark fa-eye fa-lg"></i></button>
                                         @can('update-service_boxes')
                                             <a href="{{ route('default.boxes.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                         @endcan
@@ -109,6 +110,27 @@
 
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="finishProcess">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vínculos por caixa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="tex">
+                <table class="table table-ordered table-hover" id="customersTable">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('extra-scripts')
@@ -126,5 +148,49 @@
         }
     });
 @endforeach
+
+$('.get-customers-data').on('click', function() {
+    var id = $(this).attr('this-box-id');
+    $.ajax({
+        type: "get",
+        url: "{{ route('default.boxes.customers') }}",
+        data: { id: id },
+        success: function(data) {
+            if(data.length > 0) {
+                $("#customersTable>thead").append('<tr><th>#</th><th>Nome</th><th>Telefone</th><th>Contrato Nº</th><th>LAT</th><th>LNG</th></tr>');
+                for(i=0; i<data.length; i++){
+                    linha = montarLinha(data[i]);
+                    $('#customersTable>tbody').append(linha);
+                }
+                $("#finishProcess").modal('show');
+            } else {
+                $("#customersTable>thead tr").remove();
+                $('#tex').append("<span>Sentimos muito, mas essa caixa ainda não tem clientes vinculados.</span>");
+                $("#finishProcess").modal('show');
+            }
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    })
+});
+
+function montarLinha(p){
+    var linha = "<tr>"+
+                    "<td>"+ p.id + "</td>"+
+                    "<td>"+ p.name + " " + p.surname + "</td>"+
+                    "<td>"+ p.phone + "</td>"+
+                    "<td>"+ p.contract_number + "</td>"+
+                    "<td>"+ p.m_lat + "</td>"+
+                    "<td>"+ p.m_lng + "</td>"+
+                "</tr>";
+    return linha;
+}
+
+$("#finishProcess").on('hidden.bs.modal', function () {
+    $("#customersTable>thead tr").remove();
+    $("#customersTable>tbody tr").remove();
+    $("#tex span").remove();
+});
 </script>
 @endsection

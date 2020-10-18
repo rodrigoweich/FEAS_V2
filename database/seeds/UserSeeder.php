@@ -27,230 +27,50 @@ class UserSeeder extends Seeder
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste Teste',
+                'name' => 'Teste',
                 'email' => 'teste@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 2',
                 'email' => 'teste2@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 3',
                 'email' => 'teste3@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 4',
                 'email' => 'teste4@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 5',
                 'email' => 'teste5@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 6',
                 'email' => 'teste6@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 7',
                 'email' => 'teste7@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],
             [
-                'name' => 'Teste',
+                'name' => 'Teste 8',
                 'email' => 'teste8@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste9@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste10@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste11@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste12@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste13@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste14@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste15@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste16@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste17@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste18@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste19@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste20@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste21@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste22@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste23@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste24@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste25@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste26@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste27@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste28@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste29@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste30@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste31@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste32@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste33@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste34@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste35@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste36@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste37@feas.com',
-                'password' => Hash::make('12345678'),
-                'unalterable' => 0
-            ],
-            [
-                'name' => 'Teste',
-                'email' => 'teste38@feas.com',
                 'password' => Hash::make('12345678'),
                 'unalterable' => 0
             ],

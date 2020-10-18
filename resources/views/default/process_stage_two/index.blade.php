@@ -111,12 +111,12 @@
     @foreach($haveBoxesByCity as $key => $h)
         @if($city->find($address->find($r->customers_id)->cities_id)->id === $key)
             
-            $("#dataIds_" + {{ $key }}).click(function(e) {
+            $("#dataIds_" + {{ $r->id }}).click(function(e) {
                 if({{ $h }} == 0) {
                     e.preventDefault();
                     e.stopPropagation();
                     $.notify({
-                        message: "You can't proceed with this process as there are no call centers linked to this city. @can('create-service_boxes')Register a box by <a href='{{ route('default.boxes.create') }}'>clicking here</a>@else Please contact your administrator. @endcan"
+                        message: "Você não pode prosseguir com esse processo pois não existem caixas de atendimento vinculadas a cidade de {{ $city->find($address->find($r->customers_id)->cities_id)->name }}. @can('create-service_boxes')Registre uma nova caixa <a href='{{ route('default.boxes.create') }}'>clicando aqui</a>@else Por favor, contate o seu adiministrador. @endcan"
                     }, {
                         type: "danger"
                     });
@@ -126,6 +126,5 @@
         @endif
     @endforeach
 @endforeach
-
 </script>
 @endsection

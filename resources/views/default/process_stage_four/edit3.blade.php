@@ -8,6 +8,12 @@
 <script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/html2canvas.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
+<style>
+    .gallery img {
+        margin-top: 5px;
+        max-width: 500px !important;
+    }
+</style>
 @endsection
 
 @section('navbar')
@@ -90,7 +96,7 @@
                         Centro educacional<span class="float-right"><i class="fas fa-graduation-cap"></i></span>
                     </a>
                     <a class="dropdown-item" onclick="changeFigureType('fas fa-industry')">
-                        Industria<span class="float-right"><i class="fas fa-industry"></i></span>
+                        Indústria<span class="float-right"><i class="fas fa-industry"></i></span>
                     </a>
                 </div>
             </div>
@@ -128,8 +134,8 @@
                 <form id="thisForm" action="{{ route('default.process_stage_four.update', $response) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
-                    <input type="hidden" id="route" name="route">
-                    <input type="hidden" id="cable_id" name="cable_id">
+                    <input type="hidden" id="route" name="route" value="{{ old('route') }}">
+                    <input type="hidden" id="cable_id" name="cable_id" value="{{ old('cable_id') }}">
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
@@ -147,13 +153,13 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="contract_number">Número de contrato</label>
-                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ $response->customer()->get()->first()->contract_number }}">
+                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" max="2147483647" value="{{ $response->customer()->get()->first()->contract_number }}">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="number">Número de endereço</label>
-                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0">
+                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0" max="2147483647">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_description">Descrição de endereço</label>
@@ -195,11 +201,11 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="distance">Distância ap.</label>
-                                    <input type="number" class="form-control" id="distance" name="distance" readonly>
+                                    <input type="number" class="form-control" id="distance" name="distance" value="{{ old('distance') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="real_meters">Distância Real</label>
-                                    <input type="number" class="form-control" id="real_meters" name="real_meters">
+                                    <input type="number" class="form-control" id="real_meters" name="real_meters" value="{{ old('real_meters') }}">
                                 </div>
                             </div>
                             <fieldset class="form-group">
@@ -230,16 +236,21 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="comments">Comentários</label>
-                                    <textarea class="form-control" id="comments" rows="3" name="comments" autofocus></textarea>
+                                    <textarea class="form-control" id="comments" rows="3" name="comments" placeholder="Escreva aqui o seu relato sobre essa instalação." autofocus></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="photos" name="photos[]" value="{{ old('photos[]') }}" multiple>
+                                        <input type="file" class="custom-file-input" id="photos" name="photos[]" value="{{ old('photos[]') }}" multiple accept="image/*" />
                                         <label class="custom-file-label" for="photos">Enviar fotos do processo</label>
                                     </div>
                                     <span id="count_photos">Nenhuma foto selecionada até o momento.</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group text-center col-md-12">
+                                    <div class="gallery"></div>
                                 </div>
                             </div>
                         </div>
@@ -302,6 +313,16 @@ function loadCablesOnMap() {
     @endforeach
 };
 
+// CARREGA A ROTA DO CABO FEITA PELO TÉCNICO NO PROCESSO PASSADO
+function loadLineRoute() {
+    var routeVar = "{{ old('route') }}";
+    routeVar = routeVar.replace(/&quot;/g,'"');
+    routeVar = JSON.parse(routeVar);
+    $.each(routeVar["i"], function(i) {
+        loadCableRoute(new google.maps.LatLng(routeVar["i"][i]));
+    });
+};
+
 // FUNÇÃO PRINCIPAL, RODA AS CONFIGURAÇÕES PARA CRIAR O MAPA NA TELA DO USUÁRIO
 function initMap() {
     gmap = new google.maps.Map(document.getElementById('gmap'), {
@@ -329,6 +350,10 @@ function initMap() {
     loadBoxesOnMap();
     loadCablesOnMap();
     createRoutePolylineFunction();
+    @if(old('distance') !== null && !$errors->has('distance'))
+        loadLineRoute();
+        routeDistance = {{ old('distance') }};
+    @endif
 
     const controlDiv = document.createElement("div");
     const controlDiv2 = document.createElement("div");
@@ -369,6 +394,32 @@ $("#phone").mask('(00) 00000-0000');
 
 $("#thisForm").submit(function() {
   $("#phone").unmask();
+});
+
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr({'src': event.target.result, 'class': 'img-fluid col-md-6'}).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#photos').on('change', function() {
+        $(".gallery img").remove();
+        imagesPreview(this, 'div.gallery');
+    });
 });
 </script>
 @endsection

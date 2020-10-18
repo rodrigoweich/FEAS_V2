@@ -92,13 +92,13 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="contract_number">Número de contrato</label>
-                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ $response->customer()->get()->first()->contract_number }}">
+                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" max="2147483647" value="{{ $response->customer()->get()->first()->contract_number }}">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="number">Número de endereço</label>
-                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0">
+                                    <input type="number" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" min="0" max="2147483647">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_description">Descrição de endereço</label>

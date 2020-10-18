@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\ServiceBox;
 use App\City;
 use DB;
+use App\Customer;
 use App\Http\Requests\ServiceBoxRequest;
 
 class ServiceBoxController extends Controller
@@ -211,5 +212,11 @@ class ServiceBoxController extends Controller
             'city' => $cities,
             'hasProcesses' => $teste
         ]);
+    }
+
+    public function getBoxCustomers(Request $request) {
+        $box = ServiceBox::find($request->input('id'));
+        $customers = Customer::where('service_boxes_id', '=', $box->id)->get();
+        return $customers;
     }
 }

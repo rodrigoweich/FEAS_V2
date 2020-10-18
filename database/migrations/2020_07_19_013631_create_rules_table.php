@@ -15,8 +15,8 @@ class CreateRulesTable extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->string('police_name');
-            $table->string('display_name');
+            $table->string('police_name', 185);
+            $table->string('display_name', 185);
             $table->timestamps();
         });
     }

@@ -139,13 +139,13 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="contract_number">Número de contrato</label>
-                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ old('contract_number') }}">
+                                    <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" max="2147483647" value="{{ old('contract_number') }}">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="number">Número de endereço</label>
-                                    <input type="number" class="form-control" id="number" name="number" value="{{ old('number') }}" min="0">
+                                    <input type="number" class="form-control" id="number" name="number" max="2147483647" value="{{ old('number') }}" min="0">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_description">Descrição de endereço</label>
@@ -167,19 +167,19 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" readonly>
+                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" readonly>
+                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" readonly>
+                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="icon">Nome do ícone</label>
-                                    <input type="text" min="0" max="30" class="form-control" id="icon" name="icon" readonly>
+                                    <input type="text" min="0" max="30" class="form-control" id="icon" name="icon" value="{{ old('icon') }}" readonly>
                                 </div>
                             </div>
                         </div>

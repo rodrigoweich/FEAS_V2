@@ -46,15 +46,10 @@ class ProcessStageThreeController extends Controller
         }
 
         $response = Process::find($id);
-        /*
-        $users = DB::table('users')
-        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
-        ->select('users.name')->groupBy('name')
-        ->orderBy('role_user.role_id', 'asc')->get();*/
         $users = DB::table('users')
         ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
         ->select('users.name', 'users.id')
-        ->groupBy('users.name', 'users.id')
+        ->groupBy('users.name', 'users.id', 'role_user.role_id')
         ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
         ->get();
         $city = City::all();
@@ -77,7 +72,7 @@ class ProcessStageThreeController extends Controller
             if(!$process) {
                 return view('404');
             } else {
-                $process->users_id = Auth::user()->id;
+                //$process->users_id = Auth::user()->id;
                 $process->responsible_id = $request->responsible_id;
                 $process->stage = 2;
                 $process->save();

@@ -150,7 +150,7 @@
                                     <input type="number" class="form-control" id="real_meters" name="real_meters" value="{{ $response->real_meters }}" readonly>
                                 </div>
                             </div>
-                            <fieldset class="form-group">
+                            <fieldset class="form-group" disabled>
                                 <div class="row">
                                     <legend class="col-form-label col-sm-6 pt-0">Qual o nível de dificuldade ao realizar esse processo?</legend>
                                     <div class="col-sm-4">
@@ -166,7 +166,7 @@
                                                 Normal
                                             </label>
                                         </div>
-                                        <div class="form-check form-check-inline disabled">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="note" id="gridRadios3" value="3" @if($response->difficulty == 3) checked @endif>
                                             <label class="form-check-label" for="gridRadios3">
                                                 Difícil

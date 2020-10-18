@@ -3,6 +3,7 @@
 @section('extra-header')
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+<link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
 @endsection
 
@@ -101,7 +102,9 @@
 
 @section('extra-scripts')
 <script type='text/javascript'>
-    $(".mselectRules").select2();
+    $(".mselectRules").select2({
+        theme: "bootstrap4"
+    });
 </script>
 
 <script type="text/javascript">

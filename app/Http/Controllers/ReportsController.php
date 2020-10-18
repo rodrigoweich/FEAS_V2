@@ -10,7 +10,10 @@ use App\Rule;
 use App\City;
 use App\State;
 use App\Cable;
+use App\Process;
 use App\ServiceBox;
+use App\Customer;
+use DB;
 
 class ReportsController extends Controller
 {
@@ -26,8 +29,18 @@ class ReportsController extends Controller
         $count_states = State::all()->count();
         $count_cables = Cable::all()->count();
         $count_boxes = ServiceBox::all()->count();
+        $count_processes = Process::withTrashed()->get()->count();
 
         $all_cities = City::all();
+        $boxes = ServiceBox::all();
+        $cables = Cable::all();
+        $technicians = DB::table('users')
+        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
+        ->select('users.name', 'users.id')
+        ->groupBy('users.name', 'users.id', 'role_user.role_id')
+        ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
+        ->get();
+        $customers = Customer::all();
 
         return view('reports.index')->with([
             'users' => $count_users,
@@ -36,8 +49,11 @@ class ReportsController extends Controller
             'cities' => $count_cities,
             'all_cities' => $all_cities,
             'states' => $count_states,
-            'cables' => $count_cables,
-            'boxes' => $count_boxes
+            'cables' => $cables,
+            'technicians' => $technicians,
+            'boxes' => $boxes,
+            'processes' => $count_processes,
+            'customers' => $customers
         ]);
     }
 

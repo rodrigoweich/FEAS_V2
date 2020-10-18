@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->decimal('m_lat', 10, 8);
             $table->decimal('m_lng', 11, 8);
             $table->integer('m_zoom');
-            $table->string('m_icon');
+            $table->string('m_icon', 185);
             $table->foreign('service_boxes_id')->references('id')->on('service_boxes')->onDelete('set null');
             $table->unsignedBigInteger('service_boxes_id')->unsigned()->nullable(true);
             $table->timestamps();

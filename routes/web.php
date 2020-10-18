@@ -47,6 +47,7 @@ Route::prefix('default')->name('default.')->group(function () {
     Route::post('cables/search', 'CableController@search')->name('cables.search');
     Route::resource('/boxes', 'ServiceBoxController', ['except' => ['show']]);
     Route::post('boxes/search', 'ServiceBoxController@search')->name('boxes.search');
+    Route::get('boxes/customers', 'ServiceBoxController@getBoxCustomers')->name('boxes.customers');
     // PROCESS STAGE 1
     Route::get('/process/stage/1', 'ProcessStageOneController@index_stage_one')->name('process_stage_one.index');
     Route::get('/process/stage/1/create', 'ProcessStageOneController@create_stage_one')->name('process_stage_one.create');
@@ -80,7 +81,11 @@ Route::prefix('default')->name('default.')->group(function () {
     Route::get('/process/previous/{process}', 'ProcessController@previous_stage')->name('process.previous_stage');
     // PROCESS HISTORY
     Route::get('/process/history', 'ProcessController@index_history')->name('process_history.index');
+    Route::get('/process/history/{id}', 'ProcessController@history_show')->name('process_history.show');
+    Route::post('/process/history/search', 'ProcessController@history_search')->name('history.search');
     Route::get('/process/list', 'ProcessController@index_list')->name('process_list.index');
+    Route::get('/process/list/{id}', 'ProcessController@list_show')->name('process_list_show.show');
+    Route::post('/process/list/search', 'ProcessController@list_search')->name('list.search');
 });
 
 Route::get('/profile/{id}', 'UserController@showProfile')->name('users.profile');
@@ -97,6 +102,11 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/reports/states', 'PDFController@generateStatesReport')->name('states_report');
     Route::get('/reports/cables', 'PDFController@generateCablesReport')->name('cables_report');
     Route::get('/reports/boxes', 'PDFController@generateBoxesReport')->name('boxes_report');
+    Route::get('/reports/processes', 'PDFController@generateProcessesReport')->name('processes_report');
+    Route::get('/reports/customers-by-box', 'PDFController@generateCustomersByBoxReport')->name('customers_by_box_report');
+    Route::get('/reports/footage-comparison', 'PDFController@generateFootageComparasionReport')->name('footage_comparasion_report');
+    Route::get('/reports/occupation', 'PDFController@generateOccupationReport')->name('occupation_report');
+    Route::get('/reports/customers', 'PDFController@generateCustomersReport')->name('customers_report');
 });
 
 Route::get('send-request-notification/{id}', 'ProcessStageFourController@sendTelegramMessage')->name('send_request');

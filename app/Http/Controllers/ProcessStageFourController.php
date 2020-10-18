@@ -117,7 +117,7 @@ class ProcessStageFourController extends Controller
                     $address->customers_id = $request->zoom;
                     $customer->address()->save($address);
     
-                    $process->users_id = Auth::user()->id;
+                    //$process->users_id = Auth::user()->id;
                     $process->stage = 3;
                     $process->meters = $request->distance;
                     $process->real_meters = $request->real_meters;

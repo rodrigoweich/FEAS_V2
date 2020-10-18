@@ -27,13 +27,13 @@
                             <span class="align-middle">&nbsp;&nbsp;Lista de processos</span>
                         </div>
                         <div class="col-8 text-right">
-                            <form action="{{ route('default.boxes.search') }}" method="post">
+                            <form action="{{ route('default.list.search') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Filtros">
+                                    <input type="text" name="dataToSearch" class="form-control panel-border" placeholder="Pesquise por cliente, usuário que iniciou ou usuário que finalizou (se houver)">
                                     <div class="input-group-append">
                                         <button class="btn panel-border" type="submit" data-toggle="tooltip" data-placement="top" title="Pesquisar"><i class="fas fa-search"></i></button>
-                                        <a class="btn panel-border" href="{{ route('default.process_stage_one.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
+                                        <a class="btn panel-border" href="{{ route('default.process_list.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="Cancelar e voltar"><i class="fas fa-undo-alt"></i></a>
                                     </div>
                                 </div>
                             </form>
@@ -78,7 +78,7 @@
                                             Informação indefinida
                                         @endif
                                     </td>
-                                    <td class="align-middle">{{ $data->customer()->get()->first()->name }} {{ Str::limit($data->customer()->get()->first()->surname, 15) }}</td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ Str::limit($customer->find($data->customers_id)->surname, 15) }}</td>
                                     <td class="align-middle">{{ Str::limit($user->find($data->users_id)->name, 30) }}</td>
                                     <td class="align-middle">
                                         @if($data->users_id_finished === null)
@@ -87,10 +87,10 @@
                                             {{ Str::limit($user->find($data->users_id_finished)->name, 30) }}
                                         @endif
                                     </td>
-                                    @can('show-customers')
+                                    @can('list-general-process')
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
-                                                <a href="{{ route('default.customers.show', $data->customers_id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
+                                                <a href="{{ route('default.process_list_show.show', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
                                         </div>
                                     </td>
                                     @endcan

@@ -15,8 +15,8 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 150);
-            $table->text('description', 500);
+            $table->string('title', 185);
+            $table->text('description');
             $table->timestamp('pub_date_time')->useCurrent();
             $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('active')->default(1);
