@@ -116,7 +116,7 @@
         <img class="img-fluid pb-3 img" src="{{ config('global.type_asset')('img/system/feas-logo.png') }}" alt="Home">
         @csrf
         <div class="form-note">
-            <p>{{ __('Sign-in') }}</p>
+            <p>{{ __('Entrar') }}</p>
         </div>
         <h1><span class="logo">feas</span></h1>
         <div class="form-label-group">
@@ -131,9 +131,9 @@
             </div>
             @endforeach
         </div>
-        <button class="btn btn-lg btn-block button-style" type="submit">{{ __('Enter') }}</button>
+        <button class="btn btn-lg btn-block button-style" type="submit">Entrar</button>
         @if (Route::has('register'))
-        <p>{{ __('No have account?') }} <a href="{{ route('register') }}">{{ __('Register') }}</a></p>
+        <p>{{ __('No have account?') }} <a href="{{ route('register') }}">Registrar-se</a></p>
         @endif
         <div class="row form-bottom">
             <div class="col">

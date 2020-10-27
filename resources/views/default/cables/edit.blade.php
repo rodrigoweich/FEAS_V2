@@ -16,7 +16,14 @@
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    Editar cabo existente
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn button-without-style btn-sm" href="{{ route('default.cables.index') }}" role="button" data-toggle="tooltip" data-placement="top" title="{{ __('Return to app') }}">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <span class="align-middle">&nbsp;&nbsp;Editar cabo existente</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

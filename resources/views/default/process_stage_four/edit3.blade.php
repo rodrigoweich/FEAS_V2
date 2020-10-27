@@ -350,9 +350,9 @@ function initMap() {
     loadBoxesOnMap();
     loadCablesOnMap();
     createRoutePolylineFunction();
-    @if(old('distance') !== null && !$errors->has('distance'))
+    @if(old('meters') !== null && !$errors->has('meters'))
         loadLineRoute();
-        routeDistance = {{ old('distance') }};
+        routemeters = {{ old('meters') }};
     @endif
 
     const controlDiv = document.createElement("div");

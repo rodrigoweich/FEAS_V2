@@ -56,11 +56,12 @@
                     <th><b>Nome</b></th>
                     <th><b>Alterável?</b></th>
                     <th><b>Regras</b></th>
+                    <th><b>Lista de regras</b></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($response as $role)
-                <tr>
+                <tr style="text-align: justify !important;">
                     <td style="border-bottom: 1px solid #ddd !important;">{{ $role->id }}</td>
                     <td style="border-bottom: 1px solid #ddd !important;">{{ $role->name }}</td>
                     <td style="border-bottom: 1px solid #ddd !important;">
@@ -71,6 +72,7 @@
                         @endif
                     </td>
                     <td style="border-bottom: 1px solid #ddd !important;">{{ $rules->where('role_id', $role->id)->count() }}</td>
+                    <td style="border-bottom: 1px solid #ddd !important;">{{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}</td>
                 </tr>
                 @endforeach
             </tbody>

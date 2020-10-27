@@ -142,8 +142,8 @@
                                     <input type="text" class="form-control" id="box" name="box" value="{{ $response->customer()->get()->first()->service_boxes_id }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="distance">Distância ap.</label>
-                                    <input type="number" class="form-control" id="distance" name="distance" value="{{ $response->meters }}" readonly>
+                                    <label for="meters">Distância ap.</label>
+                                    <input type="number" class="form-control" id="meters" name="meters" value="{{ $response->meters }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="real_meters">Distância real</label>

@@ -15,9 +15,18 @@ class CreateRoleRuleTable extends Migration
     {
         Schema::create('role_rule', function (Blueprint $table) {
             $table->id();
-            $table->integer('rule_id')->unsigned();
-            $table->integer('role_id')->unsigned();
+            $table->bigInteger('rule_id')->unsigned();
+            $table->bigInteger('role_id')->unsigned();
             $table->timestamps();
+            
+            $table->foreign('rule_id')
+                    ->references('id')
+                    ->on('rules')
+                    ->onDelete('cascade');
+            $table->foreign('role_id')
+                    ->references('id')
+                    ->on('roles')
+                    ->onDelete('cascade');
         });
     }
 

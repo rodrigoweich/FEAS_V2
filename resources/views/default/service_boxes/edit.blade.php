@@ -4,6 +4,7 @@
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -203,6 +204,10 @@ function initMap() {
     createNewBoxPoint({lat: {{ $data->m_lat }}, lng: {{ $data->m_lng }}});
 
     appendListenerOnMap();
+
+    const controlDiv = document.createElement("div");
+    createMenuButtonOnMap(controlDiv, gmap);
+    gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
 };
 
 function appendListenerOnMap() {

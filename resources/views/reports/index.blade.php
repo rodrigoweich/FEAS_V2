@@ -89,7 +89,7 @@
                     <strong class="text-gray-dark">@ocupação/cidade</strong>
                     <a href="{{ route('reports.occupation_report') }}">Gerar relatório</a>
                 </div>
-                <span class="d-block">nome, cor hex., pontilhado, tamanho</span>
+                <span class="d-block">Cidade, qtd caixas, qtd portas, ocupadas, livres, ocupação(%)</span>
             </div>
         </div>
         <div class="border-bottom border-gray" id="chart" style="height: 300px;"></div>
