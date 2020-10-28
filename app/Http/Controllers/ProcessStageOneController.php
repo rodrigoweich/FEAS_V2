@@ -10,6 +10,7 @@ use App\City;
 use App\Customer;
 use App\Address;
 use App\Process;
+use App\ProcessLog;
 use DB;
 use App\Http\Requests\ProcessStageOneRequest;
 
@@ -85,6 +86,15 @@ class ProcessStageOneController extends Controller
         $process->users_id = Auth::user()->id;
         $process->stage = 0;
         $customer->process()->save($process);
+
+        $comment = new ProcessLog;
+        $comment->description = 'Processo iniciado';
+        $comment->processes_id = $process;
+        $comment->stage = $process->stage;
+        $comment->users_id = Auth::user()->id;
+        $comment->current_stage = 1001;
+        $comment->next_stage = 0;
+        $process->process_logs()->save($comment);
 
         return redirect()->route('default.process_stage_one.index');
     }

@@ -261,7 +261,7 @@ function createMenuDelRouteOnMap(div, map) {
     ui.style.cursor = "pointer";
     ui.style.marginBottom = "22px";
     ui.style.textAlign = "center";
-    ui.title = "Deletar último ponto inserido";
+    ui.title = "Click to open menu";
     div.appendChild(ui);
     
     const text = document.createElement("div");
@@ -271,7 +271,7 @@ function createMenuDelRouteOnMap(div, map) {
     text.style.lineHeight = "38px";
     text.style.paddingLeft = "5px";
     text.style.paddingRight = "5px";
-    text.innerHTML = "Deletar último ponto inserido";
+    text.innerHTML = "Deletar último ponto";
     ui.appendChild(text);
     
     ui.addEventListener("click", () => {
@@ -290,7 +290,7 @@ function createMenuButtonOnMap(div, map) {
     ui.style.cursor = "pointer";
     ui.style.marginBottom = "22px";
     ui.style.textAlign = "center";
-    ui.title = "Menu";
+    ui.title = "Click to open menu";
     div.appendChild(ui);
     
     const text = document.createElement("div");

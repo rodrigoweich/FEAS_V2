@@ -14,6 +14,7 @@ Use App\Cable;
 Use App\User;
 use DB;
 Use App\ProcessPhotos;
+use App\ProcessLog;
 
 use App\Http\Controllers\ProcessStageFourController;
 
@@ -32,18 +33,50 @@ class ProcessController extends Controller
             } else {
                 $customer = Customer::find($process->customer()->get()->first()->id);
                 if ($process->stage == 0) {
+                    $comment = new ProcessLog;
+                    $comment->description = 'Ação padrão do sistema.';
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 0;
+                    $comment->next_stage = 1;
+                    $process->process_logs()->save($comment);
                     $process->stage = 1;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_one.index');
                 } else if ($process->stage == 1) {
+                    $comment = new ProcessLog;
+                    $comment->description = 'Ação padrão do sistema.';
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 1;
+                    $comment->next_stage = 2;
+                    $process->process_logs()->save($comment);
                     $process->stage = 2;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_two.index');
                 } else if ($process->stage == 2) {
+                    $comment = new ProcessLog;
+                    $comment->description = 'Ação padrão do sistema.';
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 2;
+                    $comment->next_stage = 3;
+                    $process->process_logs()->save($comment);
                     $process->stage = 3;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_three.index');
                 } else if ($process->stage == 3) {
+                    $comment = new ProcessLog;
+                    $comment->description = 'Ação padrão do sistema.';
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 3;
+                    $comment->next_stage = 4;
+                    $process->process_logs()->save($comment);
                     $process->stage = 4;
                     ProcessStageFourController::sendTelegramMessage($process->id);
                     $customer->process()->save($process);
@@ -54,7 +87,7 @@ class ProcessController extends Controller
         return redirect()->route('default.process_stage_one.index');
     }
 
-    public function previous_stage($id)
+    public function previous_stage(Request $request, $id)
     {
         if(isset($id)) {
             $process = Process::find($id);
@@ -63,18 +96,50 @@ class ProcessController extends Controller
             } else {
                 $customer = Customer::find($process->customer()->get()->first()->id);
                 if ($process->stage == 1) {
+                    $comment = new ProcessLog;
+                    $comment->description = $request->comments;
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 1;
+                    $comment->next_stage = 0;
+                    $process->process_logs()->save($comment);
                     $process->stage = 0;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_two.index');
                 } else if ($process->stage == 2) {
+                    $comment = new ProcessLog;
+                    $comment->description = $request->comments;
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 2;
+                    $comment->next_stage = 1;
+                    $process->process_logs()->save($comment);
                     $process->stage = 1;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_three.index');
                 } else if ($process->stage == 3) {
+                    $comment = new ProcessLog;
+                    $comment->description = $request->comments;
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 3;
+                    $comment->next_stage = 2;
+                    $process->process_logs()->save($comment);
                     $process->stage = 2;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_four.index');
                 } else if ($process->stage == 4) {
+                    $comment = new ProcessLog;
+                    $comment->description = $request->comments;
+                    $comment->processes_id = $process;
+                    $comment->stage = $process->stage;
+                    $comment->users_id = Auth::user()->id;
+                    $comment->current_stage = 4;
+                    $comment->next_stage = 3;
+                    $process->process_logs()->save($comment);
                     $process->stage = 3;
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_five.index');
@@ -82,6 +147,18 @@ class ProcessController extends Controller
             }
         }
         return redirect()->route('default.process_stage_one.index');
+    }
+
+    public function get_log(Request $request) {
+
+        $response = DB::table('processes')
+        ->leftjoin('process_logs', 'processes.id', '=', 'process_logs.processes_id')
+        ->leftjoin('users', 'process_logs.users_id', '=', 'users.id')
+        ->where('processes.id', '=', $request->id)
+        ->whereNotNull('process_logs.id')
+        ->select('process_logs.description', 'process_logs.created_at', 'process_logs.stage', 'process_logs.current_stage', 'process_logs.next_stage', 'users.name')->get();
+
+        return $response;
     }
 
     public function index_history()

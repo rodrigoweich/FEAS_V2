@@ -14,6 +14,7 @@ Use App\Cable;
 Use App\User;
 use DB;
 Use App\ProcessPhotos;
+Use App\ProcessLog;
 
 use Notification;
 use App\Notifications\SolvedNotification;
@@ -87,6 +88,15 @@ class ProcessStageFiveController extends Controller
             if(!$data) {
                 return view('404');
             } else {
+                $comment = new ProcessLog;
+                $comment->description = 'Processo finalizado';
+                $comment->processes_id = $data->id;
+                $comment->stage = $data->stage;
+                $comment->users_id = Auth::user()->id;
+                $comment->current_stage = 4;
+                $comment->next_stage = 5;
+                $data->process_logs()->save($comment);
+
                 $data->stage = 5;
                 $data->users_id_finished = Auth::user()->id;
                 $data->save();

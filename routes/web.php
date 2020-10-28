@@ -78,7 +78,8 @@ Route::prefix('default')->name('default.')->group(function () {
     Route::delete('/process/finish/{process}', 'ProcessStageFiveController@destroy_process')->name('process.finish');
     // NEXT AND RETURN
     Route::get('/process/next/{process}', 'ProcessController@next_stage')->name('process.next_stage');
-    Route::get('/process/previous/{process}', 'ProcessController@previous_stage')->name('process.previous_stage');
+    Route::put('/process/previous/{process}', 'ProcessController@previous_stage')->name('process.previous_stage');
+    Route::get('/process/previous/log/', 'ProcessController@get_log')->name('process.log');
     // PROCESS HISTORY
     Route::get('/process/history', 'ProcessController@index_history')->name('process_history.index');
     Route::get('/process/history/{id}', 'ProcessController@history_show')->name('process_history.show');

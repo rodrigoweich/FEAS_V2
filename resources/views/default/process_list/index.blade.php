@@ -3,8 +3,7 @@
 @section('extra-header')
 <link href="{{ asset('vendor/css/process-timeline.css') }}" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
-<style>
-</style>
+<script src="{{ asset('vendor/js/np_controller.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -90,7 +89,8 @@
                                     @can('list-general-process')
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
-                                                <a href="{{ route('default.process_list_show.show', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
+                                            <button type="button" class="button-without-style mr-1 get-backed-process-data" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Log"><i class="fas text-dark fa-file-alt fa-lg"></i></button>
+                                            <a href="{{ route('default.process_list_show.show', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Visualizar cliente"><i class="fas text-dark fa-eye fa-lg"></i></button></a>
                                         </div>
                                     </td>
                                     @endcan
@@ -119,10 +119,26 @@
     </div>
 </div>
 
-<div>
-
+<div class="modal fade" tabindex="-1" role="dialog" id="finishProcess">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Logs do processo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="tex">
+                <table class="table table-ordered table-hover" id="customersTable">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-
 @endsection
 
 @section('extra-scripts')
@@ -131,5 +147,38 @@
         html:true,
         container: 'body'
     });
+
+//#########################################//
+$('.get-backed-process-data').on('click', function() {
+    var id = $(this).attr('this-process-id');
+    $.ajax({
+        type: "get",
+        url: "{{ route('default.process.log') }}",
+        data: { id: id },
+        success: function(data) {
+            if(data.length > 0) {
+                $("#customersTable>thead").append('<tr><th>#</th><th>Motivo</th><th>Anterior</th><th>Atual</th><th>Em</th><th>Por</th></tr>');
+                for(i=0; i<data.length; i++){
+                    linha = montarLinha(data[i]);
+                    $('#customersTable>tbody').append(linha);
+                }
+                $("#finishProcess").modal('show');
+            } else {
+                $("#customersTable>thead tr").remove();
+                $('#tex').append("<span>Sentimos muito, mas esse processo ainda não contém logs.</span>");
+                $("#finishProcess").modal('show');
+            }
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    })
+});
+
+$("#finishProcess").on('hidden.bs.modal', function () {
+    $("#customersTable>thead tr").remove();
+    $("#customersTable>tbody tr").remove();
+    $("#tex span").remove();
+});
 </script>
 @endsection

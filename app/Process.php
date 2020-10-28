@@ -20,6 +20,10 @@ class Process extends Model
     public function process_photos() {
         return $this->hasMany('App\ProcessPhotos', 'processes_id');
     }
+    
+    public function process_logs() {
+        return $this->hasMany('App\ProcessLog', 'processes_id');
+    }
 
     public function cities_p() {
         return $this->hasOneThrough('App\Address', 'App\Customer', 'id', 'customers_id', 'id', 'id');
