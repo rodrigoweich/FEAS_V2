@@ -13,10 +13,12 @@ function montarLinha(p){
     };
 
     var next_or_previous;
-    if (p.next_stage < p.current_stage) {
-        next_or_previous = '<i class="fas text-danger fa-arrow-left fa-lg"></i>';
-    } else {
+    if (p.current_stage == 11) {
+        next_or_previous = '<i class="fas text-success fa-play fa-lg"></i>';
+    } else if(p.next_stage > p.current_stage) {
         next_or_previous = '<i class="fas text-success fa-arrow-right fa-lg"></i>';
+    } else {
+        next_or_previous = '<i class="fas text-danger fa-arrow-left fa-lg"></i>';
     }
     var linha = "<tr>"+
                     "<td>"+ next_or_previous + "</td>"+

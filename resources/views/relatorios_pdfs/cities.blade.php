@@ -86,4 +86,9 @@
         @endif
     </div>
 
+    <script type="text/php">
+        $font = $fontMetrics->getFont("Arial", "bold");
+        $pdf->page_text(500, 810, "Página {PAGE_NUM}/{PAGE_COUNT}", $font, 10, array(0, 0, 0));
+    </script>
 </body>
+</html>

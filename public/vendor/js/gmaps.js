@@ -23,6 +23,9 @@ var polylineVet = [];
 var changeCustomerPointOnMap;
 // VARIÁVEL QUE RECEBE O LISTENER PARA MUDAR A CAIXA UTILIZADA
 var changeBoxSelectedOnMap;
+// VARIÁVEL PARA IDENTIFICAR SE JÁ EXISTE UM PONTO CRIADO REPRESENTANDO O CLIENTE
+var insertedBuildings = false;
+var infoWindowMyPos;
 
 // ------------------------------------------------------------------------------------------------------------------- //
 // ------------------------------------------------------------------------------------------------------------------- //
@@ -46,18 +49,21 @@ function selectCustomerIconPath(option) {
 
 // FUNÇÃO QUE MUDA O ICONE DO CLIENTE
 function changeFigureType(figure) {
-    $('#figureType').removeClass();
-    $('#figureType').addClass(figure);
-    customerMarker.setIcon({
-        path: selectCustomerIconPath(figure),
-        fillColor: "#fff",
-        fillOpacity: 1,
-        strokeWeight: 0,
-        scale: 0.05,
-        anchor: new google.maps.Point(200,510),
-        labelOrigin: new google.maps.Point(205,190)
-    });
-    customerMarkerName = figure;
+    if(customerMarker != null) {
+        $('#figureType').removeClass();
+        $('#figureType').addClass(figure);
+        customerMarker.setIcon({
+            path: selectCustomerIconPath(figure),
+            fillColor: "#fff",
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#F00",
+            scale: 0.05,
+            anchor: new google.maps.Point(200,510),
+            labelOrigin: new google.maps.Point(205,190)
+        });
+        customerMarkerName = figure;
+    };
 };
 
 // FUNÇÃO QUE CALCULA O TAMANHO DA ROTA (EM METROS)
@@ -119,7 +125,8 @@ function createNewCustomerPoint(position, iconPath) {
             path: iconPath,
             fillColor: "#fff",
             fillOpacity: 1,
-            strokeWeight: 0,
+            strokeWeight: 2,
+            strokeColor: "#F00",
             scale: 0.05,
             anchor: new google.maps.Point(200,510),
             labelOrigin: new google.maps.Point(205,190)
@@ -139,7 +146,8 @@ function loadServiceBoxes(position, availables, boxId, fillC, ScaleS) {
             path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
             fillColor: fillC,
             fillOpacity: 1,
-            strokeWeight: 0,
+            strokeWeight: 2,
+            strokeColor: "#00F",
             scale: ScaleS,
             anchor: new google.maps.Point(200,510),
             labelOrigin: new google.maps.Point(205,190)
@@ -160,7 +168,8 @@ function createListenerToTheServiceBox(array, arrayId) {
                     path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
                     fillColor: "#fff",
                     fillOpacity: 1,
-                    strokeWeight: 0,
+                    strokeWeight: 2,
+                    strokeColor: "#00F",
                     scale: 0.05,
                     anchor: new google.maps.Point(200,510),
                     labelOrigin: new google.maps.Point(205,190)
@@ -170,7 +179,8 @@ function createListenerToTheServiceBox(array, arrayId) {
                 path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
                 fillColor: "#32a852",
                 fillOpacity: 1,
-                strokeWeight: 0,
+                strokeWeight: 2,
+                strokeColor: "#00F",
                 scale: 0.08,
                 anchor: new google.maps.Point(200,510),
                 labelOrigin: new google.maps.Point(205,190)
@@ -341,3 +351,103 @@ function createWindowMessage(type, message) {
     if(type == 0) { return alert(message); }
     else if(type == 1) { return confirm(message); }
 }
+
+// ------------------------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------- //
+
+// CARREGAR CAIXAS PROCESSO NIVEL 2
+function loadServiceBoxesTwo(position, availables, id) {
+    var box = new google.maps.Marker({
+        position: position,
+        map: gmap,
+        animation: google.maps.Animation.DROP,
+        label: '' + availables,
+        icon: {
+            path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+            fillColor: "#fff",
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#00F",
+            scale: 0.05,
+            anchor: new google.maps.Point(200,510),
+            labelOrigin: new google.maps.Point(205,190)
+        }
+    });
+    boxesIds.push(box);
+
+    box.addListener("click", () => {
+        $.each(boxesIds, function(i){
+            boxesIds[i].setIcon({
+                path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+                fillColor: "#fff",
+                fillOpacity: 1,
+                strokeWeight: 2,
+                strokeColor: "#00F",
+                scale: 0.05,
+                anchor: new google.maps.Point(200,510),
+                labelOrigin: new google.maps.Point(205,190)
+            });
+        });
+        box.setIcon({
+            path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+            fillColor: "#32a852",
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#00F",
+            scale: 0.08,
+            anchor: new google.maps.Point(200,510),
+            labelOrigin: new google.maps.Point(205,190)
+        });
+        $('#box').val(id);
+    })
+}
+
+// ------------------------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------- //
+// PROCESSO N1
+
+//CRIAR CLIENTE
+function createNewCustomerPointOne(position, iconName, iconPath) {
+    if (insertedBuildings == false) {
+        customerMarker = new google.maps.Marker({
+            position: position,
+            map: gmap,
+            animation: google.maps.Animation.DROP,
+            icon: {
+                path: iconPath,
+                fillColor: "#fff",
+                fillOpacity: 1,
+                strokeWeight: 2,
+                strokeColor: "#F00",
+                scale: 0.05,
+                anchor: new google.maps.Point(200,510),
+                labelOrigin: new google.maps.Point(205,190)
+            }
+        });
+        insertedBuildings = true;
+        $('#clearMarker').removeAttr('disabled');
+        $('#saveMarker').removeAttr('disabled');
+
+        $('#lat').val(customerMarker.getPosition().lat());
+        $('#lng').val(customerMarker.getPosition().lng());
+        $('#zoom').val(gmap.getZoom());
+        $('#icon').val(iconName);
+
+        if (infoWindowMyPos == true) {
+            infoWindowMyPos.close(gmap);
+        }
+    } else {
+        $('#alertDeleteElement').modal('show');
+    }
+};
+
+// APAGAR PONTO DO MAPA
+function clearMarkers() {
+    customerMarker.setMap(null);
+    customerMarker = null;
+    insertedBuildings = false;
+    $('#clearMarker').attr("disabled", true);
+    $('#saveMarker').attr("disabled", true);
+};

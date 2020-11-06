@@ -78,7 +78,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="inputname">Nome</label>
-                                    <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}" autofocus>
+                                    <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}" autofocus required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="city">Cidade</label>
@@ -90,29 +90,29 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" readonly>
+                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" readonly>
+                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="description">Descrição</label>
-                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" autofocus>
+                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" required autofocus>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="amount">Quantidade</label>
-                                    <input type="number" class="form-control" id="amount" name="amount" max="128" min="0">
+                                    <input type="number" class="form-control" id="amount" name="amount" max="128" min="0" value="{{ old('amount') }}" autofocus required>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="busy">Ocupadas</label>
-                                    <input type="number" class="form-control" id="busy" name="busy" min="0">
+                                    <input type="number" class="form-control" id="busy" name="busy" min="0" value="{{ old('busy') }}" required autofocus>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="available">Disponíveis</label>
-                                    <input type="number" class="form-control" id="available" name="available" readonly>
+                                    <input type="number" class="form-control" id="available" name="available" value="{{ old('available') }}" readonly>
                                 </div>
                             </div>
                         </div>

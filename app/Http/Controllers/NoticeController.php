@@ -10,6 +10,8 @@ use App\Notice;
 use DB;
 use App\User;
 
+use Illuminate\Support\Facades\Log;
+
 class NoticeController extends Controller
 {
 
@@ -62,20 +64,6 @@ class NoticeController extends Controller
         if(Gate::denies('create-notices')){
             return view('403');
         }
-
-        $rules = [
-            'title' => 'required|min:5|max:150',
-            'description' => 'required|min:10|max:500'
-        ];
-        $messages = [
-            "title.required" => "O título da notícia não pode ficar em branco.",
-            "title.min" => "O título deve conter ao menos :min caracteres.",
-            "title.max" => "O título deve conter no máximo :max caracteres.",
-            "description.required" => "A descrição da notícia não pode ficar em branco.",
-            "description.min" => "O descrição deve conter ao menos :min caracteres.",
-            "description.max" => "O descrição deve conter no máximo :max caracteres.",
-        ];
-        $request->validate($rules, $messages);
         
         $notice = new Notice;
         $notice->title = $request->title;
@@ -92,6 +80,8 @@ class NoticeController extends Controller
         }
         $notice->users_id = Auth::user()->id;
         $notice->save();
+
+        Log::info(trim(Auth::user()->name . ' criou a notícia '. $notice->title . PHP_EOL . 'Informações adicionais' . PHP_EOL . $notice));
         return redirect()->route('admin.notices.index');
     }
 
@@ -144,23 +134,10 @@ class NoticeController extends Controller
         if(Gate::denies('create-notices')){
             return view('403');
         }
-
-        $rules = [
-            'title' => 'required|min:5|max:150',
-            'description' => 'required|min:10|max:500'
-        ];
-        $messages = [
-            "title.required" => "O título da notícia não pode ficar em branco.",
-            "title.min" => "O título deve conter ao menos :min caracteres.",
-            "title.max" => "O título deve conter no máximo :max caracteres.",
-            "description.required" => "A descrição da notícia não pode ficar em branco.",
-            "description.min" => "O descrição deve conter ao menos :min caracteres.",
-            "description.max" => "O descrição deve conter no máximo :max caracteres.",
-        ];
-        $request->validate($rules, $messages);
         
         if(isset($id)) {
             $notice = Notice::find($id);
+            $old_notice = Notice::find($id);
             if(!$notice) {
                 return view('404');
             } else {
@@ -178,6 +155,9 @@ class NoticeController extends Controller
                 }
                 $notice->users_id = Auth::user()->id;
                 $notice->save();
+                $notice = Notice::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou a notícia '. $notice->title . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_notice . PHP_EOL . '> ' . $notice));
                 return redirect()->route('admin.notices.index');
             }
         }
@@ -203,6 +183,7 @@ class NoticeController extends Controller
             if(!$data) {
                 return view('404');
             } else {
+                Log::info(trim(Auth::user()->name . ' deletou a notícia '. $data->title . PHP_EOL . 'Informações adicionais' . PHP_EOL . $data));
                 $data->delete();
                 return redirect()->route('admin.notices.index');
             }

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('extra-header')
+<script src="{{ asset('vendor/bootstrap-notify-3.1.3/bootstrap-notify.js') }}"></script>
+@endsection
+
 @section('navbar')
 @component('components.navbar')
 @endcomponent
@@ -138,9 +142,13 @@
 @foreach($hasProcesses as $key => $h)
     $("#dataIds_" + {{ $key }}).click(function(e) {
         if({{ $h }} != 0) {
-            if(confirm("Existem clientes vinculados a essa caixa, deseja realmente deletar?")) {} else {
-                return false;
-            }
+            e.preventDefault();
+            e.stopPropagation();
+            $.notify({
+                message: "Você não pode deletar esta caixa pois existem clientes vinculados a ela.\nExperimente utilizar a opção de editar para realizar modificações."
+            }, {
+                type: "danger"
+            });
         } else {
             if(confirm("Deseja mesmo deletar?")) {} else {
                 return false;

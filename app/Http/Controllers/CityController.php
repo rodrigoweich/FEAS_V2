@@ -9,6 +9,9 @@ use App\State;
 use App\Http\Requests\CityRequest;
 use DB;
 
+use Illuminate\Support\Facades\Log;
+use Auth;
+
 class CityController extends Controller
 {
 
@@ -83,6 +86,7 @@ class CityController extends Controller
             $city->shortcut = 0;
         }
         $city->save();
+        Log::info(trim(Auth::user()->name . ' criou a cidade '. $city->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $city));
         return redirect()->route('admin.cities.index');
     }
 
@@ -135,18 +139,30 @@ class CityController extends Controller
             return view('403');
         }
 
-        $city = City::find($id);
-        $city->name = $request->name;
-        $city->m_lat = $request->lat;
-        $city->m_lng = $request->lng;
-        $city->m_zoom = $request->zoom;
-        $city->states_id = $request->state;
-        if ($request->inputshortcut == 'on') {
-            $city->shortcut = 1;
-        } else {
-            $city->shortcut = 0;
+        if(isset($id)) {
+            $city = City::find($id);
+            $old_city = City::find($id);
+            if(!$city) {
+                return view('404');
+            } else {
+                $city->name = $request->name;
+                $city->m_lat = $request->lat;
+                $city->m_lng = $request->lng;
+                $city->m_zoom = $request->zoom;
+                $city->states_id = $request->state;
+                if ($request->inputshortcut == 'on') {
+                    $city->shortcut = 1;
+                } else {
+                    $city->shortcut = 0;
+                }
+                $city->save();
+                $city = City::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou a cidade '. $city->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_city . PHP_EOL . '> ' . $city));
+                return redirect()->route('admin.cities.index');
+            }
         }
-        $city->save();
+        
         return redirect()->route('admin.cities.index');
     }
 
@@ -168,6 +184,7 @@ class CityController extends Controller
             if(!$city) {
                 return view('404');
             } else {
+                Log::info(trim(Auth::user()->name . ' deletou a cidade '. $city->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $city));
                 $city->delete();
                 return redirect()->route('admin.cities.index');
             }

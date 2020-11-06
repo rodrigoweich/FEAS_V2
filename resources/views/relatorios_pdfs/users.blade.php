@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,7 @@
 
     <div class="container" style="text-align: left !important;">
         @if($response->count() !== 0)
-        <table width="100%">
+        <table width="100%" class="table">
             <thead>
                 <tr style="background-color: #F1F1F1 !important">
                     <th><b>#</b></th>
@@ -80,4 +80,9 @@
         @endif
     </div>
 
+    <script type="text/php">
+        $font = $fontMetrics->getFont("Arial", "bold");
+        $pdf->page_text(500, 810, "Página {PAGE_NUM}/{PAGE_COUNT}", $font, 10, array(0, 0, 0));
+    </script>
 </body>
+</html>

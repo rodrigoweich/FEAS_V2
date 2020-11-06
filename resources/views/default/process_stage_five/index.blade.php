@@ -91,7 +91,7 @@
                         {{ $response->onEachSide(1)->links() }}
                     </div>
                     <div class="d-flex justify-content-center">
-                        <span class="align-middle">{{ __('Showing') }} {{ $response->count() }} {{ __('of') }} {{ $response->total() }} {{ __('results') }}</span>
+                        <span class="align-middle">Mostrando {{ $response->count() }} de {{ $response->total() }} resultados</span>
                     </div>
                 </div>
             </div>

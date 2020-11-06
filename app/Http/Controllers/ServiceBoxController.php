@@ -10,6 +10,9 @@ use DB;
 use App\Customer;
 use App\Http\Requests\ServiceBoxRequest;
 
+use Illuminate\Support\Facades\Log;
+use Auth;
+
 class ServiceBoxController extends Controller
 {
 
@@ -85,6 +88,7 @@ class ServiceBoxController extends Controller
         $service_box->amount = $request->amount;
         $service_box->busy = $request->busy;
         $service_box->save();
+        Log::info(trim(Auth::user()->name . ' criou a caixa '. $service_box->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $service_box));
         return redirect()->route('default.boxes.index');
     }
 
@@ -142,6 +146,7 @@ class ServiceBoxController extends Controller
 
         if(isset($id)) {
             $service_box = ServiceBox::find($id);
+            $old_service_box = ServiceBox::find($id);
             if(!$service_box) {
                 return view('404');
             } else {
@@ -153,6 +158,9 @@ class ServiceBoxController extends Controller
                 $service_box->amount = $request->amount;
                 $service_box->busy = $request->busy;
                 $service_box->save();
+                $service_box = ServiceBox::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou a caixa '. $service_box->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_service_box . PHP_EOL . '> ' . $service_box));
                 return redirect()->route('default.boxes.index');
             }
         }
@@ -177,6 +185,7 @@ class ServiceBoxController extends Controller
             if(!$data) {
                 return view('404');
             } else {
+                Log::info(trim(Auth::user()->name . ' deletou a caixa '. $data->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $data));
                 $data->delete();
                 return redirect()->route('default.boxes.index');
             }

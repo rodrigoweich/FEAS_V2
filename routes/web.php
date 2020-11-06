@@ -112,3 +112,4 @@ Route::prefix('reports')->name('reports.')->group(function () {
 
 Route::get('send-request-notification/{id}', 'ProcessStageFourController@sendTelegramMessage')->name('send_request');
 Route::get('send-solved-notification/{id}', 'ProcessStageFiveController@sendSolvedTelegramMessage')->name('send_solved');
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs')->middleware('auth');

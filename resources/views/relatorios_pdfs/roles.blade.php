@@ -72,7 +72,7 @@
                         @endif
                     </td>
                     <td style="border-bottom: 1px solid #ddd !important;">{{ $rules->where('role_id', $role->id)->count() }}</td>
-                    <td style="border-bottom: 1px solid #ddd !important;">{{ __(implode(', ', $role->rules()->get()->pluck('display_name')->toArray())) }}</td>
+                    <td style="border-bottom: 1px solid #ddd !important;">@foreach($role->rules()->get()->pluck('display_name')->toArray() as $a) - {{ $a }} <br> @endforeach</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -82,4 +82,9 @@
         @endif
     </div>
 
+    <script type="text/php">
+        $font = $fontMetrics->getFont("Arial", "bold");
+        $pdf->page_text(500, 810, "Página {PAGE_NUM}/{PAGE_COUNT}", $font, 10, array(0, 0, 0));
+    </script>
 </body>
+</html>

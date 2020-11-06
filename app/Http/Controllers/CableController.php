@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Gate;
 use App\Cable;
 use App\Http\Requests\CableRequest;
 
+use Illuminate\Support\Facades\Log;
+use Auth;
+
 class CableController extends Controller
 {
 
@@ -76,6 +79,8 @@ class CableController extends Controller
         }
         $cable->size = $request->size;
         $cable->save();
+
+        Log::info(trim(Auth::user()->name . ' criou o cabo '. $cable->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $cable));
         return redirect()->route('default.cables.index');
     }
 
@@ -131,6 +136,7 @@ class CableController extends Controller
         
         if(isset($id)) {
             $cable = Cable::find($id);
+            $old_cable = Cable::find($id);
             if(!$cable) {
                 return view('404');
             } else {
@@ -144,6 +150,9 @@ class CableController extends Controller
                 }
                 $cable->size = $request->size;
                 $cable->save();
+                $cable = Cable::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou o cabo '. $cable->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_cable . PHP_EOL . '> ' . $cable));
                 return redirect()->route('default.cables.index');
             }
         }
@@ -168,6 +177,7 @@ class CableController extends Controller
             if(!$data) {
                 return view('404');
             } else {
+                Log::info(trim(Auth::user()->name . ' deletou o cabo '. $data->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $data));
                 $data->delete();
                 return redirect()->route('default.cables.index');
             }

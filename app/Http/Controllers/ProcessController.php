@@ -16,6 +16,7 @@ use DB;
 Use App\ProcessPhotos;
 use App\ProcessLog;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\ProcessStageFourController;
 
 class ProcessController extends Controller
@@ -43,6 +44,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 1;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_one.index');
                 } else if ($process->stage == 1) {
                     $comment = new ProcessLog;
@@ -55,6 +57,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 2;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_two.index');
                 } else if ($process->stage == 2) {
                     $comment = new ProcessLog;
@@ -67,6 +70,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 3;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_three.index');
                 } else if ($process->stage == 3) {
                     $comment = new ProcessLog;
@@ -78,6 +82,7 @@ class ProcessController extends Controller
                     $comment->next_stage = 4;
                     $process->process_logs()->save($comment);
                     $process->stage = 4;
+                    Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     ProcessStageFourController::sendTelegramMessage($process->id);
                     $customer->process()->save($process);
                     return redirect()->route('default.process_stage_four.index');
@@ -106,6 +111,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 0;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' voltou o processo de código '. $process->id . ' para o antigo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process . PHP_EOL . PHP_EOL . ' Motivo: ' . $comment->description));
                     return redirect()->route('default.process_stage_two.index');
                 } else if ($process->stage == 2) {
                     $comment = new ProcessLog;
@@ -118,6 +124,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 1;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' voltou o processo de código '. $process->id . ' para o antigo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process . PHP_EOL . PHP_EOL . ' Motivo: ' . $comment->description));
                     return redirect()->route('default.process_stage_three.index');
                 } else if ($process->stage == 3) {
                     $comment = new ProcessLog;
@@ -130,6 +137,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 2;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' voltou o processo de código '. $process->id . ' para o antigo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process . PHP_EOL . PHP_EOL . ' Motivo: ' . $comment->description));
                     return redirect()->route('default.process_stage_four.index');
                 } else if ($process->stage == 4) {
                     $comment = new ProcessLog;
@@ -142,6 +150,7 @@ class ProcessController extends Controller
                     $process->process_logs()->save($comment);
                     $process->stage = 3;
                     $customer->process()->save($process);
+                    Log::info(trim(Auth::user()->name . ' voltou o processo de código '. $process->id . ' para o antigo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process . PHP_EOL . PHP_EOL . ' Motivo: ' . $comment->description));
                     return redirect()->route('default.process_stage_five.index');
                 }
             }

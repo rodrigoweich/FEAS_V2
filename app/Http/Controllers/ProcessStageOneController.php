@@ -13,6 +13,7 @@ use App\Process;
 use App\ProcessLog;
 use DB;
 use App\Http\Requests\ProcessStageOneRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProcessStageOneController extends Controller
 {
@@ -92,9 +93,11 @@ class ProcessStageOneController extends Controller
         $comment->processes_id = $process;
         $comment->stage = $process->stage;
         $comment->users_id = Auth::user()->id;
-        $comment->current_stage = 1001;
+        $comment->current_stage = 11;
         $comment->next_stage = 0;
         $process->process_logs()->save($comment);
+
+        Log::info(trim(Auth::user()->name . ' iniciou um processo [Código: '. $process->id .'] [Viabilidade]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
 
         return redirect()->route('default.process_stage_one.index');
     }
@@ -158,7 +161,8 @@ class ProcessStageOneController extends Controller
                     $address->cities_id = $request->city;
                     $address->customers_id = $request->zoom;
                     $customer->address()->save($address);
-    
+
+                    Log::info(trim(Auth::user()->name . ' editou o processo de código '. $process->id . ' [Comercial]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_one.index');
                 }
             }

@@ -12,6 +12,7 @@ use App\Address;
 Use App\User;
 use DB;
 use App\Http\Requests\ProcessStageThreeRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProcessStageThreeController extends Controller
 {
@@ -76,6 +77,7 @@ class ProcessStageThreeController extends Controller
                 $process->responsible_id = $request->responsible_id;
                 $process->stage = 2;
                 $process->save();
+                Log::info(trim(Auth::user()->name . ' editou o processo de código '. $process->id . ' [Comercial]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                 return redirect()->route('default.process_stage_three.index');
             }
         }

@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Rule;
 use App\Role;
 use DB;
+
+use Illuminate\Support\Facades\Log;
+use Auth;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ProfileRequest;
@@ -82,6 +84,7 @@ class UserController extends Controller
         $user->save();
         $user->roles()->sync($request->rules);
         $user->save();
+        Log::info(trim(Auth::user()->name . ' criou o usuário '. $user->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $user));
         return redirect()->route('admin.users.index');
     }
 
@@ -132,13 +135,26 @@ class UserController extends Controller
             return view('403');
         }
 
-        $user = User::find($id);
-        $user->roles()->sync($request->rules);
-        $user->name = $request->name;
-        if(isset($request->password)) {
-            $user->password = Hash::make($request->password);
+        if(isset($id)) {
+            $user = User::find($id);
+            $old_user = User::find($id);
+            if(!$user) {
+                return view('404');
+            } else {
+                $user = User::find($id);
+                $user->roles()->sync($request->rules);
+                $user->name = $request->name;
+                if(isset($request->password)) {
+                    $user->password = Hash::make($request->password);
+                }
+                $user->save();
+                $user = User::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou o usuário '. $user->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_user . PHP_EOL . '> ' . $user));
+                return redirect()->route('admin.users.index');
+            }
         }
-        $user->save();
+
         return redirect()->route('admin.users.index');
     }
 
@@ -162,6 +178,7 @@ class UserController extends Controller
         if($user->unalterable === 1) {
             return redirect()->route('admin.users.index');
         }
+        Log::info(trim(Auth::user()->name . ' deletou o usuário '. $user->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $user));
         Storage::deleteDirectory('avatars/'.$user->id);
         $user->roles()->detach();
         $user->delete();

@@ -14,6 +14,7 @@ use App\Process;
 use App\ServiceBox;
 use App\Customer;
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 class ReportsController extends Controller
 {
@@ -22,6 +23,10 @@ class ReportsController extends Controller
     }
 
     public function index() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+
         $count_users = User::all()->count();
         $count_roles = Role::all()->count();
         $count_rules = Rule::all()->count();

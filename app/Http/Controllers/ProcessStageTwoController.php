@@ -14,6 +14,8 @@ Use App\User;
 use App\Http\Requests\ProcessStageTwoRequest;
 use DB;
 
+use Illuminate\Support\Facades\Log;
+
 class ProcessStageTwoController extends Controller
 {
     
@@ -54,15 +56,26 @@ class ProcessStageTwoController extends Controller
             return view('403');
         }
 
-        $response = Process::find($id);
-        $boxes = ServiceBox::where('cities_id', $response->address()->get()->first()->cities_id)->get();
-        $city = City::all();
+        if(isset($id)) {
+            $response = Process::find($id);
+            if(!$response) {
+                return view('404');
+            } else {
+                if($response->stage > 1) {
+                    return view('disabled');
+                } else {
+                    $boxes = ServiceBox::where('cities_id', $response->address()->get()->first()->cities_id)->get();
+                    $city = City::all();
 
-        return view('default.process_stage_two.edit')->with([
-            'response' => $response,
-            'boxes' => $boxes,
-            "cities" => $city
-        ]);
+                    return view('default.process_stage_two.edit')->with([
+                        'response' => $response,
+                        'boxes' => $boxes,
+                        "cities" => $city
+                    ]);
+                }
+            }
+        }
+        return redirect()->route('default.process_stage_two.index');
     }
 
     public function update_stage_two(ProcessStageTwoRequest $request, $id)
@@ -99,6 +112,8 @@ class ProcessStageTwoController extends Controller
                 $process->users_id = Auth::user()->id;
                 $process->stage = 1;
                 $customer->process()->save($process);
+
+                Log::info(trim(Auth::user()->name . ' editou o processo de código '. $process->id . ' [Viabilidade]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                 return redirect()->route('default.process_stage_two.index');
             }
         }

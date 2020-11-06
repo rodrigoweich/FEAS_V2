@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\User;
 use App\Role;
 use App\Rule;
@@ -23,37 +24,65 @@ class PDFController extends Controller
     }
 
     public function generateUserReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+
         $response = User::all();
         return PDF::loadview('relatorios_pdfs/users', compact('response'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateRoleReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+
         $rules = DB::table("role_rule")->get();
         $response = Role::all();
         return PDF::loadview('relatorios_pdfs/roles', compact('response', 'rules'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateRuleReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $response = Rule::all();
         return PDF::loadview('relatorios_pdfs/rules', compact('response'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateCitiesReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $response = City::all();
         return PDF::loadview('relatorios_pdfs/cities', compact('response'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateStatesReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $response = State::all();
         return PDF::loadview('relatorios_pdfs/states', compact('response'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateCablesReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $response = Cable::all();
         return PDF::loadview('relatorios_pdfs/cables', compact('response'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateBoxesReport(Request $request) {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         if($request->city == 0) {
             $response = ServiceBox::all();
         } else {
@@ -65,6 +94,10 @@ class PDFController extends Controller
     }
 
     public function generateProcessesReport(Request $request) {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $stage = $request->stage;
         $date_begin = str_replace('\/', '-', explode(' - ', $request->date))[0];
         $date_begin = explode("/", $date_begin);
@@ -133,6 +166,10 @@ class PDFController extends Controller
     }
     
     public function generateCustomersByBoxReport(Request $request) {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $box = ServiceBox::find($request->box_id);
         $city = City::all();
         $response = DB::table('customers')
@@ -144,6 +181,10 @@ class PDFController extends Controller
     }
 
     public function generateFootageComparasionReport(Request $request) {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $date_begin = str_replace('\/', '-', explode(' - ', $request->date))[0];
         $date_begin = explode("/", $date_begin);
         $date_begin = $date_begin[2]."-".$date_begin[1]."-".$date_begin[0];
@@ -262,12 +303,20 @@ class PDFController extends Controller
     }
 
     public function generateOccupationReport() {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $response = ServiceBox::select('cities_id', DB::raw('count(id) as b'), DB::raw('sum(amount) as ca'), DB::raw('sum(busy) as cb'))->groupBy('cities_id')->get();
         $city = City::all();
         return PDF::loadview('relatorios_pdfs/occupation', compact('response', 'city'))->setPaper('a4', 'portrait')->download(date('dmYHisu').'.pdf');
     }
 
     public function generateCustomersReport(Request $request) {
+        if(Gate::denies('free-access-for-reports')){
+            return view('403');
+        }
+        
         $city = $request->city;
         $icon = $request->icon;
         if($city && $icon) {

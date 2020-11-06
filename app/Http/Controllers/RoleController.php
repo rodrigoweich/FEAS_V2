@@ -9,6 +9,9 @@ use App\Role;
 use App\Rule;
 use App\Http\Requests\RoleRequest;
 
+use Illuminate\Support\Facades\Log;
+use Auth;
+
 class RoleController extends Controller
 {
 
@@ -74,6 +77,8 @@ class RoleController extends Controller
         $role->save();
         $role->rules()->sync($request->rules);
         $role->save();
+
+        Log::info(trim(Auth::user()->name . ' criou a função '. $role->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $role));
         return redirect()->route('admin.roles.index');
     }
 
@@ -124,11 +129,24 @@ class RoleController extends Controller
             return view('403');
         }
 
-        $role = Role::find($id);
-        $role->name = $request->name;
-        $role->save();
-        $role->rules()->sync($request->rules);
-        $role->save();
+        if(isset($id)) {
+            $role = Role::find($id);
+            $old_role = Role::find($id);
+            if(!$role) {
+                return view('404');
+            } else {
+                $role = Role::find($id);
+                $role->name = $request->name;
+                $role->save();
+                $role->rules()->sync($request->rules);
+                $role->save();
+                $role = Role::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou a função '. $role->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_role . PHP_EOL . '> ' . $role));
+                return redirect()->route('admin.roles.index');
+            }
+        }
+
         return redirect()->route('admin.roles.index');
     }
 
@@ -149,6 +167,7 @@ class RoleController extends Controller
             return redirect()->route('admin.roles.index');
         }
         if($role->users()->where('role_id', $role->id)->count() === 0){
+            Log::info(trim(Auth::user()->name . ' deletou a função '. $role->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $role));
             DB::table('role_user')->where('role_id', $role->id)->delete();
             $role->rules()->detach();
             $role->delete();

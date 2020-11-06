@@ -18,6 +18,7 @@ Use App\ProcessLog;
 
 use Notification;
 use App\Notifications\SolvedNotification;
+use Illuminate\Support\Facades\Log;
 
 class ProcessStageFiveController extends Controller
 {
@@ -66,6 +67,8 @@ class ProcessStageFiveController extends Controller
             }
             $photos = $photos_name;
         }
+
+        Log::info(trim(Auth::user()->name . ' realizou a conferência do processo de código '. $response->id . ' [SAC]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $response));
         
         return view('default.process_stage_five.edit')->with([
             'response' => $response,
@@ -101,6 +104,7 @@ class ProcessStageFiveController extends Controller
                 $data->users_id_finished = Auth::user()->id;
                 $data->save();
                 $this->sendSolvedTelegramMessage($data->id);
+                Log::info(trim(Auth::user()->name . ' realizou a finalização do processo de código '. $data->id . ' [SAC]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $data));
                 $data->delete();
                 return redirect()->route('default.process_stage_five.index');
             }

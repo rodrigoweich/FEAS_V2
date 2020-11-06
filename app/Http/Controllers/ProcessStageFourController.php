@@ -18,6 +18,7 @@ use App\Http\Requests\ProcessStageFourRequest;
 
 use Notification;
 use App\Notifications\RequestNotification;
+use Illuminate\Support\Facades\Log;
 
 class ProcessStageFourController extends Controller
 {
@@ -144,7 +145,8 @@ class ProcessStageFourController extends Controller
                         $photos->processes_id = $process;
                         $process->process_photos()->save($photos);
                     }
-    
+
+                    Log::info(trim(Auth::user()->name . ' editou o processo de código '. $process->id . ' [Técnico]' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_four.index');
                 }
             }

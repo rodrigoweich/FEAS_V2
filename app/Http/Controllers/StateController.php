@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\State;
-use App\Http\Requests\ProcessStageOneRequest;
+use App\Http\Requests\StateRequest;
+
+use Illuminate\Support\Facades\Log;
+use Auth;
 
 class StateController extends Controller
 {
@@ -68,6 +71,8 @@ class StateController extends Controller
         $state->name = $request->name;
         $state->uf = $request->uf;
         $state->save();
+
+        Log::info(trim(Auth::user()->name . ' criou o estado '. $state->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $state));
         return redirect()->route('admin.states.index');
     }
 
@@ -113,10 +118,22 @@ class StateController extends Controller
             return view('403');
         }
 
-        $state = State::find($id);
-        $state->name = $request->name;
-        $state->uf = $request->uf;
-        $state->save();
+        if(isset($id)) {
+            $state = State::find($id);
+            $old_state = State::find($id);
+            if(!$state) {
+                return view('404');
+            } else {
+                $state->name = $request->name;
+                $state->uf = $request->uf;
+                $state->save();
+                $state = State::find($id);
+
+                Log::info(trim(Auth::user()->name . ' editou o estado '. $state->name . PHP_EOL . 'Comparação nas linhas abaixo [ \'<\' = antes / \'>\' = depois ]' . PHP_EOL . '< ' . $old_state . PHP_EOL . '> ' . $state));
+                return redirect()->route('admin.states.index');
+            }
+        }
+
         return redirect()->route('admin.states.index');
     }
 
@@ -134,6 +151,7 @@ class StateController extends Controller
 
         $state = State::find($id);
         if(isset($state)) {
+            Log::info(trim(Auth::user()->name . ' deletou o estado '. $state->name . PHP_EOL . 'Informações adicionais' . PHP_EOL . $state));
             $state->delete();
             return redirect()->route('admin.states.index');
         }
