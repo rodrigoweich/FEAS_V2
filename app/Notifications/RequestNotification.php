@@ -33,13 +33,13 @@ class RequestNotification extends Notification
     {
         if($this->data['requests'] == 1) {
             return TelegramMessage::create()
-            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEsta é a primeira solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name'] ." ". $this->data['customer_surname']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
+            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEsta é a primeira solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
         } else if ($this->data['requests'] == 2) {
             return TelegramMessage::create()
-            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEsta é a segunda solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name'] ." ". $this->data['customer_surname']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
+            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEsta é a segunda solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
         } else if ($this->data['requests'] == 3) {
             return TelegramMessage::create()
-            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEstá é a terceira solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name'] ." ". $this->data['customer_surname']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
+            ->content('*'. $this->data['user_name'] . " está aguardando liberação!\n\nEstá é a terceira solicitação para este processo.\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name']."\nCidade: ".$this->data['customer_city']."\nAtualizado em: ".$this->data['process_update'].'*');
         } else {
             return null;
         }

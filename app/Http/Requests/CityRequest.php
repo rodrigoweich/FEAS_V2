@@ -40,12 +40,12 @@ class CityRequest extends FormRequest
             'name.max' => "O nome deve conter no máximo :max caracteres.",
             "state.required" => "O campo cidade não pode ser nulo.",
             "state.numeric" => "O campo cidade deve conter um valor numérico.",
-            "lat.required" => "O campo latitude não pode ser nulo.",
-            "lat.numeric" => "O campo latitude deve conter um valor numérico.",
-            "lng.required" => "O campo longitude não pode ser nulo.",
-            "lng.numeric" => "O campo longitude deve conter um valor numérico.",
-            "zoom.required" => "O campo zoom não pode ser nulo.",
-            "zoom.numeric" => "O campo zoom deve conter um valor numérico.",
+            "lat.required" => "A latitude não pode ser nula.",
+            "lat.numeric" => "A latitude deve conter um valor numérico.",
+            "lng.required" => "A longitude não pode ser nulo.",
+            "lng.numeric" => "A longitude deve conter um valor numérico.",
+            "zoom.required" => "O zoom não pode ser nulo.",
+            "zoom.numeric" => "O zoom deve conter um valor numérico.",
         ];
     }
 }

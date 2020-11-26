@@ -75,7 +75,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="imgInp" name="avatar_image" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+                                    <input type="file" class="custom-file-input" id="imgInp" name="avatar_image" lang="{{ str_replace('_', '-', app()->getLocale()) }}" accept="image/*">
                                     <label class="custom-file-label" for="imgInp" id="imgLInp">Escolher foto de perfil</label>
                                 </div>
                             </div>
@@ -84,9 +84,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 text-justify">
                                 <span>Suas funções:</span><br/>
-                                @foreach ($user->roles()->get()->pluck('name')->toArray() as $key => $value)
-                                    #{{ __($value) }}
-                                @endforeach
+                                <ol> @foreach(auth()->user()->roles as $role) <li> <strong>{{ $role->name }}</strong> </li> <ol class="row"> @foreach($role->rules as $rule) <li class="list-item col-6"> {{ $rule->display_name }} </li> @endforeach </ol> @endforeach </ol>
                             </div>
                         </div>
                         @endif
@@ -133,7 +131,9 @@
         }
     };
     function gerarPassword() {
-        return document.getElementById("inputPasswd").value = Math.random().toString(36).slice(-10);
+        var password_gen = Math.random().toString(36).slice(-10);
+        document.getElementById("newPw").value = password_gen;
+        document.getElementById("confirmNewPw").value = password_gen;
     };
 </script>
 

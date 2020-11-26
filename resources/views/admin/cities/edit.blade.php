@@ -89,20 +89,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ $city->m_lat }}" readonly>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ $city->m_lng }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $city->m_zoom }}" readonly>
-                                </div>
-                            </div>
+                            <input type="hidden" class="form-control" id="lat" name="lat" value="{{ $city->m_lat }}" readonly>
+                            <input type="hidden" class="form-control" id="lng" name="lng" value="{{ $city->m_lng }}" readonly>
+                            <input type="hidden" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $city->m_zoom }}" readonly>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom-control custom-switch">

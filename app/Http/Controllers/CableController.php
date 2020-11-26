@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Cable;
+use App\Process;
 use App\Http\Requests\CableRequest;
 
 use Illuminate\Support\Facades\Log;
@@ -170,6 +171,12 @@ class CableController extends Controller
     {
         if(Gate::denies('delete-cables')){
             return view('403');
+        }
+
+        $hasProcesses = Process::withTrashed()->where('cables_id', $id)->count();
+        if($hasProcesses > 0) {
+            \Session::flash('message', 'Esse cabo não pode ser deletado pois existem outros elementos vinculados a ele.');
+            return redirect()->route('default.cables.index');
         }
 
         if(isset($id)) {

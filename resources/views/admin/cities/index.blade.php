@@ -13,6 +13,16 @@
 <div class="container">
     <div class="row justify-content-center">
 
+        @if(Session::has('message'))
+        <script type='text/javascript'>
+            $.notify({
+                message: "{{Session::get('message')}}"
+            }, {
+                type: "danger"
+            });
+        </script>
+        @endif
+
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -88,10 +98,10 @@
                                             
                                         @endcan
                                         @can('delete-cities')
-                                        <form id="dataIds_{{ $data->id }}" action="{{ route('admin.cities.destroy', $data->id) }}" method="POST">
+                                        <form id="dataIds_{{ $data->id }}" class="form_d" action="{{ route('admin.cities.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <button id="del-perm" type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
+                                            <button id="del-perm" type="submit" this-city-id="{{ $data->id }}" class="button-without-style ml-1 testec" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                         </form>
                                         @endcan
                                         </div>
@@ -124,22 +134,11 @@
 
 @section('extra-scripts')
 <script type='text/javascript'>
-@foreach($hasProcesses as $key => $h)
-    $("#dataIds_" + {{ $key }}).click(function(e) {
-        if({{ $h }} != 0) {
-            e.preventDefault();
-            e.stopPropagation();
-            $.notify({
-                message: "Você não pode deletar esta cidade pois existem processos vinculados a ela."
-            }, {
-                type: "danger"
-            });
-        } else {
-            if(confirm("Deseja mesmo deletar?")) {} else {
-                return false;
-            }
+    $('.testec').on('click', function(e) {
+        if(!confirm("Deseja mesmo deletar?"))
+        {
+            return false;
         }
     });
-@endforeach
 </script>
 @endsection

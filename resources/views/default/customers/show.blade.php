@@ -81,19 +81,15 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="inputname">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->name }}" readonly>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="surname">Sobrenome</label>
-                                    <input type="text" class="form-control" id="surname" name="surname" value="{{ $response->surname }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="phone">Telefone</label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $response->phone }}" readonly>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="contract_number">Número do contrato</label>
                                     <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" value="{{ $response->contract_number }}" readonly>
                                 </div>
@@ -120,24 +116,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ $response->m_lat }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ $response->m_lng }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $response->m_zoom }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="icon">Nome do ícone</label>
-                                    <input type="text" class="form-control" id="icon" name="icon" value="{{ $response->m_icon }}" readonly>
-                                </div>
-                            </div>
+                            <input type="hidden" class="form-control" id="lat" name="lat" value="{{ $response->m_lat }}" readonly>
+                            <input type="hidden" class="form-control" id="lng" name="lng" value="{{ $response->m_lng }}" readonly>
+                            <input type="hidden" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $response->m_zoom }}" readonly>
+                            <input type="hidden" class="form-control" id="icon" name="icon" value="{{ $response->m_icon }}" readonly>
                         </div>
                     </div>
 

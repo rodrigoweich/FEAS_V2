@@ -46,7 +46,7 @@ class ProcessController extends Controller
                     $customer->process()->save($process);
                     Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_one.index');
-                } else if ($process->stage == 1) {
+                } else if ($process->stage == 1 && $customer->service_boxes_id != null) {
                     $comment = new ProcessLog;
                     $comment->description = 'Ação padrão do sistema.';
                     $comment->processes_id = $process;
@@ -59,7 +59,7 @@ class ProcessController extends Controller
                     $customer->process()->save($process);
                     Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_two.index');
-                } else if ($process->stage == 2) {
+                } else if ($process->stage == 2 && $process->responsible_id != null) {
                     $comment = new ProcessLog;
                     $comment->description = 'Ação padrão do sistema.';
                     $comment->processes_id = $process;
@@ -72,7 +72,7 @@ class ProcessController extends Controller
                     $customer->process()->save($process);
                     Log::info(trim(Auth::user()->name . ' avançou o processo de código '. $process->id . ' para o próximo estágio.' . PHP_EOL . 'Informações adicionais' . PHP_EOL . $process));
                     return redirect()->route('default.process_stage_three.index');
-                } else if ($process->stage == 3) {
+                } else if ($process->stage == 3 && $process->route != null) {
                     $comment = new ProcessLog;
                     $comment->description = 'Ação padrão do sistema.';
                     $comment->processes_id = $process;
@@ -292,7 +292,6 @@ class ProcessController extends Controller
         ->leftjoin('users as tech', 'processes.users_id_finished', '=', 'tech.id')
         ->where(function ($query) use ($request){
             $query->where('customers.name', 'like', '%'.$request->dataToSearch.'%')
-            ->orWhere('customers.surname', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('users.name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('tech.name', 'like', '%'.$request->dataToSearch.'%');
         })
@@ -328,7 +327,6 @@ class ProcessController extends Controller
         ->where(function ($query) use ($request){
             $query->whereDate('processes.created_at', $request->dataToSearch)
             ->orWhere('customers.name', 'like', '%'.$request->dataToSearch.'%')
-            ->orWhere('customers.surname', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('tech.name', 'like', '%'.$request->dataToSearch.'%');
         })
         ->select('processes.id', 'processes.customers_id', 'processes.users_id', 'processes.created_at', 'customers.name', 'cities.name', 'users.name', 'addresses.cities_id', 'processes.responsible_id', 'processes.route', 'processes.stage', 'processes.users_id_finished')

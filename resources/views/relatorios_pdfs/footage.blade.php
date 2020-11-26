@@ -74,7 +74,7 @@
                 @foreach ($response as $process)
                 <tr>
                     <td>{{ $process->pid }}</td>
-                    <td>{{ $customer->find($process->pcid)->name }} {{ $customer->find($process->pcid)->surname }}</td>
+                    <td>{{ $customer->find($process->pcid)->name }}</td>
                     <td>{{ $process->acid }}</td>
                     <td>{{ $user->find($process->responsible_id)->name }}</td>
                     <td>{{ $process->pmet }} metros</td>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\City;
 use App\State;
+use App\ServiceBox;
 use App\Http\Requests\CityRequest;
 use DB;
 
@@ -36,12 +37,17 @@ class CityController extends Controller
         foreach($cities as $c) {
             $teste += array($c->id => HasController::hasProcessesLinkedToTheCity($c->id));
         }
+        $box = [];
+        foreach($cities as $c) {
+            $box += array($c->id => HasController::hasBoxesInTheCity($c->id));
+        }
 
         $states = State::all();
         return view('admin.cities.index')->with([
             'response' => $cities,
             'state' => $states,
-            'hasProcesses' => $teste
+            'hasProcesses' => $teste,
+            'hasBoxes' => $box
         ]);
     }
 
@@ -176,6 +182,13 @@ class CityController extends Controller
     {
         if(Gate::denies('delete-cities')){
             return view('403');
+        }
+
+        $hasBoxes = ServiceBox::where('cities_id', '=', $id)->count();
+        $hasProcesses = City::find($id)->addresses()->count();
+        if($hasProcesses > 0 || $hasBoxes > 0) {
+            \Session::flash('message', 'Essa cidade não pode ser deletada pois existem outros elementos vinculados a ela.');
+            return redirect()->route('admin.cities.index');
         }
 
         $city = City::find($id);

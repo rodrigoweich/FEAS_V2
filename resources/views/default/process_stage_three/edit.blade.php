@@ -41,7 +41,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputname">Cliente</label>
-                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }} {{ $response->customer()->get()->first()->surname }}" readonly>
+                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }}" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputname">Número do endereço</label>

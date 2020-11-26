@@ -26,6 +26,7 @@ class UserRequest extends FormRequest
         if(isset($this->password)) {
             return [
                 "name" => "required|min:3|max:50",
+                "email" => "unique:users",
                 "password" => "required|min:8"
             ];
         } else {
@@ -42,7 +43,8 @@ class UserRequest extends FormRequest
             "name.min" => "O campo do nome não pode conter menos de :min caracteres.",
             "name.max" => "O campo do nome não pode conter mais do que :max caracteres.",
             "password.required" => "O campo da senha não pode estar vazio.",
-            "password.min" => "O campo da senha não pode conter menos de :min caracteres."
+            "password.min" => "O campo da senha não pode conter menos de :min caracteres.",
+            "email.unique" => "O e-mail não pode ser utilizado pois já existe no banco de dados."
         ];
     }
 }

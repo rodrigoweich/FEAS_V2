@@ -23,7 +23,7 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-        if(isset($this->newPw)) {
+        if(isset($this->newPw) || isset($this->confirmNewPw)) {
             return [
                 "name" => "required|min:3|max:50",
                 "currentPw" => "required",
@@ -42,17 +42,18 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            "name.required" => "The name field cannot be empty.",
-            "name.min" => "The name field cannot contain less than :min characters.",
-            "name.max" => "The name field cannot contain more than :max characters.",
-            "avatar_image.size" => "The image must have a maximum of :size kbs.",
-            "avatar_image.mimes" => "The image must have one of the requested formats. [jpg, jpeg, png, bmp]",
-            "currentPw.required" => "The current password field cannot be empty.",
-            "newPw.required" => "The new password field cannot be empty.",
-            "newPw.min" => "The new password field cannot contain less than :min characters.",
-            "confirmNewPw.required" => "The confirm new password field cannot be empty.",
-            "confirmNewPw.min" => "The name field cannot contain less than :min characters.",
-            "confirmNewPw.max" => "The name field cannot contain more than :max characters."
+            "name.required" => "O campo nome não pode ser nulo.",
+            "name.min" => "O campo nome não pode conter um valor menor que :min caracteres.",
+            "name.max" => "O campo nome não pode conter um valor maior que :max caracteres.",
+            "avatar_image.size" => "A imagem precisa ter no máximo :size kbs.",
+            "avatar_image.mimes" => "A imagem precisa atender um dos seguintes formatos: [jpg, jpeg, png, bmp]",
+            "currentPw.required" => "O campo senha atual não pode ser nulo.",
+            "newPw.required" => "O campo nova senha não pode ser nulo",
+            "newPw.min" => "O campo nova senha não pode conter um valor menor que :min caracteres",
+            "confirmNewPw.required" => "O campo confirmar senha não pode ser nulo.",
+            "confirmNewPw.min" => "O campo confirmar senha não pode conter um valor menor que :min caracteres.",
+            "confirmNewPw.max" => "O campo confirmar senha não pode conter um valor maior que :max caracteres.",
+            "confirmNewPw.same" => "Os campos senha atual e confirmar nova senha devem ser iguais.",
         ];
     }
 }

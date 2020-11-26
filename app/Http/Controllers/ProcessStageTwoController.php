@@ -92,7 +92,6 @@ class ProcessStageTwoController extends Controller
                 $customer = Customer::find($process->customer()->get()->first()->id);
                 $customer->contract_number = $request->contract_number;
                 $customer->name = $request->name;
-                $customer->surname = $request->surname;
                 $customer->phone = $request->phone;
                 $customer->m_lat = $request->lat;
                 $customer->m_lng = $request->lng;

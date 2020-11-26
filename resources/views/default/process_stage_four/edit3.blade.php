@@ -139,19 +139,15 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="inputname">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }}">
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="surname">Sobrenome</label>
-                                    <input type="text" class="form-control" id="surname" name="surname" value="{{ $response->customer()->get()->first()->surname }}">
-                                </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="phone">Telefone</label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $response->customer()->get()->first()->phone }}">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="contract_number">Número de contrato</label>
                                     <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" max="2147483647" value="{{ $response->customer()->get()->first()->contract_number }}">
                                 </div>
@@ -178,61 +174,46 @@
                                     </select>
                                 </div>
                             </div>
+                            <input type="hidden" class="form-control" id="lat" name="lat" value="{{ $response->customer()->get()->first()->m_lat }}" readonly>
+                            <input type="hidden" class="form-control" id="lng" name="lng" value="{{ $response->customer()->get()->first()->m_lng }}" readonly>
+                            <input type="hidden" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $response->customer()->get()->first()->m_zoom }}" readonly>
+                            <input type="hidden" class="form-control" id="icon" name="icon" value="{{ $response->customer()->get()->first()->m_icon }}" readonly>
+                            <input type="hidden" class="form-control" id="box" name="box" value="{{ $response->customer()->get()->first()->service_boxes_id }}" readonly>
                             <div class="form-row">
-                                <div class="form-group col-md-2">
-                                    <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ $response->customer()->get()->first()->m_lat }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ $response->customer()->get()->first()->m_lng }}" readonly>
-                                </div>
-                                <div class="form-group col-md-1">
-                                    <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ $response->customer()->get()->first()->m_zoom }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="icon">Nome do ícone</label>
-                                    <input type="text" class="form-control" id="icon" name="icon" value="{{ $response->customer()->get()->first()->m_icon }}" readonly>
-                                </div>
-                                <div class="form-group col-md-1">
-                                    <label for="box">ID Caixa</label>
-                                    <input type="text" class="form-control" id="box" name="box" value="{{ $response->customer()->get()->first()->service_boxes_id }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="distance">Distância ap.</label>
+                                <div class="form-group col-md-3">
+                                    <label for="distance">Distância aproximada</label>
                                     <input type="number" class="form-control" id="distance" name="distance" value="{{ old('distance') }}" readonly>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="real_meters">Distância Real</label>
                                     <input type="number" class="form-control" id="real_meters" name="real_meters" value="{{ old('real_meters') }}">
                                 </div>
-                            </div>
-                            <fieldset class="form-group">
-                                <div class="row">
-                                    <legend class="col-form-label col-sm-6 pt-0">Qual o nível de dificuldade ao realizar esse processo?</legend>
-                                    <div class="col-sm-4">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="note" id="gridRadios1" value="1">
-                                            <label class="form-check-label" for="gridRadios1">
-                                                Fácil
-                                            </label>
+                                <div class="form-group col-md-6">
+                                    <fieldset>
+                                        <legend class="col-form-label">Qual o nível de dificuldade ao realizar esse processo?</legend>
+                                        <div class="form-inline">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="note" id="gridRadios1" value="1">
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Fácil
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="note" id="gridRadios2" value="2" checked>
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Normal
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="note" id="gridRadios3" value="3">
+                                                <label class="form-check-label" for="gridRadios3">
+                                                    Difícil
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="note" id="gridRadios2" value="2" checked>
-                                            <label class="form-check-label" for="gridRadios2">
-                                                Normal
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="note" id="gridRadios3" value="3">
-                                            <label class="form-check-label" for="gridRadios3">
-                                                Difícil
-                                            </label>
-                                        </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
-                            </fieldset>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="comments">Comentários</label>
@@ -374,7 +355,7 @@ function downloadMap() {
 
         var link = document.createElement("a");
         document.body.appendChild(link);
-        link.download = "{{ $response->created_at }}_{{ $response->customer()->get()->first()->name }}_{{ str_replace(' ', '_', $response->customer()->get()->first()->surname) }}_"+$("#city :selected").text()+"_{{ $response->customer()->get()->first()->phone }}";
+        link.download = "{{ $response->created_at }}_{{ $response->customer()->get()->first()->name }}_"+$("#city :selected").text()+"_{{ $response->customer()->get()->first()->phone }}";
         link.href = canvas.toDataURL();
         link.target = '_blank';
         link.click();

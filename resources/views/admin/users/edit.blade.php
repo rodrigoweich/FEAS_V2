@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputemail">E-Mail</label>
-                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ $user->email }}" readonly>
+                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ $user->email }}" disabled>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputpassword">Senha</label>

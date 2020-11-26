@@ -77,7 +77,7 @@
                 @foreach ($response as $process)
                 <tr>
                     <td>{{ $process->id }}</td>
-                    <td>{{ $process->name }} {{ $process->surname }}</td>
+                    <td>{{ $process->name }}</td>
                     <td>{{ $process->phone }}</td>
                     <td>{{ $process->contract_number }}</td>
                     <td>{{ $process->end_description }}</td>

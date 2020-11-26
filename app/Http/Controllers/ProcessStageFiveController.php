@@ -121,7 +121,6 @@ class ProcessStageFiveController extends Controller
             "user_name" => Auth::user()->name,
             "process_id" => $process->id,
             "customer_name" => Customer::find($process->customer()->get()->first()->id)->name,
-            "customer_surname" => Customer::find($process->customer()->get()->first()->id)->surname,
             "customer_city" => City::find($address)->name,
             "process_update" => $process->updated_at
         ];

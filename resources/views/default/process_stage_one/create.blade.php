@@ -126,19 +126,15 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="inputname">Nome</label>
                                     <input type="text" class="form-control" id="inputname" name="name" value="{{ old('name') }}">
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="surname">Sobrenome</label>
-                                    <input type="text" class="form-control" id="surname" name="surname" value="{{ old('surname') }}">
-                                </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="phone">Telefone</label>
                                     <input type="text" class="form-control" id="phone" name="phone" placeholder="(00) 00000-0000" value="{{ old('phone') }}">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label for="contract_number">Número de contrato</label>
                                     <input type="number" class="form-control" id="contract_number" name="contract_number" min="0" max="2147483647" value="{{ old('contract_number') }}">
                                 </div>
@@ -165,24 +161,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="icon">Nome do ícone</label>
-                                    <input type="text" class="form-control" id="icon" name="icon" value="{{ old('icon') }}" readonly>
-                                </div>
-                            </div>
+                            <input type="hidden" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
+                            <input type="hidden" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
+                            <input type="hidden" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
+                            <input type="hidden" class="form-control" id="icon" name="icon" value="{{ old('icon') }}" readonly>
                         </div>
                     </div>
 

@@ -38,7 +38,7 @@ class HasController extends Controller
     public static function hasBoxesInTheCity($city) {
         return ServiceBox::where('cities_id', $city)->count();
     }
-    
+
     public static function hasCables() {
         if(Cable::all()->count() != 0) {
             return true;

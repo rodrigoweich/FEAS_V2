@@ -180,6 +180,12 @@ class ServiceBoxController extends Controller
             return view('403');
         }
 
+        $hasCustomers = Customer::where('service_boxes_id', $id)->count();
+        if($hasCustomers > 0) {
+            \Session::flash('message', 'Essa caixa não pode ser deletada pois existem outros elementos vinculados a ela.');
+            return redirect()->route('default.boxes.index');
+        }
+
         if(isset($id)) {
             $data = ServiceBox::find($id);
             if(!$data) {

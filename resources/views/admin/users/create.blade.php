@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputemail">E-Mail</label>
-                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ old('email') }}" placeholder="Único e não pode ser alterado." autofocus>
+                                <input type="email" class="form-control" id="inputemail" name="email" value="{{ old('email') }}" placeholder="Único e não pode ser alterado." required autofocus>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputpassword">Senha</label>

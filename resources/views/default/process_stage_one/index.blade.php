@@ -69,7 +69,7 @@
                                 @foreach ($response as $data)
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
-                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ $customer->find($data->customers_id)->surname }}</td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
                                     <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
                                     <td class="align-middle">{{ $city->find($address->find($data->customers_id)->cities_id)->name }}</td>
                                     <td class="align-middle">{{ $user->find($data->users_id)->name }}</td>

@@ -77,7 +77,7 @@
                                             Informação indefinida
                                         @endif
                                     </td>
-                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ Str::limit($customer->find($data->customers_id)->surname, 15) }}</td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
                                     <td class="align-middle">{{ Str::limit($user->find($data->users_id)->name, 30) }}</td>
                                     <td class="align-middle">
                                         @if($data->users_id_finished === null)

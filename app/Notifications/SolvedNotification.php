@@ -32,6 +32,6 @@ class SolvedNotification extends Notification
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content('*'.$this->data['user_name'] . " finalizou um processo!\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name'] ." ". $this->data['customer_surname']."\nCidade: ".$this->data['customer_city']."\nÚltima atualização em: ".$this->data['process_update'].'*');
+            ->content('*'.$this->data['user_name'] . " finalizou um processo!\n\nCódigo do processo: ". $this->data['process_id'] ."\nCliente: ".$this->data['customer_name'] ."\nCidade: ".$this->data['customer_city']."\nÚltima atualização em: ".$this->data['process_update'].'*');
     }
 }

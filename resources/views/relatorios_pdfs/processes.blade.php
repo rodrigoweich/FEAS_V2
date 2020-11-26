@@ -105,7 +105,7 @@
                     @endif
 
                     @if($option_customer === 'true')
-                    <td>{{ $customer->find($process->customers_id)->name }} {{ $customer->find($process->customers_id)->surname }}</td>
+                    <td>{{ $customer->find($process->customers_id)->name }}</td>
                     @endif
 
                     @if($option_icon === 'true')

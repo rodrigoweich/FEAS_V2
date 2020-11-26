@@ -6,5 +6,6 @@
     "/js/jquery.js": "/js/jquery.js",
     "/js/bootstrap.js": "/js/bootstrap.js",
     "/js/fontawesome.js": "/js/fontawesome.js",
-    "/js/select2.js": "/js/select2.js"
+    "/js/select2.js": "/js/select2.js",
+    "/js/select2-pt-BR.js": "/js/select2-pt-BR.js"
 }

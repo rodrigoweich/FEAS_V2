@@ -34,7 +34,6 @@ class CustomerController extends Controller
         ->leftjoin('addresses', 'customers.id', '=', 'addresses.customers_id')
         ->leftjoin('cities', 'addresses.cities_id', '=', 'cities.id')
         ->select('customers.id as customer_id',
-                    'customers.surname as customer_surname',
                     'customers.phone as customer_phone',
                     'customers.m_icon as customer_icon',
                     'customers.contract_number as customer_contract',
@@ -102,11 +101,9 @@ class CustomerController extends Controller
         ->where(function ($query) use ($request){
             $query->where('cities.name', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('customers.name', 'like', '%'.$request->dataToSearch.'%')
-            ->orWhere('customers.surname', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('customers.phone', 'like', '%'.$request->dataToSearch.'%')
             ->orWhere('customers.contract_number', '=', $request->dataToSearch);
         })->select('customers.id as customer_id',
-                    'customers.surname as customer_surname',
                     'customers.phone as customer_phone',
                     'customers.m_icon as customer_icon',
                     'customers.contract_number as customer_contract',

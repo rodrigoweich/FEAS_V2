@@ -60,7 +60,7 @@
                                 @foreach ($response as $data)
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
-                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }} {{ $customer->find($data->customers_id)->surname }}</td>
+                                    <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
                                     <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
                                     <td class="align-middle">{{ $city->find($address->find($data->customers_id)->cities_id)->name }}</td>
                                     <td class="align-middle">{{ $user->find($data->users_id)->name }}</td>
@@ -72,7 +72,7 @@
                                             <a id="dataIds_{{ $data->id }}" teste="{{ $data->cities_id }}" href="{{ route('default.process_stage_two.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                             @endcan
                                             @can('previous-process-stage-two')
-                                            <button type="button" class="button-without-style mr-1 get-customers-data return-back-process" onclick="$('#returnPanel').modal('show')" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Log"><i class="fas text-danger fa-arrow-left fa-lg"></i></button>
+                                            <button type="button" class="button-without-style mr-1 get-customers-data return-back-process" onclick="$('#returnPanel').modal('show')" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Voltar"><i class="fas text-danger fa-arrow-left fa-lg"></i></button>
                                             @endcan
                                             @can('next-process-stage-two')
                                                 @if($customer->find($data->customers_id)->service_boxes_id !== null)

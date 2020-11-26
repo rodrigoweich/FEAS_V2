@@ -101,7 +101,6 @@ class ProcessStageFourController extends Controller
                     $customer = Customer::find($process->customer()->get()->first()->id);
                     $customer->contract_number = $request->contract_number;
                     $customer->name = $request->name;
-                    $customer->surname = $request->surname;
                     $customer->phone = $request->phone;
                     $customer->m_lat = $request->lat;
                     $customer->m_lng = $request->lng;
@@ -167,7 +166,6 @@ class ProcessStageFourController extends Controller
             "user_name" => Auth::user()->name,
             "process_id" => $process->id,
             "customer_name" => Customer::find($process->customer()->get()->first()->id)->name,
-            "customer_surname" => Customer::find($process->customer()->get()->first()->id)->surname,
             "customer_city" => City::find($address)->name,
             "requests" => $process->notified,
             "process_update" => $process->updated_at

@@ -55,7 +55,7 @@
                                 @foreach ($response as $data)
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->customer_id }}</td>
-                                    <td class="align-middle">{{ $data->customer_name }} {{ $data->customer_surname }}</td>
+                                    <td class="align-middle">{{ $data->customer_name }}</td>
                                     <td class="align-middle">
                                         <i class="{{ $data->customer_icon }} fa-lg"></i>
                                     </td>

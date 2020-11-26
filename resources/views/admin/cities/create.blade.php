@@ -2,6 +2,7 @@
 
 @section('extra-header')
 <script src="{{ asset('js/select2.js') }}"></script>
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 @endsection
@@ -88,20 +89,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <label for="lat">Latitude</label>
-                                    <input type="text" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="lng">Longitude</label>
-                                    <input type="text" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="zoom">Zoom</label>
-                                    <input type="number" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
-                                </div>
-                            </div>
+                            <input type="hidden" class="form-control" id="lat" name="lat" value="{{ old('lat') }}" readonly>
+                            <input type="hidden" class="form-control" id="lng" name="lng" value="{{ old('lng') }}" readonly>
+                            <input type="hidden" min="0" max="30" class="form-control" id="zoom" name="zoom" value="{{ old('zoom') }}" readonly>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom-control custom-switch">
@@ -144,7 +134,9 @@
 
 <script type='text/javascript'>
     $(".selectTwo").select2({
-        theme: "bootstrap4"
+        theme: "bootstrap4",
+        minimumInputLength: 3,
+        "language": "pt-BR"
     });
 
 var gmap;

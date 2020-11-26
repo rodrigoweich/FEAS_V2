@@ -13,6 +13,16 @@
 <div class="container">
     <div class="row justify-content-center">
 
+        @if(Session::has('message'))
+        <script type='text/javascript'>
+            $.notify({
+                message: "{{Session::get('message')}}"
+            }, {
+                type: "danger"
+            });
+        </script>
+        @endif
+
         <div class="col-md-12 mb-3">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -91,10 +101,10 @@
                                             <a href="{{ route('default.cables.edit', $data->id) }}"><button type="button" class="button-without-style mr-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas text-dark fa-edit fa-lg"></i></button></a>
                                         @endcan
                                         @can('delete-cables')
-                                        <form id="dataIds_{{ $data->id }}" action="{{ route('default.cables.destroy', $data->id) }}" method="POST">
+                                        <form class="form_d" action="{{ route('default.cables.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="button-without-style ml-1" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
+                                            <button type="submit" class="button-without-style ml-1 testec" this-cable-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Deletar"><i class="fas text-dark fa-trash fa-lg"></i></button>
                                         </form>
                                         @endcan
                                         </div>
@@ -127,22 +137,11 @@
 
 @section('extra-scripts')
 <script type='text/javascript'>
-@foreach($hasProcesses as $key => $h)
-    $("#dataIds_" + {{ $key }}).click(function(e) {
-        if({{ $h }} != 0) {
-            e.preventDefault();
-            e.stopPropagation();
-            $.notify({
-                message: "Você não pode deletar este cabo pois existem processos vinculados a ele.\nExperimente utilizar a opção de editar para realizar modificações."
-            }, {
-                type: "danger"
-            });
-        } else {
-            if(confirm("Deseja mesmo deletar?")) {} else {
-                return false;
-            }
+    $('.testec').on('click', function(e) {
+        if(!confirm("Deseja mesmo deletar?"))
+        {
+            return false;
         }
     });
-@endforeach
 </script>
 @endsection
