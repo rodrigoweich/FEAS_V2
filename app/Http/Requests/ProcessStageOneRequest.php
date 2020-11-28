@@ -24,12 +24,12 @@ class ProcessStageOneRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:1|max:20",
-            "phone" => "required|numeric|min:0",
+            "name" => "required|min:1|max:60",
+            "phone" => "required|numeric|min:0|max:20",
             "contract_number" => "required|numeric|min:0|max:2147483647",
             "number" => "required|numeric|min:0|max:2147483647",
-            "end_description" => "required|min:0",
-            "complement" => "required|min:0|max:185",
+            "end_description" => "required|min:0|max:255",
+            "complement" => "required|min:0|max:100",
             "city" => "required|numeric",
             "lat" => "required|numeric",
             "lng" => "required|numeric",
@@ -47,6 +47,7 @@ class ProcessStageOneRequest extends FormRequest
             "phone.required" => "O campo telefone não pode ser nulo.",
             "phone.numeric" => "O campo telefone deve conter um valor numérico.",
             "phone.min" => "O campo telefone não pode conter números menores que :min.",
+            "phone.max" => "O campo telefone não pode conter um valor maior que :max",
             "contract_number.required" => "O campo número de contrato não pode ser nulo.",
             "contract_number.numeric" => "O campo número de contrato deve conter um valor numérico.",
             "contract_number.min" => "O campo número de contrato não pode conter um valor menor que :min",
@@ -57,6 +58,7 @@ class ProcessStageOneRequest extends FormRequest
             "number.max" => "O campo número de endereço não pode conter um valor maior que :max",
             "end_description.required" => "O campo descrição de endereço não pode ser nulo.",
             "end_description.min" => "O campo descrição de endereço não pode conter menos de :min caracteres",
+            "end_description.max" => "O campo descrição de endereço não pode conter mais de :max caracteres",
             "complement.required" => "O campo complemento de endereço não pode ser nulo.",
             "complement.min" => "O campo complemento de endereço não pode conter menos de :min caracteres",
             "complement.max" => "O campo complemento de endereço não pode conter mais de :max caracteres",

@@ -24,8 +24,8 @@ class NoticeRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:1|max:150',
-            'description' => 'required|min:1|max:500'
+            'title' => 'required|min:1|max:185',
+            'description' => 'required|min:1|max:1000'
         ];
     }
 
@@ -36,8 +36,8 @@ class NoticeRequest extends FormRequest
             "title.min" => "O título deve conter ao menos :min caracteres.",
             "title.max" => "O título deve conter no máximo :max caracteres.",
             "description.required" => "A descrição da notícia não pode ficar em branco.",
-            "description.min" => "O descrição deve conter ao menos :min caracteres.",
-            "description.max" => "O descrição deve conter no máximo :max caracteres.",
+            "description.min" => "A descrição deve conter ao menos :min caracteres.",
+            "description.max" => "A descrição deve conter no máximo :max caracteres.",
         ];
     }
 }

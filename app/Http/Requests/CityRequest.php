@@ -24,7 +24,7 @@ class CityRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:75',
+            'name' => 'required|min:2|max:185',
             "state" => "required|numeric",
             "lat" => "required|numeric",
             "lng" => "required|numeric",

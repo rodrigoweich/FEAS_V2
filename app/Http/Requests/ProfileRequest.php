@@ -25,7 +25,7 @@ class ProfileRequest extends FormRequest
     {
         if(isset($this->newPw) || isset($this->confirmNewPw)) {
             return [
-                "name" => "required|min:3|max:50",
+                "name" => "required|min:3|max:185",
                 "currentPw" => "required",
                 "newPw" => "required|min:8",
                 "confirmNewPw" => "required|min:8|same:newPw",

@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     {
         if(isset($this->password)) {
             return [
-                "name" => "required|min:3|max:50",
+                "name" => "required|min:3|max:185",
                 "email" => "unique:users",
                 "password" => "required|min:8"
             ];

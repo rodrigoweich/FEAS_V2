@@ -31,7 +31,7 @@ class ProcessRequest extends FormRequest
     public function messages()
     {
         return [
-            "box.required" => "The attendant box must be chosen to continue the process.",
+            "box.required" => "A caixa de atendimento deve ser escolhida para continuar o processo.",
         ];
     }
 }

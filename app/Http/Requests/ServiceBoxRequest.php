@@ -24,11 +24,11 @@ class ServiceBoxRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:1|max:50",
+            "name" => "required|min:1|max:255",
             "city" => "required|numeric",
             "lat" => "required|numeric",
             "lng" => "required|numeric",
-            "description" => "required|min:0",
+            "description" => "required|min:0|max:200",
             "amount" => "required|integer|min:0",
             "busy" => "required|integer|min:0"
         ];
@@ -48,6 +48,7 @@ class ServiceBoxRequest extends FormRequest
             "lng.numeric" => "O campo longitude deve conter um valor numérico.",
             "description.required" => "O campo descrição não pode ser nulo.",
             "description.min" => "O campo descrição não pode conter menos de :min caracteres",
+            "description.max" => "O campo descrição não pode conter mais de :max caracteres",
             "amount.required" => "O campo quantidade não pode ser nulo.",
             "amount.integer" => "O campo quantidade deve conter um valor inteiro.",
             "amount.min" => "O campo quantidade não pode conter um número menor que :min",

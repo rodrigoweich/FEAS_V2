@@ -15,7 +15,7 @@ class CreateServiceBoxesTable extends Migration
     {
         Schema::create('service_boxes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 255);
             $table->decimal('m_lat', 10, 8);
             $table->decimal('m_lng', 11, 8);
             $table->string('description', 200)->nullable(true);

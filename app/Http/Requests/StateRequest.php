@@ -24,7 +24,7 @@ class StateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:1|max:50",
+            "name" => "required|min:1|max:185",
             "uf" => "required|min:1|max:2"
         ];
     }
@@ -32,12 +32,12 @@ class StateRequest extends FormRequest
     public function messages()
     {
         return [
-            "name.required" => "The name field cannot be empty.",
-            "name.min" => "The name field cannot contain less than :min characters.",
-            "name.max" => "The name field cannot contain more than :max characters.",
-            "uf.required" => "The uf field cannot be empty.",
-            "uf.min" => "The uf field cannot contain less than :min characters.",
-            "uf.max" => "The uf field cannot contain more than :max characters.",
+            "name.required" => "O campo do nome não pode estar vazio.",
+            "name.min" => "O campo nome não pode conter menos de :min caracteres.",
+            "name.max" => "O campo nome não pode conter mais de :max caracteres.",
+            "uf.required" => "O campo uf não pode estar vazio.",
+            "uf.min" => "O campo UF não pode conter menos de :min caracteres.",
+            "uf.max" => "O campo UF não pode conter mais de :max caracteres.",
         ];
     }
 }
