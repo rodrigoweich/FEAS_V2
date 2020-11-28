@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             CitySeeder::class,
             CableSeeder::class,
-            // BoxesSeeder::class
+            BoxesSeeder::class
         ]);
     }
 }

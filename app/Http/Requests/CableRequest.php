@@ -24,7 +24,7 @@ class CableRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:1|max:20",
+            "name" => "required|min:1|max:60",
             "color" => "required|min:1|max:7",
             "size" => "required|numeric|min:2|max:6",
             "repeat" => "required|numeric|min:12|max:35",
