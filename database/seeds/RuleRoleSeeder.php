@@ -17,7 +17,7 @@ class RuleRoleSeeder extends Seeder
         $administrator_role = Role::find(1);
         $administrator_role->rules()->attach($administrator_rules);
 
-        $commercial_rules = Rule::find([31, 32, 33, 44, 45]);
+        $commercial_rules = Rule::find([31, 32, 33, 44, 45, 21, 22]);
         $commercial_role = Role::find(6);
         $commercial_role->rules()->attach($commercial_rules);
 

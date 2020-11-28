@@ -20,6 +20,42 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12345678'),
                 'unalterable' => 1
             ],
+            [
+                'name' => 'Comercial',
+                'email' => 'comercial@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Viabilidade',
+                'email' => 'viabilidade@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Operacional',
+                'email' => 'operacional@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Técnico',
+                'email' => 'tecnico@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'SAC',
+                'email' => 'sac@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
+            [
+                'name' => 'Reporter',
+                'email' => 'reporter@feas.com',
+                'password' => Hash::make('12345678'),
+                'unalterable' => 0
+            ],
         ]);
     }
 }

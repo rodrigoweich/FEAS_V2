@@ -28,16 +28,16 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Default')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Padrão')">
                         Padrão
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satellite')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satélite')">
                         Satélite
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Default + Terrain')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Padrão + Terreno')">
                         Padrão + Terreno
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Default + Satellite')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Padrão + Satélite')">
                         Padrão + Satélite
                     </a>
                 </div>

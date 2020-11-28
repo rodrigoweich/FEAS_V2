@@ -30,20 +30,21 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Default')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'roadmap', 'Padrão')">
                         Padrão
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satellite')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'satellite', 'Satélite')">
                         Satélite
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Default + Terrain')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'terrain', 'Padrão + Terreno')">
                         Padrão + Terreno
                     </a>
-                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Default + Satellite')">
+                    <a class="dropdown-item" onclick="changeMapType('mapTypesDpMenu', 'hybrid', 'Padrão + Satélite')">
                         Padrão + Satélite
                     </a>
                 </div>
             </div>
+            @if (count($shortcuts) !== 0)
             <div id="divider">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle list-group-item list-group-item-action bg-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <span class="float-right"><i class="fas fa-map-marker"></i></span> <span id="mapTypesDpMenu">Cidade atalho</span> <span class="caret"></span>
@@ -57,6 +58,7 @@
                 @endforeach
                 </div>
             </div>
+            @endif
             <div id="divider">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle list-group-item list-group-item-action bg-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <span class="float-right"><i id="figureType" class="fas fa-home"></i></span> <span id="mapTypesDpMenu">Opções de ícones</span> <span class="caret"></span>
