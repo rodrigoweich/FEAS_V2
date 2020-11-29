@@ -25,7 +25,7 @@ class ProcessStageFourRequest extends FormRequest
     {
         return [
             "name" => "required|min:1|max:60",
-            "phone" => "required|numeric|min:0|max:20",
+            "phone" => "required|min:0|max:20",
             "contract_number" => "required|numeric|min:0|max:2147483647",
             "number" => "required|numeric|min:0|max:2147483647",
             "end_description" => "required|min:0|max:255",
@@ -49,7 +49,6 @@ class ProcessStageFourRequest extends FormRequest
             "name.min" => "O campo nome não pode conter menos de :min caracteres",
             "name.max" => "O campo nome não pode conter mais de :max caracteres",
             "phone.required" => "O campo telefone não pode ser nulo.",
-            "phone.numeric" => "O campo telefone deve conter um valor numérico.",
             "phone.min" => "O campo telefone não pode conter números menores que :min.",
             "phone.max" => "O campo telefone não pode conter um valor maior que :max",
             "contract_number.required" => "O campo número de contrato não pode ser nulo.",
