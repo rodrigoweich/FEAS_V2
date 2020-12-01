@@ -47,13 +47,24 @@ class ProcessStageThreeController extends Controller
         }
 
         $response = Process::find($id);
-        $users = DB::table('users')
-        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
-        ->select('users.name', 'users.id')
-        ->groupBy('users.name', 'users.id', 'role_user.role_id')
-        ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
-        ->get();
         $city = City::all();
+        $users = User::all();
+
+        // $users = DB::table('users')
+        // ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
+        // ->select('users.name', 'users.id')
+        // ->groupBy('users.name', 'users.id', 'role_user.role_id')
+        // ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
+        // ->get();
+
+        // $response = Process::find($id);
+        // $users = DB::table('users')
+        // ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
+        // ->select('users.name', 'users.id')
+        // ->groupBy('users.name', 'users.id', 'role_user.role_id')
+        // ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
+        // ->get();
+        // $city = City::all();
 
         return view('default.process_stage_three.edit')->with([
             'response' => $response,
