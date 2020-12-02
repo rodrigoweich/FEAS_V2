@@ -8,6 +8,7 @@
 <script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/html2canvas.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 <style>
     .gallery img {
         margin-top: 5px;
@@ -264,7 +265,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('global.google_maps_key') }}&callback=initMap" async defer></script>
 @endif
 
-<script type="text/javascript"> $(".selectTwo").select2({ theme: "bootstrap4" }); </script>
+<script type="text/javascript"> $(".selectTwo").select2({ theme: "bootstrap4", "language": "pt-BR" }); </script>
 
 <script type='text/javascript'>
 // FUNÇÃO QUE VAI SELECIONAR A FONTE QUE REPRESENTA O CLIENTE

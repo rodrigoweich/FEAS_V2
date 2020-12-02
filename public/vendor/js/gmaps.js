@@ -112,6 +112,13 @@ function createChangeCustomerPointFunction() {
         customerMarker.setPosition(event.latLng);
         gmap.setCenter(event.latLng);
         removeMapListener(null, changeCustomerPointOnMap);
+
+        $.notify({
+            title: '<strong>Sucesso!</strong>',
+            message: 'A localização do cliente foi alterada.'
+        },{
+            type: 'success'
+        });
     });
 };
 
@@ -188,6 +195,13 @@ function createListenerToTheServiceBox(array, arrayId) {
             boxIdSelected = arrayId[array.indexOf(array[i])];
             $.each(array, function(y){
                 removeMapListener(array[y], null);
+            });
+            
+            $.notify({
+                title: '<strong>Sucesso!</strong>',
+                message: 'A caixa selecionada foi alterada.'
+            },{
+                type: 'success'
             });
         });
     });

@@ -49,9 +49,10 @@ class ProcessStageOneController extends Controller
 
         $cities = City::where('shortcut', 1)->get();
         $city = City::all();
+        $city_count = City::all()->count();
         $customers = Customer::all();
 
-        if(!$city->count = 0)
+        if($city_count <= 0)
         {
             return view('404');
         }

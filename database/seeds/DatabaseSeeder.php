@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             RuleRoleSeeder::class,
             RoleUserSeeder::class,
-            // StateSeeder::class,
-            // CitySeeder::class,
-            // CableSeeder::class,
-            // BoxesSeeder::class
+            StateSeeder::class,
+            CitySeeder::class,
+            CableSeeder::class,
+            BoxesSeeder::class
         ]);
     }
 }

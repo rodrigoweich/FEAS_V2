@@ -5,6 +5,7 @@
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 @endsection
 
 @section('navbar')
@@ -40,12 +41,12 @@
                         {{ method_field('PUT') }}
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputname">Cliente</label>
-                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->customer()->get()->first()->name }}" readonly>
+                                <label for="name">Cliente</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $response->customer()->get()->first()->name }}" readonly>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputname">Número do endereço</label>
-                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->number }}" readonly>
+                                <label for="number">Número do endereço</label>
+                                <input type="text" class="form-control" id="number" name="number" value="{{ $response->address()->get()->first()->number }}" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="city">Cidade</label>
@@ -58,12 +59,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputname">Descrição do endereço</label>
-                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->end_description }}" readonly>
+                                <label for="end_description">Descrição do endereço</label>
+                                <input type="text" class="form-control" id="end_description" name="end_description" value="{{ $response->address()->get()->first()->end_description }}" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputname">Complemento do endereço</label>
-                                <input type="text" class="form-control" id="inputname" name="name" value="{{ $response->address()->get()->first()->complement }}" readonly>
+                                <label for="complement">Complemento do endereço</label>
+                                <input type="text" class="form-control" id="complement" name="complement" value="{{ $response->address()->get()->first()->complement }}" readonly>
                             </div>
                         </div>
                         <div class="form-row">
@@ -71,7 +72,7 @@
                                 <label for="responsible_id">Enviar o processo para o usuário:</label>
                                 <select name="responsible_id" class="mselectRules form-control">
                                     @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}" @if($user->id == $response->responsible_id) selected @endif>{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -103,7 +104,8 @@
 @section('extra-scripts')
 <script type='text/javascript'>
     $(".mselectRules").select2({
-        theme: "bootstrap4"
+        theme: "bootstrap4",
+        "language": "pt-BR"
     });
 </script>
 

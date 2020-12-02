@@ -3,6 +3,7 @@
 @section('extra-header')
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 @endsection
 
@@ -134,7 +135,8 @@
 
 <script type='text/javascript'>
     $(".selectTwo").select2({
-        theme: "bootstrap4"
+        theme: "bootstrap4",
+        "language": "pt-BR"
     });
 
 var gmap;

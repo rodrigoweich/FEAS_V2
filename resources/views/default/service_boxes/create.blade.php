@@ -4,6 +4,7 @@
 <script src="{{ asset('js/select2.js') }}"></script>
 <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 @endsection
 
@@ -168,7 +169,8 @@
 
 <script type='text/javascript'>
     $(".selectTwo").select2({
-        theme: "bootstrap4"
+        theme: "bootstrap4",
+        "language": "pt-BR"
     });
 
     var gmap;

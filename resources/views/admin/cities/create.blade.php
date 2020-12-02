@@ -135,7 +135,7 @@
 <script type='text/javascript'>
     $(".selectTwo").select2({
         theme: "bootstrap4",
-        minimumInputLength: 3,
+        // minimumInputLength: 3,
         "language": "pt-BR"
     });
 

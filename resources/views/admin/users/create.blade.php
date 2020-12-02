@@ -3,6 +3,8 @@
 @section('extra-header')
 <script src="{{ config('global.type_asset')('js/select2.js') }}"></script>
 <link href="{{ config('global.type_asset')('css/select2.css') }}" rel="stylesheet">
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
+<link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 @endsection
 
 @section('navbar')
@@ -105,6 +107,9 @@
     }
 </script>
 <script type='text/javascript'>
-    $(".mselectRules").select2();
+    $(".mselectRules").select2({
+        theme: "bootstrap4",
+        "language": "pt-BR"
+    });
 </script>
 @endsection
