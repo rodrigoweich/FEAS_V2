@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col text-right">
-                        @can('create-cables')
+                        @can('create-service_boxes')
                             <a class="btn btn-detail btn-sm" href="{{ route('default.boxes.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar uma nova">
                                 <i class="fas fa-plus"></i>
                             </a>

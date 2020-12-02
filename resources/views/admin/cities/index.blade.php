@@ -16,7 +16,7 @@
         @if(Session::has('message'))
         <script type='text/javascript'>
             $.notify({
-                message: "{{Session::get('message')}}"
+                message: "{!! Session::get('message') !!}"
             }, {
                 type: "danger"
             });
@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col text-right">
-                        @can('create-roles')
+                        @can('create-cities')
                             <a class="btn btn-detail btn-sm" href="{{ route('admin.cities.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar nova cidade">
                                 <i class="fas fa-plus"></i>
                             </a>

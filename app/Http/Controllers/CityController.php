@@ -63,6 +63,17 @@ class CityController extends Controller
         }
 
         $states = State::all();
+
+        if(!$states->count = 0) {
+            if(Gate::allows('create-states')) {
+                \Session::flash('message', "Você não pode criar uma cidade pois não existem estados cadastrados no momento. <a href='".route('admin.states.create')."'>Clique aqui</a> para adicionar um novo estado.");
+                return redirect()->route('admin.cities.index');
+            } else {
+                \Session::flash('message', 'Você não pode criar uma cidade pois não existem estados cadastrados no momento. Contate o adminstrador do sistema.');
+                return redirect()->route('admin.cities.index');
+            }
+        }
+
         return view('admin.cities.create')->with([
             'states' => $states
         ]);

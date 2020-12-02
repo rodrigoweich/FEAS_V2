@@ -45,7 +45,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col text-right">
-                        @can('create-users')
+                        @can('create-states')
                             <a class="btn btn-detail btn-sm" href="{{ route('admin.states.create') }}" role="button" data-toggle="tooltip" data-placement="top" title="Criar novo estado">
                                 <i class="fas fa-plus"></i>
                             </a>

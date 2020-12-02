@@ -50,6 +50,12 @@ class ProcessStageOneController extends Controller
         $cities = City::where('shortcut', 1)->get();
         $city = City::all();
         $customers = Customer::all();
+
+        if(!$city->count = 0)
+        {
+            return view('404');
+        }
+
         return view('default.process_stage_one.create')->with([
             'shortcuts' => $cities,
             "cities" => $city,

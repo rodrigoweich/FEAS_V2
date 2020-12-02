@@ -68,8 +68,8 @@
                                     <td class="align-middle">{{ $data->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
+                                            <button type="button" class="button-without-style mr-1 get-backed-process-data" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Log"><i class="fas text-dark fa-file-alt fa-lg"></i></button>
                                             @can('update-process-stage-five')
-                                                <button type="button" class="button-without-style mr-1 get-backed-process-data" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Log"><i class="fas text-dark fa-file-alt fa-lg"></i></button>
                                                 <button type="button" class="button-without-style mr-1 get-customers-data return-back-process" onclick="$('#returnPanel').modal('show')" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Voltar"><i class="fas text-danger fa-arrow-left fa-lg"></i></button>
                                                 <a href="{{ route('default.process_stage_five.edit', $data->id) }}"><button type="button" class="button-without-style mr-1"><i class="fas text-success fa-check fa-lg"></i></button></a>
                                             @endcan
