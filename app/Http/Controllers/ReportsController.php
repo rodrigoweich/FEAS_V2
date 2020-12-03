@@ -39,12 +39,7 @@ class ReportsController extends Controller
         $all_cities = City::all();
         $boxes = ServiceBox::all();
         $cables = Cable::all();
-        $technicians = DB::table('users')
-        ->leftjoin('role_user', 'users.id', '=', 'role_user.user_id')
-        ->select('users.name', 'users.id')
-        ->groupBy('users.name', 'users.id', 'role_user.role_id')
-        ->orderByRaw('FIELD(role_user.role_id, 2) DESC')
-        ->get();
+        $technicians = User::all();
         $customers = Customer::all();
 
         return view('reports.index')->with([
