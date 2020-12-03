@@ -243,8 +243,8 @@ function loadLineRoute() {
     var routeVar = "{{ $response->route }}";
     routeVar = routeVar.replace(/&quot;/g,'"');
     routeVar = JSON.parse(routeVar);
-    $.each(routeVar["i"], function(i) {
-        loadCableRoute(new google.maps.LatLng(routeVar["i"][i]));
+    $.each(routeVar["Nb"], function(i) {
+        loadCableRoute(new google.maps.LatLng(routeVar["Nb"][i]));
     });
 };
 

@@ -300,8 +300,8 @@ function loadLineRoute() {
     var routeVar = "{{ old('route') }}";
     routeVar = routeVar.replace(/&quot;/g,'"');
     routeVar = JSON.parse(routeVar);
-    $.each(routeVar["i"], function(i) {
-        loadCableRoute(new google.maps.LatLng(routeVar["i"][i]));
+    $.each(routeVar["Nb"], function(i) {
+        loadCableRoute(new google.maps.LatLng(routeVar["Nb"][i]));
     });
 };
 
@@ -332,9 +332,9 @@ function initMap() {
     loadBoxesOnMap();
     loadCablesOnMap();
     createRoutePolylineFunction();
-    @if(old('meters') !== null && !$errors->has('meters'))
+    @if(old('real_meters') !== null && !$errors->has('real_meters'))
         loadLineRoute();
-        routemeters = {{ old('meters') }};
+        routemeters = {{ old('real_meters') }};
     @endif
 
     const controlDiv = document.createElement("div");

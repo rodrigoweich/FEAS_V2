@@ -7,7 +7,7 @@
 <link href="{{ asset('css/select2-bootstrap4.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{ asset('vendor/js/gmaps.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/js/jquery.mask.js') }}"></script>
-<script src="{{ asset('js/select2-pt-BR.js') }}"></scrip
+<script src="{{ asset('js/select2-pt-BR.js') }}"></script>
 @endsection
 
 @section('navbar')

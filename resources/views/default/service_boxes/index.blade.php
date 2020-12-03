@@ -187,7 +187,7 @@ $('.get-customers-data').on('click', function() {
 function montarLinha(p){
     var linha = "<tr>"+
                     "<td>"+ p.id + "</td>"+
-                    "<td>"+ p.name + " " + p.surname + "</td>"+
+                    "<td>"+ p.name + "</td>"+
                     "<td>"+ p.phone + "</td>"+
                     "<td>"+ p.contract_number + "</td>"+
                     "<td>"+ p.m_lat + "</td>"+

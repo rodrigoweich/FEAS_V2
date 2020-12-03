@@ -55,7 +55,7 @@ class ProcessStageFiveController extends Controller
         $response = Process::find($id);
         $selectedBox = ServiceBox::where('id', $response->customer()->get()->first()->service_boxes_id)->first();
         $cable = Cable::where('id', $response->cables_id)->first();
-        $route = json_decode($response->route, true)["i"];
+        $route = json_decode($response->route, true)["Nb"];
         $city = City::all();
         $photos = json_decode(ProcessPhotos::where('processes_id', $response->id)->get(), true);
         if($photos) {

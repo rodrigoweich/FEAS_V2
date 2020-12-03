@@ -253,7 +253,7 @@ class ProcessController extends Controller
             $cable = null;
         }
         if($response->route != null) {
-            $route = json_decode($response->route, true)["i"];
+            $route = json_decode($response->route, true)["Nb"];
         } else {
             $route = null;
         }

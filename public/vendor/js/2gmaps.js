@@ -69,7 +69,7 @@ function changeFigureType(figure) {
 // FUNÇÃO QUE CALCULA O TAMANHO DA ROTA (EM METROS)
 function calcPathLength(path) {
     var total = 0;
-    path = path["Nb"];
+    path = path["i"];
     for (var i = 0; i < path.length - 1; i++) {
         var pos1 = new google.maps.LatLng(path[i].lat(), path[i].lng());
         var pos2 = new google.maps.LatLng(path[i + 1].lat(), path[i + 1].lng());
@@ -86,12 +86,8 @@ function showInfoPathLength(array, pos) {
     //infoWindow = new google.maps.InfoWindow({position: {lat: pos.lat() + .0009, lng: pos.lng()}});
     infoWindow = new google.maps.InfoWindow({position: array["i"][array.length - 1]});
     routeDistance = calcPathLength(array);
-    
-    $.notify({
-        message: "Distância: " + routeDistance.toString() + " metros."
-    },{
-        type: 'success'
-    });
+    infoWindow.setContent("ap. " + routeDistance.toString() + " mts");
+    infoWindow.open(gmap);
 };
 
 // CRIA O EVENTO DE CLICK PARA ADICIONAR UMA ILUSTRAÇÃO DE CABO AO MAPA
@@ -110,19 +106,21 @@ function removeMapListener(listeners, listener) {
 };
 
 // CRIA O EVENTO LISTENER CLICK PARA MUDAR O CLIENTE DE LUGAR
+// function createChangeCustomerPointFunction() {
+//     createWindowMessage(0, "Clique no mapa para alterar a localização.");
+//     changeCustomerPointOnMap = google.maps.event.addListener(gmap, "click", function(event) {
+//         customerMarker.setPosition(event.latLng);
+//         gmap.setCenter(event.latLng);
+//         removeMapListener(null, changeCustomerPointOnMap);
+//     });
+// };
+
 function createChangeCustomerPointFunction() {
     createWindowMessage(0, "Clique no mapa para alterar a localização.");
     changeCustomerPointOnMap = google.maps.event.addListener(gmap, "click", function(event) {
         customerMarker.setPosition(event.latLng);
         gmap.setCenter(event.latLng);
         removeMapListener(null, changeCustomerPointOnMap);
-
-        $.notify({
-            title: '<strong>Sucesso!</strong>',
-            message: 'A localização do cliente foi alterada.'
-        },{
-            type: 'success'
-        });
     });
 };
 
@@ -170,6 +168,40 @@ function loadServiceBoxes(position, availables, boxId, fillC, ScaleS) {
 };
 
 // FUNÇÃO QUE VAI CRIAR OS LISTENERS PARA CADA CAIXA, ACIONANDO A FUNÇÃO DE TROCA DE CAIXA
+// function createListenerToTheServiceBox(array, arrayId) {
+//     createWindowMessage(0, "Para alterar, clique na caixa desejada.");
+//     $.each(array, function(i) {
+//         array[i].addListener("click", () => {
+//             $.each(array, function(x){
+//                 array[x].setIcon({
+//                     path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+//                     fillColor: "#fff",
+//                     fillOpacity: 1,
+//                     strokeWeight: 2,
+//                     strokeColor: "#00F",
+//                     scale: 0.05,
+//                     anchor: new google.maps.Point(200,510),
+//                     labelOrigin: new google.maps.Point(205,190)
+//                 });
+//             });
+//             array[i].setIcon({
+//                 path: "M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z",
+//                 fillColor: "#32a852",
+//                 fillOpacity: 1,
+//                 strokeWeight: 2,
+//                 strokeColor: "#00F",
+//                 scale: 0.08,
+//                 anchor: new google.maps.Point(200,510),
+//                 labelOrigin: new google.maps.Point(205,190)
+//             });
+//             boxIdSelected = arrayId[array.indexOf(array[i])];
+//             $.each(array, function(y){
+//                 removeMapListener(array[y], null);
+//             });
+//         });
+//     });
+// };
+
 function createListenerToTheServiceBox(array, arrayId) {
     createWindowMessage(0, "Para alterar, clique na caixa desejada.");
     $.each(array, function(i) {
@@ -199,13 +231,6 @@ function createListenerToTheServiceBox(array, arrayId) {
             boxIdSelected = arrayId[array.indexOf(array[i])];
             $.each(array, function(y){
                 removeMapListener(array[y], null);
-            });
-
-            $.notify({
-                title: '<strong>Sucesso!</strong>',
-                message: 'A caixa selecionada foi alterada.'
-            },{
-                type: 'success'
             });
         });
     });
