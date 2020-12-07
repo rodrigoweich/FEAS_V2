@@ -137,7 +137,7 @@
         @endif
         <div class="row form-bottom">
             <div class="col">
-                <p class="mt-3 mb-3">v1.3 release</p>
+                <p class="mt-3 mb-3">v1.0</p>
             </div>
             <div class="col">
                 <p class="mt-3 mb-3">&copy; 2020</p>

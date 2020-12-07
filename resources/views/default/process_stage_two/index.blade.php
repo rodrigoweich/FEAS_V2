@@ -50,10 +50,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Cliente</th>
-                                    <th>Icone</th>
+                                    <th class="d-none d-sm-table-cell">Icone</th>
                                     <th>Cidade</th>
-                                    <th>Iniciado por</th>
-                                    <th>Iniciado em</th>
+                                    <th class="d-none d-sm-table-cell">Iniciado por</th>
+                                    <th class="d-none d-sm-table-cell">Iniciado em</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,10 +61,10 @@
                                 <tr>
                                     <td scope="row" class="align-middle">{{ $data->id }}</td>
                                     <td class="align-middle">{{ $customer->find($data->customers_id)->name }}</td>
-                                    <td class="align-middle"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
+                                    <td class="align-middle d-none d-sm-table-cell"><i class="{{ $customer->find($data->customers_id)->m_icon }} fa-lg"></i></td>
                                     <td class="align-middle">{{ $city->find($address->find($data->customers_id)->cities_id)->name }}</td>
-                                    <td class="align-middle">{{ $user->find($data->users_id)->name }}</td>
-                                    <td class="align-middle">{{ $data->created_at }}</td>
+                                    <td class="align-middle d-none d-sm-table-cell">{{ $user->find($data->users_id)->name }}</td>
+                                    <td class="align-middle d-none d-sm-table-cell">{{ $data->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-content-center">
                                             <button type="button" class="button-without-style mr-1 get-backed-process-data" this-process-id="{{ $data->id }}" data-toggle="tooltip" data-placement="top" title="Log"><i class="fas text-dark fa-file-alt fa-lg"></i></button>
